@@ -36,6 +36,14 @@ public class CurrencyAmountTest {
         String expected = "$1042.50";
         String actual = amount.toString();
         assertEquals(expected, actual);
-}
+    }
+    
+    @Test
+    public void testToStringCentAmount() {
+        CurrencyAmount amount = new CurrencyAmount(5, DOLLARS);
+        String expected = "$0.05";
+        String actual = amount.toString();
+        assertEquals(expected, actual);
+    }
 
 }
