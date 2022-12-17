@@ -19,7 +19,11 @@ public class CurrencyAmount {
     
     @Override
     public String toString() {
-        return "$499.89";
+        String numStr = Long.toString(this.amountInCents);
+        int decPointPlace = numStr.length() - 2;
+        String amtStr = "$" + numStr.substring(0, decPointPlace) + "." 
+            + numStr.substring(decPointPlace);
+        return amtStr;
     }
     
     public CurrencyAmount(long cents, Currency currency) {
