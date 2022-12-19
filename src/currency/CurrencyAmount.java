@@ -27,11 +27,11 @@ public class CurrencyAmount {
             numStr = "-" + numStr;
         }
         int decPointPlace = numStr.length() - 2;
-        return "$" + numStr.substring(0, decPointPlace) + "." 
-                + numStr.substring(decPointPlace);
-}    
+        return this.currencyID.getSymbol() + numStr.substring(0, decPointPlace) 
+                + "." + numStr.substring(decPointPlace);
+    }    
 
-public CurrencyAmount(long cents, Currency currency) {
+    public CurrencyAmount(long cents, Currency currency) {
         this.amountInCents = cents;
         this.currencyID = currency;
     }
