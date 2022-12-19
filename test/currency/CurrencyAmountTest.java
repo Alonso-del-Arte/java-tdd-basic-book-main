@@ -19,6 +19,8 @@ public class CurrencyAmountTest {
     
     private static final Currency DOLLARS 
             = Currency.getInstance(Locale.US);
+    
+    private static final Currency EUROS = Currency.getInstance("EUR");
         
     @Test
     public void testToString() {
@@ -50,6 +52,14 @@ public class CurrencyAmountTest {
     public void testToStringNegativeCentAmount() {
         CurrencyAmount amount = new CurrencyAmount(-8, DOLLARS);
         String expected = "$-0.08";
+        String actual = amount.toString();
+        assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testToStringEuroAmount() {
+        CurrencyAmount amount = new CurrencyAmount(7320, EUROS);
+        String expected = "\u20AC73.20";
         String actual = amount.toString();
         assertEquals(expected, actual);
     }
