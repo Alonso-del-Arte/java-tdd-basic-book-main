@@ -27,7 +27,7 @@ public class CurrencyAmount {
             numStr = "-" + numStr;
         }
         int decPointPlace = numStr.length() - 2;
-        return "$" + numStr.substring(0, decPointPlace) 
+        return this.currencyID.getSymbol() + numStr.substring(0, decPointPlace) 
                 + "." + numStr.substring(decPointPlace);
     }    
 
