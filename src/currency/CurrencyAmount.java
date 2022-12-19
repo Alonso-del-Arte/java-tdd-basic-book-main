@@ -21,6 +21,9 @@ public class CurrencyAmount {
     public String toString() {
         String numStr = Long.toString(this.amountInCents);
         int decPointPlace = numStr.length() - 2;
+        if (decPointPlace < 0) {
+            decPointPlace = 0;
+        }
         String amtStr = "$" + numStr.substring(0, decPointPlace) + "." 
             + numStr.substring(decPointPlace);
         return amtStr;
