@@ -59,7 +59,7 @@ public class CurrencyAmountTest {
     @Test
     public void testToStringEuroAmount() {
         CurrencyAmount amount = new CurrencyAmount(7320, EUROS);
-        String expected = "\u20AC73.20";
+        String expected = "EUR73.20";
         String actual = amount.toString();
         assertEquals(expected, actual);
     }
