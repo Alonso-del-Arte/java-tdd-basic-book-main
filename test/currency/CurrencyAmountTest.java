@@ -46,4 +46,12 @@ public class CurrencyAmountTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    public void testToStringNegativeCentAmount() {
+        CurrencyAmount amount = new CurrencyAmount(-8, DOLLARS);
+        String expected = "$-0.08";
+        String actual = amount.toString();
+        assertEquals(expected, actual);
+    }
+
 }
