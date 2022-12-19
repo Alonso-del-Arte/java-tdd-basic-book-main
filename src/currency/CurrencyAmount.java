@@ -19,17 +19,19 @@ public class CurrencyAmount {
     
     @Override
     public String toString() {
-        String numStr = Long.toString(this.amountInCents);
+        String numStr = Long.toString(Math.abs(this.amountInCents));
         while (numStr.length() < 3) {
             numStr = "0" + numStr;
         }
+        if (this.amountInCents < 0) {
+            numStr = "-" + numStr;
+        }
         int decPointPlace = numStr.length() - 2;
-        String amtStr = "$" + numStr.substring(0, decPointPlace) + "." 
-            + numStr.substring(decPointPlace);
-        return amtStr;
-    }
-    
-    public CurrencyAmount(long cents, Currency currency) {
+        return "$" + numStr.substring(0, decPointPlace) + "." 
+                + numStr.substring(decPointPlace);
+}    
+
+public CurrencyAmount(long cents, Currency currency) {
         this.amountInCents = cents;
         this.currencyID = currency;
     }
