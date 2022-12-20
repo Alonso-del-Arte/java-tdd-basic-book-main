@@ -24,6 +24,8 @@ public class CurrencyAmountTest {
             = Currency.getInstance(Locale.US);
     
     private static final Currency EUROS = Currency.getInstance("EUR");
+    
+    private static final Currency YEN = Currency.getInstance(Locale.JAPAN);
         
     @Test
     public void testToString() {
@@ -81,6 +83,14 @@ public class CurrencyAmountTest {
         Currency dinars = Currency.getInstance(arJordan);
         CurrencyAmount amount = new CurrencyAmount(709, dinars);
         String expected = "JOD0.709";
+        String actual = amount.toString();
+        assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testToStringYenAmount() {
+        CurrencyAmount amount = new CurrencyAmount(20167, YEN);
+        String expected = "JPY20167";
         String actual = amount.toString();
         assertEquals(expected, actual);
     }
