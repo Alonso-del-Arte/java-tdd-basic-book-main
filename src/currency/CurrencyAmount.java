@@ -26,7 +26,8 @@ public class CurrencyAmount {
         if (this.amountInCents < 0) {
             numStr = "-" + numStr;
         }
-        int decPointPlace = numStr.length() - 2;
+        int decPointPlace = numStr.length() 
+                - this.currencyID.getDefaultFractionDigits();
         return this.currencyID.getSymbol() + numStr.substring(0, decPointPlace) 
                 + "." + numStr.substring(decPointPlace);
     }    
