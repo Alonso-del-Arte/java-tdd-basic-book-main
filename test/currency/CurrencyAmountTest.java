@@ -129,5 +129,12 @@ public class CurrencyAmountTest {
         Currency actual = amount.getCurrency();
         assertEquals(EUROS, actual);
     }
+    
+    @Test
+    public void testGetOtherCurrency() {
+        CurrencyAmount amount = new CurrencyAmount(15347, DOLLARS);
+        Currency actual = amount.getCurrency();
+        assertEquals(DOLLARS, actual);
+    }
 
 }
