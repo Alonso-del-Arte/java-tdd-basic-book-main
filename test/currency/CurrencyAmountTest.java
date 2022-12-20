@@ -94,5 +94,13 @@ public class CurrencyAmountTest {
         String actual = amount.toString();
         assertEquals(expected, actual);
     }
+    
+    @Test(expected = NullPointerException.class)
+    public void testConstructorRefuseNullCurrency() {
+        CurrencyAmount badAmount = new CurrencyAmount(0, null);
+        System.out.println("CurrencyAmount@" 
+                + Integer.toHexString(badAmount.hashCode()) 
+                + " should not have been created with null currency");
+    }
 
 }
