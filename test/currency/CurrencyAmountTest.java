@@ -74,5 +74,15 @@ public class CurrencyAmountTest {
         String actual = amount.toString();
         assertEquals(expected, actual);
     }
+    
+    @Test
+    public void testToStringDirhamAmount() {
+        Locale arJordan = Locale.forLanguageTag("ar-JO");
+        Currency dinars = Currency.getInstance(arJordan);
+        CurrencyAmount amount = new CurrencyAmount(709, dinars);
+        String expected = "JOD0.709";
+        String actual = amount.toString();
+        assertEquals(expected, actual);
+    }
 
 }
