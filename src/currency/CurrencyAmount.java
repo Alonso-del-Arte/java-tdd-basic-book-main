@@ -19,6 +19,9 @@ public class CurrencyAmount {
     
     @Override
     public String toString() {
+        if (this.currencyID.getDefaultFractionDigits() == 0) {
+            return this.currencyID.getSymbol() + this.amountInCents;
+        }
         String numStr = Long.toString(Math.abs(this.amountInCents));
         while (numStr.length() <= this.currencyID.getDefaultFractionDigits()) {
             numStr = "0" + numStr;
