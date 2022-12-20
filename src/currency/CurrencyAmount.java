@@ -23,7 +23,7 @@ public class CurrencyAmount {
     }
     
     public Currency getCurrency() {
-        return Currency.getInstance("EUR");
+        return this.currencyID;
     }
 
     @Override

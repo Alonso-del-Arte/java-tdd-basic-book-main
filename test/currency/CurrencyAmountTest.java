@@ -114,6 +114,7 @@ public class CurrencyAmountTest {
     
     @Test
     public void testGetAmountInCents() {
+        System.out.println("getAmountInCents");
         int expected = (int) (Math.random() * 262144) - 131072;
         CurrencyAmount amount = new CurrencyAmount(expected, EUROS);
         long actual = amount.getAmountInCents();
