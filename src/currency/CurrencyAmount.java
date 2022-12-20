@@ -40,6 +40,11 @@ public class CurrencyAmount {
             String excMsg = "Currency must not be null";
             throw new NullPointerException(excMsg);
         }
+        if (currency.getDefaultFractionDigits() < 0) {
+            String excMsg = currency.getDisplayName() + " (" 
+                    + currency.getCurrencyCode() + ") is not valid";
+            throw new IllegalArgumentException(excMsg);
+        }
         this.amountInCents = cents;
         this.currencyID = currency;
     }
