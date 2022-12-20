@@ -18,6 +18,14 @@ public class CurrencyAmount {
     
     private final Currency currencyID;
     
+    public long getAmountInCents() {
+        return Long.MIN_VALUE;
+    }
+    
+    public Currency getCurrency() {
+        return null;
+    }
+
     @Override
     public String toString() {
         final int centPlaces = this.currencyID.getDefaultFractionDigits();
