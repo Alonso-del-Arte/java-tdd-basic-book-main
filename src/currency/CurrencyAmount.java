@@ -19,7 +19,7 @@ public class CurrencyAmount {
     private final Currency currencyID;
     
     public long getAmountInCents() {
-        return Long.MIN_VALUE;
+        return this.amountInCents;
     }
     
     public Currency getCurrency() {
