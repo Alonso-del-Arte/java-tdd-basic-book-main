@@ -36,6 +36,10 @@ public class CurrencyAmount {
 }    
 
     public CurrencyAmount(long cents, Currency currency) {
+        if (currency == null) {
+            String excMsg = "Currency must not be null";
+            throw new NullPointerException(excMsg);
+        }
         this.amountInCents = cents;
         this.currencyID = currency;
     }
