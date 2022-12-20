@@ -102,5 +102,13 @@ public class CurrencyAmountTest {
                 + Integer.toHexString(badAmount.hashCode()) 
                 + " should not have been created with null currency");
     }
+    @Test(expected = IllegalArgumentException.class)
+    public void testConstructorRefuseMetals() {
+        Currency platinum = Currency.getInstance("XPT");
+        CurrencyAmount ptAmount = new CurrencyAmount(102153, platinum);
+        System.out.println("Shouldn't have created CurrencyAmount@" 
+                + Integer.toHexString(ptAmount.hashCode()) + " with " 
+                + platinum.getDisplayName() + " as the currency");
+    }
 
 }
