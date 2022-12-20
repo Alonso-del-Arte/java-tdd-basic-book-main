@@ -19,21 +19,21 @@ public class CurrencyAmount {
     
     @Override
     public String toString() {
-        if (this.currencyID.getDefaultFractionDigits() == 0) {
+        final int centPlaces = this.currencyID.getDefaultFractionDigits();
+        if (centPlaces == 0) {
             return this.currencyID.getSymbol() + this.amountInCents;
         }
         String numStr = Long.toString(Math.abs(this.amountInCents));
-        while (numStr.length() <= this.currencyID.getDefaultFractionDigits()) {
+        while (numStr.length() <= centPlaces) {
             numStr = "0" + numStr;
         }
         if (this.amountInCents < 0) {
             numStr = "-" + numStr;
         }
-        int decPointPlace = numStr.length() 
-                - this.currencyID.getDefaultFractionDigits();
+        int decPointPlace = numStr.length() - centPlaces;
         return this.currencyID.getSymbol() + numStr.substring(0, decPointPlace) 
                 + "." + numStr.substring(decPointPlace);
-    }    
+}    
 
     public CurrencyAmount(long cents, Currency currency) {
         this.amountInCents = cents;
