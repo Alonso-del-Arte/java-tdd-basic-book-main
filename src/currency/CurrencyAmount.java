@@ -20,7 +20,7 @@ public class CurrencyAmount {
     @Override
     public String toString() {
         String numStr = Long.toString(Math.abs(this.amountInCents));
-        while (numStr.length() < 3) {
+        while (numStr.length() <= this.currencyID.getDefaultFractionDigits()) {
             numStr = "0" + numStr;
         }
         if (this.amountInCents < 0) {
