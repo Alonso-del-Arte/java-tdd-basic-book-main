@@ -17,6 +17,9 @@ import static org.junit.Assert.*;
  */
 public class CurrencyAmountTest {
     
+    private static final Currency DINARS = Currency.getInstance(Locale
+            .forLanguageTag("ar-LY"));
+    
     private static final Currency DOLLARS 
             = Currency.getInstance(Locale.US);
     
@@ -60,6 +63,14 @@ public class CurrencyAmountTest {
     public void testToStringEuroAmount() {
         CurrencyAmount amount = new CurrencyAmount(7320, EUROS);
         String expected = "EUR73.20";
+        String actual = amount.toString();
+        assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testToStringDinarAmount() {
+        CurrencyAmount amount = new CurrencyAmount(29505, DINARS);
+        String expected = "LYD29.505";
         String actual = amount.toString();
         assertEquals(expected, actual);
     }
