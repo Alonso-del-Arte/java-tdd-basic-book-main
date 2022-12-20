@@ -6,6 +6,7 @@
 package currency;
 
 import java.util.Currency;
+import java.util.Objects;
 
 /**
  *
@@ -33,7 +34,34 @@ public class CurrencyAmount {
         int decPointPlace = numStr.length() - centPlaces;
         return this.currencyID.getSymbol() + numStr.substring(0, decPointPlace) 
                 + "." + numStr.substring(decPointPlace);
-}    
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 17 * hash + (int) (this.amountInCents 
+                ^ (this.amountInCents >>> 32));
+        hash = 17 * hash + Objects.hashCode(this.currencyID);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (this.getClass() != obj.getClass()) {
+            return false;
+        }
+        final CurrencyAmount other = (CurrencyAmount) obj;
+        if (this.amountInCents != other.amountInCents) {
+            return false;
+        }
+        return Objects.equals(this.currencyID, other.currencyID);
+    }
 
     public CurrencyAmount(long cents, Currency currency) {
         if (currency == null) {
