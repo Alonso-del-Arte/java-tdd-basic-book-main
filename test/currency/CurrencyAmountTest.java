@@ -166,7 +166,6 @@ public class CurrencyAmountTest {
 
     @Test
     public void testPlusEuros() {
-        System.out.println("plus");
         int addendACents = RANDOM.nextInt(65536) + 1;
         int addendBCents = RANDOM.nextInt(65536) + 1;
         CurrencyAmount addendA = new CurrencyAmount(addendACents, EUROS);
@@ -197,6 +196,66 @@ public class CurrencyAmountTest {
         CurrencyAmount result = amountA.plus(amountB);
         System.out.println("Trying to add " + amountA.toString() + " to " 
                 + amountB.toString() + " should not have given " 
+                + result.toString());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testMinusNull() {
+        CurrencyAmount minuend = new CurrencyAmount(533, EUROS);
+        CurrencyAmount result = minuend.minus(null);
+        System.out.println(minuend.toString() + " minus null equals " 
+                + result.toString() + "???");
+    }
+    
+    @Test
+    public void testMinus() {
+        System.out.println("minus");
+        int minuendCents = RANDOM.nextInt(65536) + 1;
+        int subtrahendCents = RANDOM.nextInt(65536) + 1;
+        CurrencyAmount minuend = new CurrencyAmount(minuendCents, DOLLARS);
+        CurrencyAmount subtrahend 
+                = new CurrencyAmount(subtrahendCents, DOLLARS);
+        CurrencyAmount expected 
+                = new CurrencyAmount(minuendCents - subtrahendCents, DOLLARS);
+        CurrencyAmount actual = minuend.minus(subtrahend);
+        String msg = minuend.toString() + " - " + subtrahend.toString() + " = " 
+                + expected.toString();
+        assertEquals(msg, expected, actual);
+    }
+
+    @Test
+    public void testMinusEuros() {
+        int minuendCents = RANDOM.nextInt(65536) + 1;
+        int subtrahendCents = RANDOM.nextInt(65536) + 1;
+        CurrencyAmount minuend = new CurrencyAmount(minuendCents, EUROS);
+        CurrencyAmount subtrahend = new CurrencyAmount(subtrahendCents, EUROS);
+        CurrencyAmount expected 
+                = new CurrencyAmount(minuendCents - subtrahendCents, EUROS);
+        CurrencyAmount actual = minuend.minus(subtrahend);
+        String msg = minuend.toString() + " - " + subtrahend.toString() + " = " 
+                + expected.toString();
+        assertEquals(msg, expected, actual);
+    }
+    
+    @Test(expected = CurrencyConversionNeededException.class)
+    public void testMinusDifferentCurrencies() {
+        CurrencyAmount dollars = new CurrencyAmount(49989, DOLLARS);
+        CurrencyAmount euros = new CurrencyAmount(7320, EUROS);
+        CurrencyAmount result = dollars.minus(euros);
+        System.out.println("Trying to subtract " + euros.toString() + " from " 
+                + dollars.toString() + " should not have given " 
+                + result.toString());
+    }
+    
+    @Test(expected = ArithmeticException.class)
+    public void testMinusTooMuch() {
+        CurrencyAmount minuend = new CurrencyAmount(-9000000000000000000L, 
+                DOLLARS);
+        CurrencyAmount subtrahend = new CurrencyAmount(1000000000000000000L, 
+                DOLLARS);
+        CurrencyAmount result = minuend.minus(subtrahend);
+        System.out.println("Trying to subtract " + subtrahend.toString() 
+                + " from " + minuend.toString() + " should not have given " 
                 + result.toString());
     }
 
