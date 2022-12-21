@@ -26,6 +26,10 @@ public class CurrencyAmount {
         return this.currencyID;
     }
 
+    public CurrencyAmount plus(CurrencyAmount addend) {
+        return new CurrencyAmount(0, Currency.getInstance("USD"));
+    }
+    
     @Override
     public String toString() {
         final int centPlaces = this.currencyID.getDefaultFractionDigits();
