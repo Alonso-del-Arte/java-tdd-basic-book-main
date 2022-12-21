@@ -258,5 +258,15 @@ public class CurrencyAmountTest {
                 + " from " + minuend.toString() + " should not have given " 
                 + result.toString());
     }
+    
+    @Test
+    public void testNegate() {
+        System.out.println("negate");
+        int cents = RANDOM.nextInt(524288) - 262144;
+        CurrencyAmount amount = new CurrencyAmount(cents, YEN);
+        CurrencyAmount expected = new CurrencyAmount(-cents, YEN);
+        CurrencyAmount actual = amount.negate();
+        assertEquals(expected, actual);
+    }
 
 }
