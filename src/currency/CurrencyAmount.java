@@ -40,7 +40,8 @@ public class CurrencyAmount {
     }
 
     public CurrencyAmount negate() {
-        return new CurrencyAmount(Long.MIN_VALUE, Currency.getInstance("JPY"));
+        return new CurrencyAmount(-this.amountInCents, 
+                Currency.getInstance("JPY"));
     }
 
     public CurrencyAmount minus(CurrencyAmount subtrahend) {
