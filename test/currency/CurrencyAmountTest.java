@@ -164,4 +164,19 @@ public class CurrencyAmountTest {
         assertEquals(msg, expected, actual);
     }
 
+    @Test
+    public void testPlusEuros() {
+        System.out.println("plus");
+        int addendACents = RANDOM.nextInt(65536) + 1;
+        int addendBCents = RANDOM.nextInt(65536) + 1;
+        CurrencyAmount addendA = new CurrencyAmount(addendACents, EUROS);
+        CurrencyAmount addendB = new CurrencyAmount(addendBCents, EUROS);
+        CurrencyAmount expected 
+                = new CurrencyAmount(addendACents + addendBCents, EUROS);
+        CurrencyAmount actual = addendA.plus(addendB);
+        String msg = addendA.toString() + " + " + addendB.toString() + " = " 
+                + expected.toString();
+        assertEquals(msg, expected, actual);
+    }
+
 }
