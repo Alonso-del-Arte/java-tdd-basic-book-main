@@ -137,5 +137,13 @@ public class CurrencyAmountTest {
         Currency actual = amount.getCurrency();
         assertEquals(DOLLARS, actual);
     }
+    
+    @Test(expected = NullPointerException.class)
+    public void testPlusNull() {
+        CurrencyAmount addend = new CurrencyAmount(533, EUROS);
+        CurrencyAmount result = addend.plus(null);
+        System.out.println(addend.toString() + " plus null equals " 
+                + result.toString() + "???");
+    }
 
 }
