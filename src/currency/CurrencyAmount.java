@@ -44,17 +44,7 @@ public class CurrencyAmount {
     }
 
     public CurrencyAmount minus(CurrencyAmount subtrahend) {
-        if (subtrahend == null) {
-            String excMsg = "Subtrahend should not be null";
-            throw new NullPointerException(excMsg);
-        }
-        if (this.currencyID != subtrahend.currencyID) {
-            String excMsg = "Convert before adding";
-            throw new CurrencyConversionNeededException(excMsg, this, 
-                    subtrahend);
-        }
-        return new CurrencyAmount(Math.subtractExact(this.amountInCents, 
-                subtrahend.amountInCents), this.currencyID);
+        return this.plus(subtrahend.negate());
     }
     
     @Override
