@@ -31,7 +31,8 @@ public class CurrencyAmount {
             String excMsg = "Addend must not be null";
             throw new NullPointerException(excMsg);
         }
-        return new CurrencyAmount(0, Currency.getInstance("USD"));
+        return new CurrencyAmount(this.amountInCents + addend.amountInCents, 
+                Currency.getInstance("USD"));
     }
     
     @Override
