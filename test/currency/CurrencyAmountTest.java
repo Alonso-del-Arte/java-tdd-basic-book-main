@@ -271,7 +271,7 @@ public class CurrencyAmountTest {
 
     @Test
     public void testNegateDinars() {
-        int cents = RANDOM.nextInt(524288) - 262144;
+        int cents = -RANDOM.nextInt(524288) + 262144;
         CurrencyAmount amount = new CurrencyAmount(cents, DINARS);
         CurrencyAmount expected = new CurrencyAmount(-cents, DINARS);
         CurrencyAmount actual = amount.negate();
