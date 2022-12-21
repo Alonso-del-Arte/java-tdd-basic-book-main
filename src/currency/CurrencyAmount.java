@@ -27,6 +27,10 @@ public class CurrencyAmount {
     }
 
     public CurrencyAmount plus(CurrencyAmount addend) {
+        if (addend == null) {
+            String excMsg = "Addend must not be null";
+            throw new NullPointerException(excMsg);
+        }
         return new CurrencyAmount(0, Currency.getInstance("USD"));
     }
     
