@@ -178,5 +178,14 @@ public class CurrencyAmountTest {
                 + expected.toString();
         assertEquals(msg, expected, actual);
     }
+    
+    @Test(expected = CurrencyConversionNeededException.class)
+    public void testPlusDifferentCurrencies() {
+        CurrencyAmount dollars = new CurrencyAmount(49989, DOLLARS);
+        CurrencyAmount euros = new CurrencyAmount(7320, EUROS);
+        CurrencyAmount result = dollars.plus(euros);
+        System.out.println("Trying to add " + dollars.toString() + " to " 
+            + euros.toString() + " should not have given " + result.toString());
+    }
 
 }
