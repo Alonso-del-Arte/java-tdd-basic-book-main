@@ -39,6 +39,10 @@ public class CurrencyAmount {
                 addend.amountInCents), this.currencyID);
     }
 
+    public CurrencyAmount negate() {
+        return new CurrencyAmount(Long.MIN_VALUE, Currency.getInstance("JPY"));
+    }
+
     public CurrencyAmount minus(CurrencyAmount subtrahend) {
         if (subtrahend == null) {
             String excMsg = "Subtrahend should not be null";
