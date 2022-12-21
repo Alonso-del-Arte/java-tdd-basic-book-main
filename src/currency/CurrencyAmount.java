@@ -38,6 +38,10 @@ public class CurrencyAmount {
         return new CurrencyAmount(Math.addExact(this.amountInCents, 
                 addend.amountInCents), this.currencyID);
     }
+
+    public CurrencyAmount minus(CurrencyAmount subtrahend) {
+        return new CurrencyAmount(0, Currency.getInstance("USD"));
+    }
     
     @Override
     public String toString() {
