@@ -35,8 +35,8 @@ public class CurrencyAmount {
             String excMsg = "Convert before adding";
             throw new CurrencyConversionNeededException(excMsg, this, addend);
         }
-        return new CurrencyAmount(this.amountInCents + addend.amountInCents, 
-                this.currencyID);
+        return new CurrencyAmount(Math.addExact(this.amountInCents, 
+                addend.amountInCents), this.currencyID);
     }
     
     @Override
