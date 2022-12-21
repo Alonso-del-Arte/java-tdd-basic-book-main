@@ -32,7 +32,7 @@ public class CurrencyAmount {
             throw new NullPointerException(excMsg);
         }
         return new CurrencyAmount(this.amountInCents + addend.amountInCents, 
-                Currency.getInstance("USD"));
+                this.currencyID);
     }
     
     @Override
