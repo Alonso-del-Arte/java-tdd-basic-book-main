@@ -7,6 +7,7 @@ package currency;
 
 import java.util.Currency;
 import java.util.Locale;
+import java.util.Random;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -26,6 +27,8 @@ public class CurrencyAmountTest {
     private static final Currency EUROS = Currency.getInstance("EUR");
     
     private static final Currency YEN = Currency.getInstance(Locale.JAPAN);
+    
+    private static final Random RANDOM = new Random();
         
     @Test
     public void testToString() {
@@ -144,6 +147,21 @@ public class CurrencyAmountTest {
         CurrencyAmount result = addend.plus(null);
         System.out.println(addend.toString() + " plus null equals " 
                 + result.toString() + "???");
+    }
+    
+    @Test
+    public void testPlus() {
+        System.out.println("plus");
+        int addendACents = RANDOM.nextInt(65536) + 1;
+        int addendBCents = RANDOM.nextInt(65536) + 1;
+        CurrencyAmount addendA = new CurrencyAmount(addendACents, DOLLARS);
+        CurrencyAmount addendB = new CurrencyAmount(addendBCents, DOLLARS);
+        CurrencyAmount expected 
+                = new CurrencyAmount(addendACents + addendBCents, DOLLARS);
+        CurrencyAmount actual = addendA.plus(addendB);
+        String msg = addendA.toString() + " + " + addendB.toString() + " = " 
+                + expected.toString();
+        assertEquals(msg, expected, actual);
     }
 
 }
