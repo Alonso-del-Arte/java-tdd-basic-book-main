@@ -40,7 +40,7 @@ public class CurrencyAmount {
     }
 
     public CurrencyAmount minus(CurrencyAmount subtrahend) {
-        return new CurrencyAmount(0, Currency.getInstance("USD"));
+        return new CurrencyAmount(Long.MAX_VALUE, Currency.getInstance("USD"));
     }
     
     @Override
