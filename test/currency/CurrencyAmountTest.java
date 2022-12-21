@@ -187,5 +187,17 @@ public class CurrencyAmountTest {
         System.out.println("Trying to add " + dollars.toString() + " to " 
             + euros.toString() + " should not have given " + result.toString());
     }
+    
+    @Test(expected = ArithmeticException.class)
+    public void testPlusTooMuch() {
+        CurrencyAmount amountA = new CurrencyAmount(9000000000000000000L, 
+                DOLLARS);
+        CurrencyAmount amountB = new CurrencyAmount(1000000000000000000L, 
+                DOLLARS);
+        CurrencyAmount result = amountA.plus(amountB);
+        System.out.println("Trying to add " + amountA.toString() + " to " 
+                + amountB.toString() + " should not have given " 
+                + result.toString());
+    }
 
 }
