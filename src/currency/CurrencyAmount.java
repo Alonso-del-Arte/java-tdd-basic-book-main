@@ -31,6 +31,10 @@ public class CurrencyAmount {
             String excMsg = "Addend must not be null";
             throw new NullPointerException(excMsg);
         }
+        if (this.currencyID != addend.currencyID) {
+            String excMsg = "Convert before adding";
+            throw new CurrencyConversionNeededException(excMsg, this, addend);
+        }
         return new CurrencyAmount(this.amountInCents + addend.amountInCents, 
                 this.currencyID);
     }
