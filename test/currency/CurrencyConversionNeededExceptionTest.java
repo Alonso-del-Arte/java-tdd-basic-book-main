@@ -59,18 +59,22 @@ public class CurrencyConversionNeededExceptionTest {
         assertEquals(expected, actual);
     }
 
-    /* *
-     * Test of getAmountB method, of class CurrencyConversionNeededException.
+    /**
+     * Test of the getAmountB function, of the CurrencyConversionNeededException 
+     * class.
      */
-//    @Test
+    @Test
     public void testGetAmountB() {
         System.out.println("getAmountB");
-        CurrencyConversionNeededException instance = null;
-        CurrencyAmount expResult = null;
-        CurrencyAmount result = instance.getAmountB();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        int centsA = RANDOM.nextInt(524288);
+        CurrencyAmount amountA = new CurrencyAmount(centsA, DOLLARS);
+        int centsB = RANDOM.nextInt(524288);
+        CurrencyAmount expected = new CurrencyAmount(centsB, POUNDS_STERLING);
+        CurrencyConversionNeededException exc 
+                = new CurrencyConversionNeededException(MESSAGE, amountA, 
+                        expected);
+        CurrencyAmount actual = exc.getAmountB();
+        assertEquals(expected, actual);
     }
     
 }
