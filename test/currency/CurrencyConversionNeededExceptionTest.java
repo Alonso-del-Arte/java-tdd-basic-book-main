@@ -27,10 +27,10 @@ public class CurrencyConversionNeededExceptionTest {
 
     private static final Random RANDOM = new Random();
 
-    /**
+    /* *
      * Test of getMessage method, of class CurrencyConversionNeededException.
      */
-    @Test
+//    @Test
     public void testGetMessage() {
         System.out.println("getMessage");
         CurrencyConversionNeededException instance = null;
@@ -42,23 +42,27 @@ public class CurrencyConversionNeededExceptionTest {
     }
 
     /**
-     * Test of getAmountA method, of class CurrencyConversionNeededException.
+     * Test of the getAmountA function, of the CurrencyConversionNeededException 
+     * class.
      */
     @Test
     public void testGetAmountA() {
         System.out.println("getAmountA");
-        CurrencyConversionNeededException instance = null;
-        CurrencyAmount expResult = null;
-        CurrencyAmount result = instance.getAmountA();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        int centsA = RANDOM.nextInt(524288);
+        CurrencyAmount expected = new CurrencyAmount(centsA, DOLLARS);
+        int centsB = RANDOM.nextInt(524288);
+        CurrencyAmount amountB = new CurrencyAmount(centsB, POUNDS_STERLING);
+        CurrencyConversionNeededException exc 
+                = new CurrencyConversionNeededException(MESSAGE, expected, 
+                        amountB);
+        CurrencyAmount actual = exc.getAmountA();
+        assertEquals(expected, actual);
     }
 
-    /**
+    /* *
      * Test of getAmountB method, of class CurrencyConversionNeededException.
      */
-    @Test
+//    @Test
     public void testGetAmountB() {
         System.out.println("getAmountB");
         CurrencyConversionNeededException instance = null;
