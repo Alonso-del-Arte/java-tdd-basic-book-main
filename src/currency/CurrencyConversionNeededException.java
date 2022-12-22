@@ -18,7 +18,7 @@ public class CurrencyConversionNeededException
     
     @Override
     public String getMessage() {
-        return "Not implemented yet, sorry";
+        return this.message;
     }
     
     public CurrencyAmount getAmountA() {
