@@ -26,7 +26,7 @@ public class CurrencyConversionNeededException
     }
     
     public CurrencyAmount getAmountB() {
-        return new CurrencyAmount(0, java.util.Currency.getInstance("SEK"));
+        return this.amountB;
     }
     
     public CurrencyConversionNeededException
