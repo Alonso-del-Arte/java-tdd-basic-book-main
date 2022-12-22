@@ -12,14 +12,7 @@ package currency;
 public class CurrencyConversionNeededException 
         extends RuntimeException {
     
-    private final String message;
-    
     private final CurrencyAmount amountA, amountB;
-    
-    @Override
-    public String getMessage() {
-        return this.message;
-    }
     
     public CurrencyAmount getAmountA() {
         return this.amountA;
@@ -29,11 +22,9 @@ public class CurrencyConversionNeededException
         return this.amountB;
     }
     
-    public CurrencyConversionNeededException
-            (String msg, 
-            CurrencyAmount amtA, 
+    public CurrencyConversionNeededException(String msg, CurrencyAmount amtA, 
             CurrencyAmount amtB) {
-        this.message = msg;
+        super(msg);
         this.amountA = amtA;
         this.amountB = amtB;
     }
