@@ -27,18 +27,21 @@ public class CurrencyConversionNeededExceptionTest {
 
     private static final Random RANDOM = new Random();
 
-    /* *
-     * Test of getMessage method, of class CurrencyConversionNeededException.
+    /**
+     * Test of the getMessage function, of the CurrencyConversionNeededException 
+     * class.
      */
-//    @Test
+    @Test
     public void testGetMessage() {
         System.out.println("getMessage");
-        CurrencyConversionNeededException instance = null;
-        String expResult = "";
-        String result = instance.getMessage();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        CurrencyAmount amountA = new CurrencyAmount(4729, DOLLARS);
+        CurrencyAmount amountB = new CurrencyAmount(53809, POUNDS_STERLING);
+        String expected = "Message for testing message getter";
+        CurrencyConversionNeededException exc 
+                = new CurrencyConversionNeededException(expected, amountA, 
+                        amountB);
+        String actual = exc.getMessage();
+        assertEquals(expected, actual);
     }
 
     /**
