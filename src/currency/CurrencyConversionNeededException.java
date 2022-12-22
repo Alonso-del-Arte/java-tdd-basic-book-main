@@ -16,6 +16,19 @@ public class CurrencyConversionNeededException
     
     private final CurrencyAmount amountA, amountB;
     
+    @Override
+    public String getMessage() {
+        return "Not implemented yet, sorry";
+    }
+    
+    public CurrencyAmount getAmountA() {
+        return new CurrencyAmount(0, java.util.Currency.getInstance("SEK"));
+    }
+    
+    public CurrencyAmount getAmountB() {
+        return new CurrencyAmount(0, java.util.Currency.getInstance("SEK"));
+    }
+    
     public CurrencyConversionNeededException
             (String msg, 
             CurrencyAmount amtA, 
