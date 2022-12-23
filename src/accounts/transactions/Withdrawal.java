@@ -17,6 +17,10 @@ public class Withdrawal extends Transaction {
     
     public Withdrawal(CurrencyAmount amt, LocalDateTime time) {
         super(amt, time, "Withdrawal");
+        if (amt.getAmountInCents() > -1L) {
+            String excMsg = "Withdrawal amount must not be " + amt.toString();
+            throw new IllegalArgumentException(excMsg);
+        }
     }
     
 }

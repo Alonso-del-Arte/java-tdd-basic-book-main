@@ -17,6 +17,10 @@ public class Deposit extends Transaction {
     
     public Deposit(CurrencyAmount amt, LocalDateTime time) {
         super(amt, time, "Deposit");
+        if (amt.getAmountInCents() < 1L) {
+            String excMsg = "Deposit amount must not be " + amt.toString();
+            throw new IllegalArgumentException(excMsg);
+        }
     }
     
 }
