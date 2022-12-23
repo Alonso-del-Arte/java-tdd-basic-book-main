@@ -21,6 +21,19 @@ public class Transaction {
     
     final String description;
     
+    public CurrencyAmount getAmount() {
+        return new CurrencyAmount(Long.MAX_VALUE, 
+                java.util.Currency.getInstance("EUR"));
+    }
+    
+    public LocalDateTime getTime() {
+        return LocalDateTime.MIN;
+    }
+    
+    public String getDescription() {
+        return "SORRY, NOT IMPLEMENTED YET";
+    }
+    
     Transaction(CurrencyAmount amt, LocalDateTime time, String desc) {
         this.amount = amt;
         this.dateTime = time;
