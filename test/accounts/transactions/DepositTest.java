@@ -19,6 +19,40 @@ import static org.junit.Assert.*;
 public class DepositTest {
     
     @Test
+    public void testGetAmount() {
+        System.out.println("getAmount");
+        int cents = TransactionTest.RANDOM.nextInt(262144) + 1;
+        CurrencyAmount expected = new CurrencyAmount(cents, 
+                TransactionTest.DOLLARS);
+        Deposit deposit = new Deposit(expected, LocalDateTime.now());
+        CurrencyAmount actual = deposit.getAmount();
+        assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testGetTime() {
+        System.out.println("getTime");
+        CurrencyAmount amount = new CurrencyAmount(100, 
+                TransactionTest.DOLLARS);
+        LocalDateTime expected = LocalDateTime.now()
+                .minusHours(TransactionTest.RANDOM.nextInt(72) + 1);
+        Deposit deposit = new Deposit(amount, expected);
+        LocalDateTime actual = deposit.getTime();
+        assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testGetDescription() {
+        System.out.println("getDescription");
+        CurrencyAmount amount = new CurrencyAmount(100, 
+                TransactionTest.DOLLARS);
+        Deposit deposit = new Deposit(amount, LocalDateTime.now());
+        String expected = "Deposit";
+        String actual = deposit.getDescription();
+        assertEquals(expected, actual);
+    }
+    
+    @Test
     public void testConstructorRejectsZeroDollars() {
         CurrencyAmount badAmount = new CurrencyAmount(0, 
                 TransactionTest.DOLLARS);

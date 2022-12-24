@@ -19,6 +19,40 @@ import static org.junit.Assert.*;
 public class WithdrawalTest {
     
     @Test
+    public void testGetAmount() {
+        System.out.println("getAmount");
+        int cents = -TransactionTest.RANDOM.nextInt(262144) - 1;
+        CurrencyAmount expected = new CurrencyAmount(cents, 
+                TransactionTest.DOLLARS);
+        Withdrawal withdrawal = new Withdrawal(expected, LocalDateTime.now());
+        CurrencyAmount actual = withdrawal.getAmount();
+        assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testGetTime() {
+        System.out.println("getTime");
+        CurrencyAmount amount = new CurrencyAmount(-100, 
+                TransactionTest.DOLLARS);
+        LocalDateTime expected = LocalDateTime.now()
+                .minusHours(TransactionTest.RANDOM.nextInt(72) + 1);
+        Withdrawal withdrawal = new Withdrawal(amount, expected);
+        LocalDateTime actual = withdrawal.getTime();
+        assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testGetDescription() {
+        System.out.println("getDescription");
+        CurrencyAmount amount = new CurrencyAmount(-100, 
+                TransactionTest.DOLLARS);
+        Withdrawal withdrawal = new Withdrawal(amount, LocalDateTime.now());
+        String expected = "Withdrawal";
+        String actual = withdrawal.getDescription();
+        assertEquals(expected, actual);
+    }
+    
+    @Test
     public void testConstructorRejectsZeroDollars() {
         CurrencyAmount badAmount = new CurrencyAmount(0, 
                 TransactionTest.DOLLARS);

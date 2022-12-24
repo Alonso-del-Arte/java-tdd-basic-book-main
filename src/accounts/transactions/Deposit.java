@@ -15,6 +15,21 @@ import java.time.LocalDateTime;
  */
 public class Deposit extends Transaction {
     
+    @Override
+    public CurrencyAmount getAmount() {
+        return this.amount;
+    }
+    
+    @Override
+    public LocalDateTime getTime() {
+        return this.dateTime;
+    }
+    
+    @Override
+    public String getDescription() {
+        return "Deposit";
+    }
+    
     public Deposit(CurrencyAmount amt, LocalDateTime time) {
         super(amt, time, "Deposit");
         if (amt.getAmountInCents() < 1L) {

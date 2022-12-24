@@ -15,6 +15,21 @@ import java.time.LocalDateTime;
  */
 public class Withdrawal extends Transaction {
     
+    @Override
+    public CurrencyAmount getAmount() {
+        return this.amount;
+    }
+    
+    @Override
+    public LocalDateTime getTime() {
+        return this.dateTime;
+    }
+    
+    @Override
+    public String getDescription() {
+        return "Withdrawal";
+    }
+    
     public Withdrawal(CurrencyAmount amt, LocalDateTime time) {
         super(amt, time, "Withdrawal");
         if (amt.getAmountInCents() > -1L) {
