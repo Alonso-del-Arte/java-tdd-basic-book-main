@@ -16,6 +16,21 @@ import java.util.Currency;
  */
 public class Comment extends Transaction {
     
+    @Override
+    public CurrencyAmount getAmount() {
+        return this.amount;
+    }
+    
+    @Override
+    public LocalDateTime getTime() {
+        return this.dateTime;
+    }
+    
+    @Override
+    public String getDescription() {
+        return this.description;
+    }
+    
     public Comment(Currency currency, LocalDateTime time, String desc) {
         super(new CurrencyAmount(0, currency), time, "Comment: " + desc);
     }
