@@ -11,6 +11,11 @@ package entities.idnumbers;
  */
 public class EmployerIdentificationNumber extends TaxpayerIdentificationNumber {
     
+    // TODO: Write tests for this
+    public static boolean correctEINDashPlacement(String s) {
+        return false;
+    }
+    
     public EmployerIdentificationNumber(long number) {
         super(number);
     }
