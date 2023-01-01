@@ -64,7 +64,9 @@ public class SocialSecurityNumber extends TaxpayerIdentificationNumber {
     }
     
     public static SocialSecurityNumber parseSSN(String s) {
-        return new SocialSecurityNumber(219099999);
+        String dashesOff = s.replace("-", "");
+        int num = Integer.parseInt(dashesOff);
+        return new SocialSecurityNumber(num);
     }
     
     @Override

@@ -189,12 +189,24 @@ public class SocialSecurityNumberTest {
     }
     
     @Test
+    public void testParseOtherSSN() {
+        int area = RANDOM.nextInt(672) + 100;
+        int group = RANDOM.nextInt(90) + 10;
+        int serial = RANDOM.nextInt(9000) + 1000;
+        int number = area * 1000000 + group * 10000 + serial;
+        String s = area + "-" + group + "-" + serial;
+        SocialSecurityNumber expected = new SocialSecurityNumber(number);
+        SocialSecurityNumber actual = SocialSecurityNumber.parseSSN(s);
+        assertEquals(expected, actual);
+    }
+    
+    @Test
     public void testNoParseEIN() {
         String s = "12-3456789";
         try {
             SocialSecurityNumber ein = SocialSecurityNumber.parseSSN(s);
             String msg = "EIN \"" + s 
-                    + "\" should not have been interpresented as SSN \"" + ein;
+                    + "\" should not have been interpresented as SSN " + ein;
             fail(msg);
         } catch (NumberFormatException nfe) {
             System.out.println("Trying to interpret EIN \"" + s 
