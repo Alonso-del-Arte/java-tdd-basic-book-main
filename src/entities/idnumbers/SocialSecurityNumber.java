@@ -113,6 +113,14 @@ public class SocialSecurityNumber extends TaxpayerIdentificationNumber {
     
     public SocialSecurityNumber(long number) {
         super(number);
+        if (number < 0) {
+            String excMsg = "Number " + number + " is negative, not positive";
+            throw new IllegalArgumentException(excMsg);
+        }
+        if (number > 772999999) {
+            String excMsg = "Area 773 or higher is not valid for SSN";
+            throw new IllegalArgumentException(excMsg);
+        }
         int intermediate = ((int) number) / 10000;
         this.areaNumber = intermediate / 100;
         this.groupNumber = intermediate % 100;

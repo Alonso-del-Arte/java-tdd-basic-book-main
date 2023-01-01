@@ -225,7 +225,7 @@ public class SocialSecurityNumberTest {
         }
     }
     
-//    @Test
+    @Test
     public void testNoParseBadString() {
         String s = "Not an SSN";
         try {
@@ -251,7 +251,7 @@ public class SocialSecurityNumberTest {
         }
     }
     
-//    @Test
+    @Test
     public void testNoNegativeSSNs() {
         try {
             SocialSecurityNumber badSSN = new SocialSecurityNumber(-1);
@@ -259,7 +259,7 @@ public class SocialSecurityNumberTest {
                     + badSSN.toString();
             fail(msg);
         } catch (IllegalArgumentException iae) {
-            System.out.println("Trying to create SSN with negative number correctly caused IllegalArgumentException");
+            System.out.println("SSN with negative number caused exception");
             System.out.println("\"" + iae.getMessage() + "\"");
         } catch (RuntimeException re) {
             String msg = re.getClass().getName() 
@@ -268,19 +268,21 @@ public class SocialSecurityNumberTest {
         }
     }
 
-//    @Test
+    @Test
     public void testNoArea773SSNs() {
+        int badNumber = 773000000 + RANDOM.nextInt(10000);
         try {
-            SocialSecurityNumber badSSN = new SocialSecurityNumber(773000000);
+            SocialSecurityNumber badSSN = new SocialSecurityNumber(badNumber);
             String msg = "Should not have been able to create SSN " 
                     + badSSN.toString();
             fail(msg);
         } catch (IllegalArgumentException iae) {
-            System.out.println("Trying to create SSN with area 773 correctly caused IllegalArgumentException");
+            System.out.println("SSN " + badNumber 
+                    + " correctly caused IllegalArgumentException");
             System.out.println("\"" + iae.getMessage() + "\"");
         } catch (RuntimeException re) {
             String msg = re.getClass().getName() 
-                    + " is the wrong exception to throw for trying to create SSN with area 773";
+                    + " is the wrong exception for SSN " + badNumber;
             fail(msg);
         }
     }
