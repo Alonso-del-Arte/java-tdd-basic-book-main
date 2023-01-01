@@ -11,9 +11,10 @@ package entities.idnumbers;
  */
 public class EmployerIdentificationNumber extends TaxpayerIdentificationNumber {
     
-    // TODO: Write tests for this
+    private static final long serialVersionUID = 4549294527461997363L;
+    
     public static boolean correctEINDashPlacement(String s) {
-        return false;
+        return s.indexOf('-') == 2 && s.indexOf('-', 3) < 0;
     }
     
     public EmployerIdentificationNumber(long number) {

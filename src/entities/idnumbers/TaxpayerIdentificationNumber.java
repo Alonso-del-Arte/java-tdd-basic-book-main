@@ -5,11 +5,13 @@
  */
 package entities.idnumbers;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Alonso del Arte
  */
-public class TaxpayerIdentificationNumber {
+public class TaxpayerIdentificationNumber implements Serializable {
     
     private final long idNumber;
 
