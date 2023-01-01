@@ -5,17 +5,10 @@
  */
 package accounts;
 
-import accounts.transactions.Deposit;
-import accounts.transactions.Transaction;
-import accounts.transactions.Withdrawal;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  *
  * @author Alonso del Arte
  */
-public class Account {
+public class SavingsAccount extends Account {
     
 }
