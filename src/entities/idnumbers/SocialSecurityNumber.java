@@ -64,6 +64,16 @@ public class SocialSecurityNumber extends TaxpayerIdentificationNumber {
     }
     
     public static SocialSecurityNumber parseSSN(String s) {
+        if (!correctSSNDashPlacement(s)) {
+            String excMsg;
+            if (EmployerIdentificationNumber.correctEINDashPlacement(s)) {
+                excMsg = "Input \"" + s 
+                        + "\" is Employer Identification Number (EIN), not SSN";
+            } else {
+                excMsg = "Input \"" + s + "\" is not a properly formatted SSN";
+            }
+            throw new NumberFormatException(excMsg);
+        }
         String dashesOff = s.replace("-", "");
         int num = Integer.parseInt(dashesOff);
         return new SocialSecurityNumber(num);
