@@ -25,9 +25,8 @@ public class TransactionList {
     
     private CurrencyAmount runningTotal;
     
-    // TODO: Write tests for this
     public CurrencyAmount getBalance() {
-        return new CurrencyAmount(Long.MIN_VALUE, Currency.getInstance("EUR"));
+        return new CurrencyAmount(0, Currency.getInstance("EUR"));
     }
     
     public boolean add(Transaction transaction) {
