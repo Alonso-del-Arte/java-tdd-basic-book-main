@@ -79,17 +79,26 @@ public class TransactionListTest {
     }
     
     /**
-     * Test of getBalance method, of class TransactionList.
+     * Test of the getBalance function, of the TransactionList class.
      */
-//    @Test
+    @Test
     public void testGetBalance() {
         System.out.println("getBalance");
-        TransactionList instance = null;
-        CurrencyAmount expResult = null;
-        CurrencyAmount result = instance.getBalance();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        CurrencyAmount expected = new CurrencyAmount(0, DOLLARS);
+        TransactionList list = new TransactionList(DOLLARS);
+        int numberOfTrxs = 2 * TransactionTest.RANDOM.nextInt(32) + 8;
+        for (int i = 0; i < numberOfTrxs; i += 2) {
+            Deposit deposit = makeDeposit();
+            expected = expected.plus(deposit.getAmount());
+            list.add(deposit);
+            CurrencyAmount actual = list.getBalance();
+            assertEquals(expected, actual);
+            Withdrawal withdrawal = makeWithdrawal();
+            expected = expected.plus(withdrawal.getAmount());
+            list.add(withdrawal);
+            actual = list.getBalance();
+            assertEquals(expected, actual);
+        }
     }
 
 }
