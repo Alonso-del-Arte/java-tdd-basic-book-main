@@ -30,9 +30,8 @@ public class TransactionList {
         return new CurrencyAmount(Long.MIN_VALUE, Currency.getInstance("EUR"));
     }
     
-    // TODO: Write tests for this
     public boolean add(Transaction transaction) {
-        return true;
+        return transaction.getAmount().getCurrency().equals(this.currencyID);
     }
     
     public TransactionList(Currency currency) {
