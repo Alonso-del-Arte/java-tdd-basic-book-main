@@ -10,7 +10,6 @@ import currency.CurrencyAmount;
 import java.time.LocalDateTime;
 import java.util.Currency;
 import java.util.Locale;
-import java.util.Random;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -25,18 +24,26 @@ public class TransactionListTest {
     
     private static final Currency EUROS = Currency.getInstance("EUR");
     
-    private static final Random RANDOM = new Random();
+    private static Deposit makeDeposit() {
+        int cents = TransactionTest.RANDOM.nextInt(262144) + 1;
+        CurrencyAmount amount = new CurrencyAmount(cents, DOLLARS);
+        return new Deposit(amount, LocalDateTime.now());
+    }
+    
+    private static Withdrawal makeWithdrawal() {
+        int cents = -TransactionTest.RANDOM.nextInt(262144) - 1;
+        CurrencyAmount amount = new CurrencyAmount(cents, DOLLARS);
+        return new Withdrawal(amount, LocalDateTime.now());
+    }
     
     @Test
     public void testAddRejectsDifferentCurrency() {
         TransactionList list = new TransactionList(EUROS);
-        int cents = RANDOM.nextInt(262144) + 1;
-        CurrencyAmount amount = new CurrencyAmount(cents, DOLLARS);
-        Transaction transaction = new Deposit(amount, LocalDateTime.now());
+        Transaction transaction = makeDeposit();
         boolean opResult = list.add(transaction);
         String msg = "Should not have been able to add transaction of " 
-                + amount.toString() + " to a list of transactions in " 
-                + EUROS.getDisplayName();
+                + transaction.getAmount().toString() 
+                + " to a list of transactions in " + EUROS.getDisplayName();
         assert !opResult : msg;
     }
     
@@ -46,15 +53,21 @@ public class TransactionListTest {
     @Test
     public void testAdd() {
         System.out.println("add");
-        int cents = RANDOM.nextInt(262144) + 1;
-        CurrencyAmount amount = new CurrencyAmount(cents, DOLLARS);
-        Transaction transaction = new Deposit(amount, LocalDateTime.now());
+        Transaction transaction = makeDeposit();
         TransactionList list = new TransactionList(DOLLARS);
         boolean opResult = list.add(transaction);
         String msg = "Should have been able to add transaction of " 
-                + amount.toString() + " to a list of transactions in " 
-                + DOLLARS.getDisplayName();
+                + transaction.getAmount().toString() 
+                + " to a list of transactions in " + DOLLARS.getDisplayName();
         assert opResult : msg;
+    }
+    
+    @Test
+    public void testInitialBalanceIsZeroEuros() {
+        TransactionList list = new TransactionList(EUROS);
+        CurrencyAmount expected = new CurrencyAmount(0, EUROS);
+        CurrencyAmount actual = list.getBalance();
+        assertEquals(expected, actual);
     }
     
     /**
