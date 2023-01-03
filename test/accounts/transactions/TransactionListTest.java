@@ -63,6 +63,14 @@ public class TransactionListTest {
     }
     
     @Test
+    public void testInitialBalanceIsZeroDollars() {
+        TransactionList list = new TransactionList(DOLLARS);
+        CurrencyAmount expected = new CurrencyAmount(0, DOLLARS);
+        CurrencyAmount actual = list.getBalance();
+        assertEquals(expected, actual);
+    }
+    
+    @Test
     public void testInitialBalanceIsZeroEuros() {
         TransactionList list = new TransactionList(EUROS);
         CurrencyAmount expected = new CurrencyAmount(0, EUROS);
