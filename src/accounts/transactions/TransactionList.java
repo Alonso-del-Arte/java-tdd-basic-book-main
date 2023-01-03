@@ -26,7 +26,7 @@ public class TransactionList {
     private CurrencyAmount runningTotal;
     
     public CurrencyAmount getBalance() {
-        return new CurrencyAmount(0, Currency.getInstance("EUR"));
+        return new CurrencyAmount(0, this.currencyID);
     }
     
     public boolean add(Transaction transaction) {
