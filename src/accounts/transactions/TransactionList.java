@@ -26,15 +26,21 @@ public class TransactionList {
     private CurrencyAmount runningTotal;
     
     public CurrencyAmount getBalance() {
-        return new CurrencyAmount(0, this.currencyID);
+        return this.runningTotal;
     }
     
     public boolean add(Transaction transaction) {
-        return transaction.getAmount().getCurrency().equals(this.currencyID);
+        if (transaction.getAmount().getCurrency().equals(this.currencyID)) {
+            this.runningTotal = this.runningTotal.plus(transaction.amount);
+            return true;
+        } else {
+            return false;
+        }
     }
     
     public TransactionList(Currency currency) {
         this.currencyID = currency;
+        this.runningTotal = new CurrencyAmount(0, this.currencyID);
     }
     
 }
