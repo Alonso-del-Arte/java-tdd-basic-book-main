@@ -38,6 +38,16 @@ public class TransactionList {
         }
     }
     
+    // TODO: Write tests for this
+    public int getTransactionCount() {
+        return Integer.MIN_VALUE;
+    }
+    
+    // TODO: Write tests for this
+    public Transaction get(int index) {
+        return null;
+    }
+    
     public TransactionList(Currency currency) {
         this.currencyID = currency;
         this.runningTotal = new CurrencyAmount(0, this.currencyID);
