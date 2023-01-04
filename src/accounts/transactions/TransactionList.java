@@ -34,6 +34,7 @@ public class TransactionList {
     public boolean add(Transaction transaction) {
         if (transaction.getAmount().getCurrency().equals(this.currencyID)) {
             this.runningTotal = this.runningTotal.plus(transaction.amount);
+            this.elements[this.trxCount] = transaction;
             this.trxCount++;
             return true;
         } else {
@@ -45,14 +46,14 @@ public class TransactionList {
         return this.trxCount;
     }
     
-    // TODO: Write tests for this
     public Transaction get(int index) {
-        return null;
+        return this.elements[index];
     }
     
     public TransactionList(Currency currency) {
         this.currencyID = currency;
         this.runningTotal = new CurrencyAmount(0, this.currencyID);
+        this.elements = new Transaction[DEFAULT_INITIAL_CAPACITY];
     }
     
 }
