@@ -25,6 +25,8 @@ public class TransactionList {
     
     private CurrencyAmount runningTotal;
     
+    private int trxCount = 0;
+    
     public CurrencyAmount getBalance() {
         return this.runningTotal;
     }
@@ -32,15 +34,15 @@ public class TransactionList {
     public boolean add(Transaction transaction) {
         if (transaction.getAmount().getCurrency().equals(this.currencyID)) {
             this.runningTotal = this.runningTotal.plus(transaction.amount);
+            this.trxCount++;
             return true;
         } else {
             return false;
         }
     }
     
-    // TODO: Write tests for this
     public int getTransactionCount() {
-        return Integer.MIN_VALUE;
+        return this.trxCount;
     }
     
     // TODO: Write tests for this
