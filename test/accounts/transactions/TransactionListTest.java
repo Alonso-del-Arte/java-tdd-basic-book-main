@@ -121,5 +121,17 @@ public class TransactionListTest {
             assertEquals(expected, actual);
         }
     }
+    
+    @Test
+    public void testGet() {
+        System.out.println("get");
+        TransactionList list = new TransactionList(DOLLARS);
+        for (int i = 0; i < TransactionList.DEFAULT_INITIAL_CAPACITY; i++) {
+            Transaction expected = makeTransaction();
+            list.add(expected);
+            Transaction actual = list.get(i);
+            assertEquals(expected, actual);
+        }
+    }
 
 }
