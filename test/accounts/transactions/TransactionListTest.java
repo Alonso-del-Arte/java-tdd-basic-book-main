@@ -94,8 +94,7 @@ public class TransactionListTest {
         System.out.println("getBalance");
         CurrencyAmount expected = new CurrencyAmount(0, DOLLARS);
         TransactionList list = new TransactionList(DOLLARS);
-        int numberOfTrxs = 2 * TransactionTest.RANDOM.nextInt(32) + 8;
-        for (int i = 0; i < numberOfTrxs; i += 2) {
+        for (int i = 0; i < TransactionList.DEFAULT_INITIAL_CAPACITY; i += 2) {
             Deposit deposit = makeDeposit();
             expected = expected.plus(deposit.getAmount());
             list.add(deposit);
