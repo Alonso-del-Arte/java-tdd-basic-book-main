@@ -36,6 +36,14 @@ public class TransactionListTest {
         return new Withdrawal(amount, LocalDateTime.now());
     }
     
+    private static Transaction makeTransaction() {
+        if (TransactionTest.RANDOM.nextBoolean()) {
+            return makeDeposit();
+        } else {
+            return makeWithdrawal();
+        }
+    }
+    
     @Test
     public void testAddRejectsDifferentCurrency() {
         TransactionList list = new TransactionList(EUROS);
@@ -97,6 +105,19 @@ public class TransactionListTest {
             expected = expected.plus(withdrawal.getAmount());
             list.add(withdrawal);
             actual = list.getBalance();
+            assertEquals(expected, actual);
+        }
+    }
+    
+    @Test
+    public void testGetTransactionCount() {
+        System.out.println("getTransactionCount");
+        TransactionList list = new TransactionList(DOLLARS);
+        for (int expected = 0; 
+                expected < TransactionList.DEFAULT_INITIAL_CAPACITY; 
+                expected++) {
+            list.add(makeTransaction());
+            int actual = list.getTransactionCount();
             assertEquals(expected, actual);
         }
     }
