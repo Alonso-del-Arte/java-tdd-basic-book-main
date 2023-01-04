@@ -31,8 +31,21 @@ public class TransactionList {
         return this.runningTotal;
     }
     
+    private void expandCapacity() {
+        int oldCapacity = this.elements.length;
+        int expandedCapacity = 3 * oldCapacity / 2;
+        Transaction[] replacementArray = new Transaction[expandedCapacity];
+        for (int i = 0; i < oldCapacity; i++) {
+            replacementArray[i] = this.elements[i];
+        }
+        this.elements = replacementArray;
+    }
+    
     public boolean add(Transaction transaction) {
         if (transaction.getAmount().getCurrency().equals(this.currencyID)) {
+            if (this.trxCount == this.elements.length) {
+                this.expandCapacity();
+            }
             this.runningTotal = this.runningTotal.plus(transaction.amount);
             this.elements[this.trxCount] = transaction;
             this.trxCount++;
