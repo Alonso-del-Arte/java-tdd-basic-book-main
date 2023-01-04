@@ -113,8 +113,8 @@ public class TransactionListTest {
     public void testGetTransactionCount() {
         System.out.println("getTransactionCount");
         TransactionList list = new TransactionList(DOLLARS);
-        for (int expected = 0; 
-                expected < TransactionList.DEFAULT_INITIAL_CAPACITY; 
+        for (int expected = 1; 
+                expected <= TransactionList.DEFAULT_INITIAL_CAPACITY; 
                 expected++) {
             list.add(makeTransaction());
             int actual = list.getTransactionCount();
