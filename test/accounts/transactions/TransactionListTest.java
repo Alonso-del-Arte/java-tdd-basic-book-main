@@ -132,5 +132,25 @@ public class TransactionListTest {
             assertEquals(expected, actual);
         }
     }
+    
+    @Test
+    public void testAddBeyondInitialCapacityCausesExpansion() {
+        TransactionList list = new TransactionList(DOLLARS);
+        for (int i = 0; i < TransactionList.DEFAULT_INITIAL_CAPACITY; i++) {
+            Transaction transaction = makeTransaction();
+            list.add(transaction);
+        }
+        try {
+            Transaction extraTransaction = makeTransaction();
+            list.add(extraTransaction);
+        } catch (ArrayIndexOutOfBoundsException aioobe) {
+            String msg = "Trying to add one more transaction after adding " 
+                    + TransactionList.DEFAULT_INITIAL_CAPACITY 
+                    + " transactions should not have caused " 
+                    + aioobe.getClass().getName() + " \"" + aioobe.getMessage() 
+                    + "\"";
+            fail(msg);
+        }
+    }
 
 }
