@@ -13,8 +13,11 @@ import java.util.Currency;
  * This is to illustrate what we'd have to do if Java didn't have generics. But 
  * since Java does have generics, and the collections framework, we can just use 
  * <code>java.util.ArrayList&lt;Transaction&gt;</code> or something like that.
+ * @deprecated Preferably use something like 
+ * <code>java.util.ArrayList&lt;Transaction&gt;</code>.
  * @author Alonso del Arte
  */
+@Deprecated
 public class TransactionList {
     
     static final int DEFAULT_INITIAL_CAPACITY = 10;
