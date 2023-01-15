@@ -8,6 +8,8 @@ package accounts;
 import accounts.transactions.Deposit;
 import accounts.transactions.Transaction;
 import accounts.transactions.Withdrawal;
+import currency.CurrencyAmount;
+import entities.Entity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,5 +19,11 @@ import java.util.List;
  * @author Alonso del Arte
  */
 public class Account {
+    
+    private static final List<Transaction> history = new ArrayList<>();
+    
+    public Account(Entity primary, Entity secondary, Deposit initialDeposit) {
+        //
+    }
     
 }
