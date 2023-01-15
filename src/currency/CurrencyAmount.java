@@ -12,7 +12,7 @@ import java.util.Objects;
  *
  * @author Alonso del Arte
  */
-public class CurrencyAmount {
+public class CurrencyAmount implements Comparable<CurrencyAmount> {
     
     private final long amountInCents;
     
@@ -45,6 +45,11 @@ public class CurrencyAmount {
 
     public CurrencyAmount minus(CurrencyAmount subtrahend) {
         return this.plus(subtrahend.negate());
+    }
+    
+    @Override
+    public int compareTo(CurrencyAmount other) {
+        return 0;
     }
     
     @Override
