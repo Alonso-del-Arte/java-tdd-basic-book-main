@@ -277,5 +277,13 @@ public class CurrencyAmountTest {
         CurrencyAmount actual = amount.negate();
         assertEquals(expected, actual);
     }
+    
+    @Test
+    public void testCompareToLesser() {
+        CurrencyAmount amountA = new CurrencyAmount(49899, DOLLARS);
+        CurrencyAmount amountB = new CurrencyAmount(104250, DOLLARS);
+        String msg = amountA.toString() + " is less than " + amountB.toString();
+        assert amountA.compareTo(amountB) < 0 : msg;
+    }
 
 }
