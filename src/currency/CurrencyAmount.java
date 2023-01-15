@@ -49,13 +49,8 @@ public class CurrencyAmount implements Comparable<CurrencyAmount> {
     
     @Override
     public int compareTo(CurrencyAmount other) {
-        if (this.currencyID != other.currencyID) {
-            String excMsg = "Comparing " + this.toString() + " to " 
-                    + other.toString() + " needs currency conversion";
-            throw new CurrencyConversionNeededException(excMsg, this, other);
-        }
-        long diff = this.amountInCents - other.amountInCents;
-        return Long.signum(diff);
+        CurrencyAmount diff = this.minus(other);
+        return Long.signum(diff.amountInCents);
     }
     
     @Override
