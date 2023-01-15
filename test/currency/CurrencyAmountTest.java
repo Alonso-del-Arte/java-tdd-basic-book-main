@@ -305,4 +305,27 @@ public class CurrencyAmountTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    public void testCompareDifferentCurrencies() {
+        CurrencyAmount dollarsAmount = new CurrencyAmount(57380, DOLLARS);
+        CurrencyAmount eurosAmount = new CurrencyAmount(57380, EUROS);
+        try {
+            int result = dollarsAmount.compareTo(eurosAmount);
+            String msg = "Trying to compare " + dollarsAmount.toString() 
+                    + " to " + eurosAmount.toString()
+                    + " should not have given result " + result;
+            fail(msg);
+        } catch (CurrencyConversionNeededException curConvNeedExc) {
+            System.out.println("Trying to compare " + dollarsAmount.toString() 
+                    + " to " + eurosAmount.toString() 
+                    + " correctly caused exception");
+            System.out.println("\"" + curConvNeedExc.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception for " + dollarsAmount.toString() 
+                    + " to " + eurosAmount.toString() + " comparison";
+            fail(msg);
+        }
+    }
+
 }
