@@ -5,7 +5,10 @@
  */
 package currency;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Currency;
+import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
@@ -279,11 +282,27 @@ public class CurrencyAmountTest {
     }
     
     @Test
-    public void testCompareToLesser() {
-        CurrencyAmount amountA = new CurrencyAmount(49899, DOLLARS);
+    public void testCompareTo() {
+        System.out.println("compareTo");
+        CurrencyAmount negBal = new CurrencyAmount(-372, DOLLARS);
+        CurrencyAmount zero = new CurrencyAmount(0, DOLLARS);
+        CurrencyAmount amountA = new CurrencyAmount(49989, DOLLARS);
         CurrencyAmount amountB = new CurrencyAmount(104250, DOLLARS);
-        String msg = amountA.toString() + " is less than " + amountB.toString();
-        assert amountA.compareTo(amountB) < 0 : msg;
+        CurrencyAmount amountC = new CurrencyAmount(583047758, DOLLARS);
+        List<CurrencyAmount> expected = new ArrayList<>();
+        expected.add(negBal);
+        expected.add(zero);
+        expected.add(amountA);
+        expected.add(amountB);
+        expected.add(amountC);
+        List<CurrencyAmount> actual = new ArrayList<>();
+        actual.add(amountB);
+        actual.add(amountC);
+        actual.add(zero);
+        actual.add(negBal);
+        actual.add(amountA);
+        Collections.sort(actual);
+        assertEquals(expected, actual);
     }
 
 }
