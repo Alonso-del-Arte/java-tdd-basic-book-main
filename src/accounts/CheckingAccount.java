@@ -27,6 +27,7 @@ public class CheckingAccount extends Account {
     public CheckingAccount(Entity primary, Entity secondary, 
             Deposit initialDeposit) {
         super(primary, secondary, initialDeposit);
+        this.balance = initialDeposit.getAmount();
     }
     
 }
