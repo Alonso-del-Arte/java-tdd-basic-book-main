@@ -9,12 +9,9 @@ import accounts.transactions.Deposit;
 import accounts.transactions.Transaction;
 import accounts.transactions.Withdrawal;
 import currency.CurrencyAmount;
-import entities.Entity;
 import static entities.ExampleEntities.EXAMPLE_CUSTOMER;
 
 import java.time.LocalDateTime;
-import java.util.Currency;
-import java.util.Locale;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -26,7 +23,7 @@ import static org.junit.Assert.*;
 public class CheckingAccountTest {
     
     @Test
-    public void testBalanceReflectsInitialBalance() {
+    public void testBalanceReflectsInitialDeposit() {
         int cents = 10000 + AccountTest.RANDOM.nextInt(10000);
         CurrencyAmount expected 
                 = new CurrencyAmount(cents, AccountTest.DOLLARS);
