@@ -13,7 +13,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Tests of the Deposit class.
  * @author Alonso del Arte
  */
 public class DepositTest {
@@ -59,12 +59,12 @@ public class DepositTest {
         LocalDateTime time = LocalDateTime.now();
         try {
             Deposit badDeposit = new Deposit(badAmount, time);
-            String msg = "Should not have been able to create " 
+            String msg = "Should not have been able to create deposit " 
                     + badDeposit.toString() + " with " + badAmount.toString();
             fail(msg);
         } catch (IllegalArgumentException iae) {
             System.out.println("Bad deposit amount " + badAmount.toString() 
-                    + " correctly caused IllegalArgumentException");
+                     + " correctly caused IllegalArgumentException");
             System.out.println("\"" + iae.getMessage() + "\"");
         } catch (RuntimeException re) {
             String msg = re.getClass().getName() 
