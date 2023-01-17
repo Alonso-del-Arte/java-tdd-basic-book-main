@@ -20,6 +20,10 @@ import java.util.List;
  */
 public class CheckingAccount extends Account {
     
+    public CheckingAccount(Entity primary, Deposit initialDeposit) {
+        this(primary, null, initialDeposit);
+    }
+    
     public CheckingAccount(Entity primary, Entity secondary, 
             Deposit initialDeposit) {
         super(primary, secondary, initialDeposit);
