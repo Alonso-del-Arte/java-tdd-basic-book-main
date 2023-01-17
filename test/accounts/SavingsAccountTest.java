@@ -5,22 +5,33 @@
  */
 package accounts;
 
+import accounts.transactions.Deposit;
+import accounts.transactions.Transaction;
+import accounts.transactions.Withdrawal;
+import currency.CurrencyAmount;
+import static entities.ExampleEntities.EXAMPLE_CUSTOMER;
+
+import java.time.LocalDateTime;
+
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Tests of the SavingsAccount class.
  * @author Alonso del Arte
  */
 public class SavingsAccountTest {
     
-    public SavingsAccountTest() {
-    }
-
     @Test
-    public void testSomeMethod() {
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testBalanceReflectsInitialDeposit() {
+        int cents = 10000 + AccountTest.RANDOM.nextInt(10000);
+        CurrencyAmount expected 
+                = new CurrencyAmount(cents, AccountTest.DOLLARS);
+        Deposit deposit = new Deposit(expected, LocalDateTime.now());
+        SavingsAccount account 
+                = new SavingsAccount(EXAMPLE_CUSTOMER, deposit);
+        CurrencyAmount actual = account.balance;
+        assertEquals(expected, actual);
     }
     
 }
