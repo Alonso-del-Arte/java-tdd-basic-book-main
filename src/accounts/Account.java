@@ -20,10 +20,10 @@ import java.util.List;
  */
 public class Account {
     
-    private CurrencyAmount balance = new CurrencyAmount(0, 
+    CurrencyAmount balance = new CurrencyAmount(0, 
             java.util.Currency.getInstance(java.util.Locale.ITALY));
     
-    private static final List<Transaction> history = new ArrayList<>();
+    private static final List<Transaction> HISTORY = new ArrayList<>();
     
     public Account(Entity primary, Entity secondary, Deposit initialDeposit) {
         //
