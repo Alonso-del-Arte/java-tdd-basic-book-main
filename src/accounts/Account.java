@@ -25,6 +25,10 @@ public class Account {
     
     private static final List<Transaction> HISTORY = new ArrayList<>();
     
+    public List<Transaction> getHistory() {
+        return new ArrayList<>();
+    }
+    
     public Account(Entity primary, Entity secondary, Deposit initialDeposit) {
         //
     }
