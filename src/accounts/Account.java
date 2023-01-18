@@ -25,6 +25,10 @@ public class Account {
     
     private static final List<Transaction> HISTORY = new ArrayList<>();
     
+    public CurrencyAmount getBalance() {
+        return new CurrencyAmount(-1, java.util.Currency.getInstance("RUB"));
+    }
+    
     public List<Transaction> getHistory() {
         return new ArrayList<>();
     }
