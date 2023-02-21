@@ -9,7 +9,8 @@ import java.util.Currency;
 import java.util.Objects;
 
 /**
- *
+ * Represents an amount of money, like $3,083 or 50,000&yen;. Some functions for 
+ * money arithmetic are provided.
  * @author Alonso del Arte
  */
 public class CurrencyAmount implements Comparable<CurrencyAmount> {
@@ -45,6 +46,10 @@ public class CurrencyAmount implements Comparable<CurrencyAmount> {
 
     public CurrencyAmount minus(CurrencyAmount subtrahend) {
         return this.plus(subtrahend.negate());
+    }
+    
+    public CurrencyAmount times(int multiplicand) {
+        return new CurrencyAmount(Long.MAX_VALUE, Currency.getInstance("USD"));
     }
     
     @Override
