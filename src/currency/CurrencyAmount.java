@@ -50,7 +50,7 @@ public class CurrencyAmount implements Comparable<CurrencyAmount> {
     
     public CurrencyAmount times(int multiplicand) {
         return new CurrencyAmount(this.amountInCents * multiplicand, 
-                Currency.getInstance("EUR"));
+                this.currencyID);
     }
     
     @Override
