@@ -34,6 +34,16 @@ public class Transaction {
         return "SORRY, NOT IMPLEMENTED YET";
     }
     
+    @Override
+    public boolean equals(Object obj) {
+        return false;
+    }
+    
+    @Override
+    public int hashCode() {
+        return 0;
+    }
+    
     Transaction(CurrencyAmount amt, LocalDateTime time, String desc) {
         this.amount = amt;
         this.dateTime = time;
