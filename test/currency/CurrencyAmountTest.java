@@ -293,6 +293,17 @@ public class CurrencyAmountTest {
     }
     
     @Test
+    public void testTimesDollars() {
+        int cents = RANDOM.nextInt(10000);
+        CurrencyAmount amount = new CurrencyAmount(cents, DOLLARS);
+        int multiplier = RANDOM.nextInt(256) - 128;
+        CurrencyAmount expected = new CurrencyAmount(cents * multiplier, 
+                DOLLARS);
+        CurrencyAmount actual = amount.times(multiplier);
+        assertEquals(expected, actual);
+    }
+    
+    @Test
     public void testCompareTo() {
         System.out.println("compareTo");
         CurrencyAmount negBal = new CurrencyAmount(-372, DOLLARS);
