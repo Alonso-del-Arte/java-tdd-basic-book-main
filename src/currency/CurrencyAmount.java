@@ -49,7 +49,8 @@ public class CurrencyAmount implements Comparable<CurrencyAmount> {
     }
     
     public CurrencyAmount times(int multiplicand) {
-        return new CurrencyAmount(Long.MAX_VALUE, Currency.getInstance("USD"));
+        return new CurrencyAmount(this.amountInCents * multiplicand, 
+                Currency.getInstance("EUR"));
     }
     
     @Override
