@@ -53,6 +53,61 @@ public class DepositTest {
     }
     
     @Test
+    public void testReferentialEquality() {
+        Deposit deposit = TransactionTest.makeDeposit();
+        assertEquals(deposit, deposit);
+    }
+    
+    @Test
+    public void testNotEqualsNull() {
+        Deposit deposit = TransactionTest.makeDeposit();
+        assertNotEquals(deposit, null);
+    }
+    
+    @Test
+    public void testNotEqualsDiffClass() {
+        Deposit deposit = TransactionTest.makeDeposit();
+        Withdrawal withdrawal = TransactionTest.makeWithdrawal();
+        assertNotEquals(deposit, withdrawal);
+    }
+    
+    @Test
+    public void testNotEqualsDepositForDifferentAmount() {
+        LocalDateTime time = LocalDateTime.now();
+        int cents = TransactionTest.RANDOM.nextInt(10000) + 1;
+        CurrencyAmount amountA = new CurrencyAmount(cents, 
+                TransactionTest.DOLLARS);
+        Deposit depositA = new Deposit(amountA, time);
+        CurrencyAmount amountB = amountA.times(2);
+        Deposit depositB = new Deposit(amountB, time);
+        assertNotEquals(depositA, depositB);
+    }
+    
+    @Test
+    public void testEquals() {
+        System.out.println("equals");
+        int cents = TransactionTest.RANDOM.nextInt(10000) + 1;
+        CurrencyAmount amount = new CurrencyAmount(cents, 
+                TransactionTest.DOLLARS);
+        LocalDateTime time = LocalDateTime.now();
+        Deposit someDeposit = new Deposit(amount, time);
+        Deposit sameDeposit = new Deposit(amount, time);
+        assertEquals(someDeposit, sameDeposit);
+    }
+    
+    @Test
+    public void testNotEqualsDepositForDifferentTime() {
+        LocalDateTime timeA = LocalDateTime.now();
+        LocalDateTime timeB = timeA.plusHours(1);
+        int cents = TransactionTest.RANDOM.nextInt(10000) + 1;
+        CurrencyAmount amount = new CurrencyAmount(cents, 
+                TransactionTest.DOLLARS);
+        Deposit depositA = new Deposit(amount, timeA);
+        Deposit depositB = new Deposit(amount, timeB);
+        assertNotEquals(depositA, depositB);
+    }
+    
+    @Test
     public void testConstructorRejectsZeroDollars() {
         CurrencyAmount badAmount = new CurrencyAmount(0, 
                 TransactionTest.DOLLARS);

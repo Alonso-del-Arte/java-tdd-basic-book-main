@@ -53,6 +53,61 @@ public class WithdrawalTest {
     }
     
     @Test
+    public void testReferentialEquality() {
+        Withdrawal withdrawal = TransactionTest.makeWithdrawal();
+        assertEquals(withdrawal, withdrawal);
+    }
+    
+    @Test
+    public void testNotEqualsNull() {
+        Withdrawal withdrawal = TransactionTest.makeWithdrawal();
+        assertNotEquals(withdrawal, null);
+    }
+    
+    @Test
+    public void testNotEqualsDiffClass() {
+        Withdrawal withdrawal = TransactionTest.makeWithdrawal();
+        Deposit deposit = TransactionTest.makeDeposit();
+        assertNotEquals(withdrawal, deposit);
+    }
+    
+    @Test
+    public void testNotEqualsWithdrawalForDifferentAmount() {
+        LocalDateTime time = LocalDateTime.now();
+        int cents = -TransactionTest.RANDOM.nextInt(10000) - 1;
+        CurrencyAmount amountA = new CurrencyAmount(cents, 
+                TransactionTest.DOLLARS);
+        Withdrawal withdrawalA = new Withdrawal(amountA, time);
+        CurrencyAmount amountB = amountA.times(2);
+        Withdrawal withdrawalB = new Withdrawal(amountB, time);
+        assertNotEquals(withdrawalA, withdrawalB);
+    }
+    
+    @Test
+    public void testEquals() {
+        System.out.println("equals");
+        int cents = -TransactionTest.RANDOM.nextInt(10000) - 1;
+        CurrencyAmount amount = new CurrencyAmount(cents, 
+                TransactionTest.DOLLARS);
+        LocalDateTime time = LocalDateTime.now();
+        Withdrawal someWithdrawal = new Withdrawal(amount, time);
+        Withdrawal sameWithdrawal = new Withdrawal(amount, time);
+        assertEquals(someWithdrawal, sameWithdrawal);
+    }
+    
+    @Test
+    public void testNotEqualsWithdrawalForDifferentTime() {
+        LocalDateTime timeA = LocalDateTime.now();
+        LocalDateTime timeB = timeA.plusHours(1);
+        int cents = -TransactionTest.RANDOM.nextInt(10000) - 1;
+        CurrencyAmount amount = new CurrencyAmount(cents, 
+                TransactionTest.DOLLARS);
+        Withdrawal withdrawalA = new Withdrawal(amount, timeA);
+        Withdrawal withdrawalB = new Withdrawal(amount, timeB);
+        assertNotEquals(withdrawalA, withdrawalB);
+    }
+    
+    @Test
     public void testConstructorRejectsZeroDollars() {
         CurrencyAmount badAmount = new CurrencyAmount(0, 
                 TransactionTest.DOLLARS);
