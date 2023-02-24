@@ -25,16 +25,22 @@ public class TransactionTest {
     
     static final Random RANDOM = new Random();
     
+    private static final int HOURS_IN_A_MONTH = 720;
+    
     static Deposit makeDeposit() {
         int cents = RANDOM.nextInt(262144) + 1;
         CurrencyAmount amount = new CurrencyAmount(cents, DOLLARS);
-        return new Deposit(amount, LocalDateTime.now());
+        int backdate = RANDOM.nextInt(HOURS_IN_A_MONTH);
+        LocalDateTime date = LocalDateTime.now().minusHours(backdate);
+        return new Deposit(amount, date);
     }
     
     static Withdrawal makeWithdrawal() {
         int cents = -RANDOM.nextInt(262144) - 1;
         CurrencyAmount amount = new CurrencyAmount(cents, DOLLARS);
-        return new Withdrawal(amount, LocalDateTime.now());
+        int backdate = RANDOM.nextInt(HOURS_IN_A_MONTH);
+        LocalDateTime date = LocalDateTime.now().minusHours(backdate);
+        return new Withdrawal(amount, date);
     }
     
     static Transaction makeTransaction() {

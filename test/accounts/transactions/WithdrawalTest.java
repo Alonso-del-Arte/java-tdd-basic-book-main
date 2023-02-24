@@ -8,6 +8,8 @@ package accounts.transactions;
 import currency.CurrencyAmount;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -105,6 +107,22 @@ public class WithdrawalTest {
         Withdrawal withdrawalA = new Withdrawal(amount, timeA);
         Withdrawal withdrawalB = new Withdrawal(amount, timeB);
         assertNotEquals(withdrawalA, withdrawalB);
+    }
+    
+    @Test
+    public void testHashCode() {
+        System.out.println("hashCode");
+        int capacity = TransactionTest.RANDOM.nextInt(32) + 8;
+        Set<Withdrawal> withdrawals = new HashSet<>(capacity);
+        Set<Integer> hashes = new HashSet<>(capacity);
+        while (withdrawals.size() < capacity) {
+            Withdrawal withdrawal = TransactionTest.makeWithdrawal();
+            withdrawals.add(withdrawal);
+            hashes.add(withdrawal.hashCode());
+        }
+        int expected = withdrawals.size();
+        int actual = hashes.size();
+        assertEquals(expected, actual);
     }
     
     @Test

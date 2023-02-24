@@ -50,7 +50,8 @@ public class Withdrawal extends Transaction {
     
     @Override
     public int hashCode() {
-        return 0;
+        int hash = this.amount.hashCode() << 16;
+        return hash + this.dateTime.hashCode();
     }
     
     public Withdrawal(CurrencyAmount amt, LocalDateTime time) {
