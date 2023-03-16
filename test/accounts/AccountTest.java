@@ -5,6 +5,12 @@
  */
 package accounts;
 
+import accounts.transactions.Deposit;
+import accounts.transactions.Transaction;
+import accounts.transactions.Withdrawal;
+import currency.CurrencyAmount;
+
+import java.time.LocalDateTime;
 import java.util.Currency;
 import java.util.Locale;
 import java.util.Random;
@@ -20,6 +26,32 @@ public class AccountTest {
     
     static final Currency DOLLARS = Currency.getInstance(Locale.US);
     
+    static final CurrencyAmount DEFAULT_INITIAL_DEPOSIT_AMOUNT 
+            = new CurrencyAmount(524288, DOLLARS);
+    
+    static final Deposit DEFAULT_INITIAL_DEPOSIT 
+            = new Deposit(DEFAULT_INITIAL_DEPOSIT_AMOUNT, LocalDateTime.now());
+    
     static final Random RANDOM = new Random();
+    
+    static Deposit makeDeposit() {
+        int cents = RANDOM.nextInt(262144) + 1;
+        CurrencyAmount amount = new CurrencyAmount(cents, DOLLARS);
+        return new Deposit(amount, LocalDateTime.now());
+    }
+    
+    static Withdrawal makeWithdrawal() {
+        int cents = -RANDOM.nextInt(262144) - 1;
+        CurrencyAmount amount = new CurrencyAmount(cents, DOLLARS);
+        return new Withdrawal(amount, LocalDateTime.now());
+    }
+    
+    static Transaction makeTransaction() {
+        if (RANDOM.nextBoolean()) {
+            return makeDeposit();
+        } else {
+            return makeWithdrawal();
+        }
+    }
     
 }

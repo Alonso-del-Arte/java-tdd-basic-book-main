@@ -12,6 +12,8 @@ import currency.CurrencyAmount;
 import static entities.ExampleEntities.EXAMPLE_CUSTOMER;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -31,6 +33,23 @@ public class CheckingAccountTest {
         CheckingAccount account 
                 = new CheckingAccount(EXAMPLE_CUSTOMER, deposit);
         CurrencyAmount actual = account.balance;
+        assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testProcess() {
+        System.out.println("process");
+        Deposit initialDeposit = new Deposit(AccountTest
+                .DEFAULT_INITIAL_DEPOSIT_AMOUNT, 
+                LocalDateTime.now());
+        CheckingAccount account = new CheckingAccount(EXAMPLE_CUSTOMER, 
+                        initialDeposit);
+        Transaction secondTrx = AccountTest.makeTransaction();
+        account.process(secondTrx);
+        List<Transaction> expected = new ArrayList<>();
+        expected.add(initialDeposit);
+        expected.add(secondTrx);
+        List<Transaction> actual = account.getHistory();
         assertEquals(expected, actual);
     }
     
