@@ -23,7 +23,11 @@ public class Account {
     CurrencyAmount balance = new CurrencyAmount(0, 
             java.util.Currency.getInstance(java.util.Locale.ITALY));
     
-    private static final List<Transaction> HISTORY = new ArrayList<>();
+    final List<Transaction> HISTORY = new ArrayList<>();
+    
+    public void process(Transaction trx) {
+        // TODO: Write tests for this
+    }
     
     public CurrencyAmount getBalance() {
         return new CurrencyAmount(-1, java.util.Currency.getInstance("RUB"));
