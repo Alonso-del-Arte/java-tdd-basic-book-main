@@ -31,6 +31,11 @@ public class Comment extends Transaction {
         return this.description;
     }
     
+    @Override
+    public String toString() {
+        return this.description;
+    }
+    
     public Comment(Currency currency, LocalDateTime time, String desc) {
         super(new CurrencyAmount(0, currency), time, "Comment: " + desc);
     }

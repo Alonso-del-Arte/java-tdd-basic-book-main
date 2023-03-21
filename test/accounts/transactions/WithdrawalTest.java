@@ -15,7 +15,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Tests of the Withdrawal class.
  * @author Alonso del Arte
  */
 public class WithdrawalTest {
@@ -51,6 +51,17 @@ public class WithdrawalTest {
         Withdrawal withdrawal = new Withdrawal(amount, LocalDateTime.now());
         String expected = "Withdrawal";
         String actual = withdrawal.getDescription();
+        assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testToString() {
+        System.out.println("toString");
+        Withdrawal withdrawal = TransactionTest.makeWithdrawal();
+        String expected = "Withdrawal of " 
+                + withdrawal.getAmount().negate().toString() + " on " 
+                + withdrawal.getTime().toString();
+        String actual = withdrawal.toString();
         assertEquals(expected, actual);
     }
     

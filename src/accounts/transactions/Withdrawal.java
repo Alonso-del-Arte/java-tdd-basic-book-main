@@ -31,6 +31,12 @@ public class Withdrawal extends Transaction {
     }
     
     @Override
+    public String toString() {
+        return "Withdrawal of " + this.amount.negate().toString() + " on " 
+                + this.dateTime.toString();
+    }
+    
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;

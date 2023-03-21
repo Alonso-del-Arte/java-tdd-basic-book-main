@@ -55,4 +55,16 @@ public class CommentTest {
         assertEquals(expected, actual);
     }
     
+    @Test
+    public void testToString() {
+        System.out.println("toString");
+        int points = TransactionTest.RANDOM.nextInt(1000);
+        String desc = points + " Rewards Points awarded";
+        Comment comment = new Comment(TransactionTest.DOLLARS, 
+                LocalDateTime.now(), desc);
+        String expected = "Comment: " + desc;
+        String actual = comment.toString();
+        assertEquals(expected, actual);
+    }
+    
 }

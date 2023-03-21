@@ -31,6 +31,12 @@ public class Deposit extends Transaction {
     }
     
     @Override
+    public String toString() {
+        return "Deposit for " + this.amount.toString() + " on " 
+                + this.dateTime.toString();
+    }
+    
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;

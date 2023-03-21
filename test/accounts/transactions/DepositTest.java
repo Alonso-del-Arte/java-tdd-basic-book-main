@@ -55,6 +55,16 @@ public class DepositTest {
     }
     
     @Test
+    public void testToString() {
+        System.out.println("toString");
+        Deposit deposit = TransactionTest.makeDeposit();
+        String expected = "Deposit for " + deposit.getAmount().toString() 
+                + " on " + deposit.getTime().toString();
+        String actual = deposit.toString();
+        assertEquals(expected, actual);
+    }
+    
+    @Test
     public void testReferentialEquality() {
         Deposit deposit = TransactionTest.makeDeposit();
         assertEquals(deposit, deposit);
