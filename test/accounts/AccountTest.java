@@ -24,7 +24,7 @@ import static org.junit.Assert.*;
  */
 public class AccountTest {
     
-    static final Currency DOLLARS = Currency.getInstance(Locale.US);
+    public static final Currency DOLLARS = Currency.getInstance(Locale.US);
     
     static final CurrencyAmount DEFAULT_INITIAL_DEPOSIT_AMOUNT 
             = new CurrencyAmount(524288, DOLLARS);

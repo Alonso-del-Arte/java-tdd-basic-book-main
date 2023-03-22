@@ -14,7 +14,7 @@ import java.util.Comparator;
  *
  * @author Alonso del Arte
  */
-public class BalanceComparator implements Comparator<Transaction> {
+public class AmountComparator implements Comparator<Transaction> {
 
     // TODO: Write tests for this
     @Override

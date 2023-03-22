@@ -11,6 +11,8 @@ import accounts.transactions.Transaction;
 import accounts.transactions.Withdrawal;
 import currency.CurrencyAmount;
 
+import static accounts.AccountTest.DEFAULT_INITIAL_DEPOSIT;
+import static accounts.AccountTest.DOLLARS;
 import static accounts.transactions.TransactionTest.makeDeposit;
 import static accounts.transactions.TransactionTest.makeTransaction;
 import static accounts.transactions.TransactionTest.makeWithdrawal;
@@ -23,25 +25,33 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Tests of the AmountComparator class.
  * @author Alonso del Arte
  */
-public class BalanceComparatorTest {
+public class AmountComparatorTest {
     
     /**
-     * Test of compare method, of class BalanceComparator.
+     * Test of compare method, of class AmountComparator.
      */
     @Test
     public void testCompare() {
         System.out.println("compare");
-        Transaction trxA = null;
-        Transaction trxB = null;
-        BalanceComparator instance = new BalanceComparator();
-        int expResult = 0;
-        int result = instance.compare(trxA, trxB);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Withdrawal withdrawal = makeWithdrawal();
+        Comment comment = new Comment(DOLLARS, LocalDateTime.now(), 
+                "$0.00 transaction for testing purposes");
+        Deposit smallDeposit = makeDeposit();
+        List<Transaction> expected = new ArrayList<>();
+        expected.add(withdrawal);
+        expected.add(comment);
+        expected.add(smallDeposit);
+        expected.add(DEFAULT_INITIAL_DEPOSIT);
+        List<Transaction> actual = new ArrayList<>();
+        actual.add(DEFAULT_INITIAL_DEPOSIT);
+        actual.add(withdrawal);
+        actual.add(comment);
+        actual.add(smallDeposit);
+        actual.sort(new AmountComparator());
+        assertEquals(expected, actual);
     }
     
 }
