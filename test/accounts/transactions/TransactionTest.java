@@ -16,7 +16,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Tests of the Transaction class. Also includes helper functions to create 
+ * fictional transactions for testing purposes.
  * @author Alonso del Arte
  */
 public class TransactionTest {
@@ -27,7 +28,7 @@ public class TransactionTest {
     
     private static final int HOURS_IN_A_MONTH = 720;
     
-    static Deposit makeDeposit() {
+    public static Deposit makeDeposit() {
         int cents = RANDOM.nextInt(262144) + 1;
         CurrencyAmount amount = new CurrencyAmount(cents, DOLLARS);
         int backdate = RANDOM.nextInt(HOURS_IN_A_MONTH);
@@ -35,7 +36,7 @@ public class TransactionTest {
         return new Deposit(amount, date);
     }
     
-    static Withdrawal makeWithdrawal() {
+    public static Withdrawal makeWithdrawal() {
         int cents = -RANDOM.nextInt(262144) - 1;
         CurrencyAmount amount = new CurrencyAmount(cents, DOLLARS);
         int backdate = RANDOM.nextInt(HOURS_IN_A_MONTH);
@@ -43,7 +44,7 @@ public class TransactionTest {
         return new Withdrawal(amount, date);
     }
     
-    static Transaction makeTransaction() {
+    public static Transaction makeTransaction() {
         if (RANDOM.nextBoolean()) {
             return makeDeposit();
         } else {

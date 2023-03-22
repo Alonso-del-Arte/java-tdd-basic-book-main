@@ -11,6 +11,10 @@ import accounts.transactions.Transaction;
 import accounts.transactions.Withdrawal;
 import currency.CurrencyAmount;
 
+import static accounts.transactions.TransactionTest.makeDeposit;
+import static accounts.transactions.TransactionTest.makeTransaction;
+import static accounts.transactions.TransactionTest.makeWithdrawal;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

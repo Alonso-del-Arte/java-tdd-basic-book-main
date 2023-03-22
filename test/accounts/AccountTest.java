@@ -19,7 +19,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Tests of the Account class.
  * @author Alonso del Arte
  */
 public class AccountTest {
@@ -29,29 +29,11 @@ public class AccountTest {
     static final CurrencyAmount DEFAULT_INITIAL_DEPOSIT_AMOUNT 
             = new CurrencyAmount(524288, DOLLARS);
     
-    static final Deposit DEFAULT_INITIAL_DEPOSIT 
+    public static final Deposit DEFAULT_INITIAL_DEPOSIT 
             = new Deposit(DEFAULT_INITIAL_DEPOSIT_AMOUNT, LocalDateTime.now());
     
     static final Random RANDOM = new Random();
     
-    static Deposit makeDeposit() {
-        int cents = RANDOM.nextInt(262144) + 1;
-        CurrencyAmount amount = new CurrencyAmount(cents, DOLLARS);
-        return new Deposit(amount, LocalDateTime.now());
-    }
-    
-    static Withdrawal makeWithdrawal() {
-        int cents = -RANDOM.nextInt(262144) - 1;
-        CurrencyAmount amount = new CurrencyAmount(cents, DOLLARS);
-        return new Withdrawal(amount, LocalDateTime.now());
-    }
-    
-    static Transaction makeTransaction() {
-        if (RANDOM.nextBoolean()) {
-            return makeDeposit();
-        } else {
-            return makeWithdrawal();
-        }
-    }
+    // TODO: Write tests
     
 }

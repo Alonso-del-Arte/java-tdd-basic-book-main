@@ -9,7 +9,9 @@ import accounts.transactions.Deposit;
 import accounts.transactions.Transaction;
 import accounts.transactions.Withdrawal;
 import currency.CurrencyAmount;
+
 import static entities.ExampleEntities.EXAMPLE_CUSTOMER;
+import static accounts.transactions.TransactionTest.makeTransaction;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -44,7 +46,7 @@ public class CheckingAccountTest {
                 LocalDateTime.now());
         CheckingAccount account = new CheckingAccount(EXAMPLE_CUSTOMER, 
                         initialDeposit);
-        Transaction secondTrx = AccountTest.makeTransaction();
+        Transaction secondTrx = makeTransaction();
         account.process(secondTrx);
         List<Transaction> expected = new ArrayList<>();
         expected.add(initialDeposit);
