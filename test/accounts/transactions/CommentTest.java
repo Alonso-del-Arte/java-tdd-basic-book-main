@@ -15,7 +15,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Tests of the Comment class.
  * @author Alonso del Arte
  */
 public class CommentTest {
@@ -65,6 +65,13 @@ public class CommentTest {
         String expected = "Comment: " + desc;
         String actual = comment.toString();
         assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testReferentialEquality() {
+        Comment comment = new Comment(TransactionTest.DOLLARS, 
+                LocalDateTime.now(), DEFAULT_DESCRIPTION);
+        assertEquals(comment, comment);
     }
     
 }
