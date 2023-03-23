@@ -81,4 +81,12 @@ public class CommentTest {
         assertNotEquals(comment, null);
     }
     
+    @Test
+    public void testNotEqualsDiffClass() {
+        Comment comment = new Comment(TransactionTest.DOLLARS, 
+                LocalDateTime.now(), DEFAULT_DESCRIPTION);
+        Transaction nonCommentTrx = TransactionTest.makeTransaction();
+        assertNotEquals(comment, nonCommentTrx);
+    }
+    
 }
