@@ -38,7 +38,7 @@ public class Comment extends Transaction {
     
     @Override
     public boolean equals(Object obj) {
-        return obj instanceof Comment;
+        return this == obj;
     }
     
     @Override
