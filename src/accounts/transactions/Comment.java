@@ -38,7 +38,17 @@ public class Comment extends Transaction {
     
     @Override
     public boolean equals(Object obj) {
-        return this == obj;
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!this.getClass().equals(obj.getClass())) {
+            return false;
+        }
+        return this.amount.getCurrency() 
+                == ((Comment) obj).amount.getCurrency();
     }
     
     @Override
