@@ -9,7 +9,6 @@ import currency.CurrencyAmount;
 
 import java.time.LocalDateTime;
 import java.util.Currency;
-import java.util.Locale;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -96,6 +95,16 @@ public class CommentTest {
         Comment commentB = new Comment(Currency.getInstance("EUR"), 
                 LocalDateTime.now(), DEFAULT_DESCRIPTION);
         assertNotEquals(commentA, commentB);
+    }
+    
+    @Test
+    public void testEquals() {
+        System.out.println("equals");
+        Comment someComment = new Comment(TransactionTest.DOLLARS, 
+                LocalDateTime.now(), DEFAULT_DESCRIPTION);
+        Comment sameComment = new Comment(TransactionTest.DOLLARS, 
+                LocalDateTime.now(), DEFAULT_DESCRIPTION);
+        assertEquals(someComment, sameComment);
     }
     
 }
