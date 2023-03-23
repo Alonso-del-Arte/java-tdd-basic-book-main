@@ -74,4 +74,11 @@ public class CommentTest {
         assertEquals(comment, comment);
     }
     
+    @Test
+    public void testNotEqualsNull() {
+        Comment comment = new Comment(TransactionTest.DOLLARS, 
+                LocalDateTime.now(), DEFAULT_DESCRIPTION);
+        assertNotEquals(comment, null);
+    }
+    
 }
