@@ -107,4 +107,13 @@ public class CommentTest {
         assertEquals(someComment, sameComment);
     }
     
+    @Test
+    public void testNotEqualsDiffDate() {
+        Comment commentA = new Comment(TransactionTest.DOLLARS, 
+                LocalDateTime.now(), DEFAULT_DESCRIPTION);
+        Comment commentB = new Comment(TransactionTest.DOLLARS, 
+                LocalDateTime.now().minusDays(1), DEFAULT_DESCRIPTION);
+        assertNotEquals(commentA, commentB);
+    }
+    
 }
