@@ -116,4 +116,14 @@ public class CommentTest {
         assertNotEquals(commentA, commentB);
     }
     
+    @Test
+    public void testNotEqualsDiffText() {
+        LocalDateTime curr = LocalDateTime.now();
+        Comment commentA = new Comment(TransactionTest.DOLLARS, curr, 
+                DEFAULT_DESCRIPTION);
+        Comment commentB = new Comment(TransactionTest.DOLLARS, curr, 
+                DEFAULT_DESCRIPTION.toUpperCase());
+        assertNotEquals(commentA, commentB);
+    }
+    
 }
