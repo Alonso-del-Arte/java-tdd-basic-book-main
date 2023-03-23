@@ -89,4 +89,13 @@ public class CommentTest {
         assertNotEquals(comment, nonCommentTrx);
     }
     
+    @Test
+    public void testNotEqualsDiffCurrency() {
+        Comment commentA = new Comment(TransactionTest.DOLLARS, 
+                LocalDateTime.now(), DEFAULT_DESCRIPTION);
+        Comment commentB = new Comment(Currency.getInstance("EUR"), 
+                LocalDateTime.now(), DEFAULT_DESCRIPTION);
+        assertNotEquals(commentA, commentB);
+    }
+    
 }
