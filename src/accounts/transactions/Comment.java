@@ -51,7 +51,10 @@ public class Comment extends Transaction {
         if (this.amount.getCurrency() != other.amount.getCurrency()) {
             return false;
         }
-        return this.dateTime.equals(other.dateTime);
+        if (!this.dateTime.equals(other.dateTime)) {
+            return false;
+        }
+        return this.description.equals(other.description);
     }
     
     @Override
