@@ -109,7 +109,7 @@ public class CommentTest {
         assertEquals(someComment, sameComment);
     }
     
-//    @Test
+    @Test
     public void testNotEqualsDiffDate() {
         Comment commentA = new Comment(TransactionTest.DOLLARS, 
                 LocalDateTime.now(), DEFAULT_DESCRIPTION);
