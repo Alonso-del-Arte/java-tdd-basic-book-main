@@ -48,13 +48,13 @@ public class Comment extends Transaction {
             return false;
         }
         Comment other = (Comment) obj;
-        if (this.amount.getCurrency() != other.amount.getCurrency()) {
+//        if (this.amount.getCurrency() != other.amount.getCurrency()) {
             return false;
-        }
-        if (!this.dateTime.equals(other.dateTime)) {
-            return false;
-        }
-        return this.description.equals(other.description);
+//        }
+//        if (!this.dateTime.equals(other.dateTime)) {
+//            return false;
+//        }
+//        return this.description.equals(other.description);
     }
     
     @Override
