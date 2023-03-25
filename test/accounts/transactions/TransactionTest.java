@@ -64,6 +64,12 @@ public class TransactionTest {
         assertEquals(trx, trx);
     }
     
+    @Test
+    public void testNotEqualsNull() {
+        Transaction trx = new TransactionImpl(chooseAmount(), chooseDate());
+        assertNotEquals(trx, null);
+    }
+    
     private static class TransactionImpl extends Transaction {
         
         @Override
