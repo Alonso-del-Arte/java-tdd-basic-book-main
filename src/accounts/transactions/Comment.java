@@ -48,8 +48,9 @@ public class Comment extends Transaction {
             return false;
         }
         Comment other = (Comment) obj;
+        return this.amount.getCurrency().equals(other.amount.getCurrency());
 //        if (this.amount.getCurrency() != other.amount.getCurrency()) {
-            return false;
+//            return false;
 //        }
 //        if (!this.dateTime.equals(other.dateTime)) {
 //            return false;
