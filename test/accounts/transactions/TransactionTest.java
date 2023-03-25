@@ -66,6 +66,12 @@ public class TransactionTest {
     
     private static class TransactionImpl extends Transaction {
         
+        @Override
+        public String toString() {
+            return "Transaction of " + this.amount.toString() + " on " 
+                    + this.dateTime.toString();
+        }
+        
         TransactionImpl(CurrencyAmount amt, LocalDateTime time) {
             super(amt, time, "Example Transaction");
         }
