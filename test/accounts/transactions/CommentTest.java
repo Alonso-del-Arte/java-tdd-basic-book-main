@@ -118,7 +118,7 @@ public class CommentTest {
         assertNotEquals(commentA, commentB);
     }
     
-//    @Test
+    @Test
     public void testNotEqualsDiffText() {
         LocalDateTime curr = LocalDateTime.now();
         Comment commentA = new Comment(TransactionTest.DOLLARS, curr, 
