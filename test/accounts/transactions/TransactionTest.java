@@ -28,20 +28,26 @@ public class TransactionTest {
     
     private static final int HOURS_IN_A_MONTH = 720;
     
-    public static Deposit makeDeposit() {
+    private static CurrencyAmount choosePositiveAmount() {
         int cents = RANDOM.nextInt(262144) + 1;
-        CurrencyAmount amount = new CurrencyAmount(cents, DOLLARS);
+        return new CurrencyAmount(cents, DOLLARS);
+    }
+    
+    private static CurrencyAmount chooseAmount() {
+        return new CurrencyAmount(RANDOM.nextInt(), DOLLARS);
+    }
+    
+    private static LocalDateTime chooseDate() {
         int backdate = RANDOM.nextInt(HOURS_IN_A_MONTH);
-        LocalDateTime date = LocalDateTime.now().minusHours(backdate);
-        return new Deposit(amount, date);
+        return LocalDateTime.now().minusHours(backdate);
+    }
+    
+    public static Deposit makeDeposit() {
+        return new Deposit(choosePositiveAmount(), chooseDate());
     }
     
     public static Withdrawal makeWithdrawal() {
-        int cents = -RANDOM.nextInt(262144) - 1;
-        CurrencyAmount amount = new CurrencyAmount(cents, DOLLARS);
-        int backdate = RANDOM.nextInt(HOURS_IN_A_MONTH);
-        LocalDateTime date = LocalDateTime.now().minusHours(backdate);
-        return new Withdrawal(amount, date);
+        return new Withdrawal(choosePositiveAmount().negate(), chooseDate());
     }
     
     public static Transaction makeTransaction() {
@@ -50,6 +56,14 @@ public class TransactionTest {
         } else {
             return makeWithdrawal();
         }
+    }
+    
+    private static class TransactionImpl extends Transaction {
+        
+        TransactionImpl(CurrencyAmount amt, LocalDateTime time) {
+            super(amt, time, "Example Transaction");
+        }
+    
     }
     
 }
