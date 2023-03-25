@@ -59,7 +59,9 @@ public class Comment extends Transaction {
     
     @Override
     public int hashCode() {
-        return 0;
+        int hash = this.amount.hashCode() << 16;
+        hash += this.dateTime.hashCode();
+        return hash + this.description.hashCode();
     }
     
     public Comment(Currency currency, LocalDateTime time, String desc) {
