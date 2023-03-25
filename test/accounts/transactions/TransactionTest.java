@@ -70,6 +70,14 @@ public class TransactionTest {
         assertNotEquals(trx, null);
     }
     
+    @Test
+    public void testNotEqualsDiffClass() {
+        Transaction trxB = makeTransaction();
+        Transaction trxA = new TransactionImpl(trxB.getAmount(), 
+                trxB.getTime());
+        assertNotEquals(trxA, trxB);
+    }
+    
     private static class TransactionImpl extends Transaction {
         
         @Override
