@@ -58,6 +58,12 @@ public class TransactionTest {
         }
     }
     
+    @Test
+    public void testReferentialEquality() {
+        Transaction trx = new TransactionImpl(chooseAmount(), chooseDate());
+        assertEquals(trx, trx);
+    }
+    
     private static class TransactionImpl extends Transaction {
         
         TransactionImpl(CurrencyAmount amt, LocalDateTime time) {
