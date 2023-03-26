@@ -54,7 +54,9 @@ public class Transaction {
     
     @Override
     public int hashCode() {
-        return 0;
+        int hash = this.amount.hashCode() << 16;
+        hash += this.dateTime.hashCode();
+        return hash + this.getClass().getSimpleName().hashCode();
     }
     
     Transaction(CurrencyAmount amt, LocalDateTime time, String desc) {
