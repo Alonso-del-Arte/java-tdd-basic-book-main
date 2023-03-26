@@ -42,7 +42,11 @@ public class Transaction {
         if (obj == null) {
             return false;
         }
-        return this.getClass().equals(obj.getClass());
+        if (!this.getClass().equals(obj.getClass())) {
+            return false;
+        }
+        Transaction other = (Transaction) obj;
+        return this.amount.equals(other.amount);
     }
     
     @Override
