@@ -46,7 +46,10 @@ public class Transaction {
             return false;
         }
         Transaction other = (Transaction) obj;
-        return this.amount.equals(other.amount);
+        if (!this.amount.equals(other.amount)) {
+            return false;
+        }
+        return this.dateTime.equals(other.dateTime);
     }
     
     @Override
