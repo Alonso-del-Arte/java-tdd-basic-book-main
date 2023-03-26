@@ -109,6 +109,16 @@ public class TransactionTest {
         assertNotEquals(trxA, trxB);
     }
     
+    @Test
+    public void testHashCode() {
+        System.out.println("hashCode");
+        CurrencyAmount amount = new CurrencyAmount(0, DOLLARS);
+        LocalDateTime date = LocalDateTime.now();
+        Transaction trxA = new TransactionImpl(amount, date);
+        Transaction trxB = new Transaction(amount, date, "Transaction") {};
+        assertNotEquals(trxA.hashCode(), trxB.hashCode());
+    }
+    
     private static class TransactionImpl extends Transaction {
         
         @Override
