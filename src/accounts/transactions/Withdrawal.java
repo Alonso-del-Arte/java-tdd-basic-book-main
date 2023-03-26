@@ -36,30 +36,6 @@ public class Withdrawal extends Transaction {
                 + this.dateTime.toString();
     }
     
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (!this.getClass().equals(obj.getClass())) {
-            return false;
-        }
-        Withdrawal other = (Withdrawal) obj;
-        if (!this.amount.equals(other.amount)) {
-            return false;
-        }
-        return this.dateTime.equals(other.dateTime);
-    }
-    
-    @Override
-    public int hashCode() {
-        int hash = this.amount.negate().hashCode() << 16;
-        return hash + this.dateTime.hashCode();
-    }
-    
     public Withdrawal(CurrencyAmount amt, LocalDateTime time) {
         super(amt, time, "Withdrawal");
         if (amt.getAmountInCents() > -1L) {
