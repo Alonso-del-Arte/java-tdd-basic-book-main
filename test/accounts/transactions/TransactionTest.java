@@ -78,6 +78,27 @@ public class TransactionTest {
         assertNotEquals(trxA, trxB);
     }
     
+    @Test
+    public void testEquals() {
+        System.out.println("equals");
+        CurrencyAmount amount = chooseAmount();
+        LocalDateTime date = chooseDate();
+        Transaction someTransaction = new TransactionImpl(amount, date);
+        Transaction sameTransaction = new TransactionImpl(amount, date);
+        assertEquals(someTransaction, sameTransaction);
+    }
+    
+//    @Test
+//    public void testNotEqualsDiffAmount() {
+//        LocalDateTime time = LocalDateTime.now();
+//        CurrencyAmount amountA = chooseAmount();
+//        CurrencyAmount oneDollar = new CurrencyAmount(100, DOLLARS);
+//        CurrencyAmount amountB = amountA.plus(oneDollar);
+//        Transaction trxA = new TransactionImpl(amountA, time);
+//        Transaction trxB = new TransactionImpl(amountB, time);
+//        assertNotEquals(trxA, trxB);
+//    }
+    
     private static class TransactionImpl extends Transaction {
         
         @Override
