@@ -99,6 +99,16 @@ public class TransactionTest {
         assertNotEquals(trxA, trxB);
     }
     
+    @Test
+    public void testNotEqualsDiffTime() {
+        LocalDateTime timeA = LocalDateTime.now();
+        LocalDateTime timeB = timeA.minusDays(1);
+        CurrencyAmount amount = chooseAmount();
+        Transaction trxA = new TransactionImpl(amount, timeA);
+        Transaction trxB = new TransactionImpl(amount, timeB);
+        assertNotEquals(trxA, trxB);
+    }
+    
     private static class TransactionImpl extends Transaction {
         
         @Override
