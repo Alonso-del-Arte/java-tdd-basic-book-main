@@ -59,6 +59,16 @@ public class TransactionTest {
     }
     
     @Test
+    public void testGetAmount() {
+        System.out.println("getAmount");
+        CurrencyAmount expected = chooseAmount();
+        LocalDateTime date = chooseDate();
+        Transaction trx = new TransactionImpl(expected, date);
+        CurrencyAmount actual = trx.getAmount();
+        assertEquals(expected, actual);
+    }
+    
+    @Test
     public void testReferentialEquality() {
         Transaction trx = new TransactionImpl(chooseAmount(), chooseDate());
         assertEquals(trx, trx);
