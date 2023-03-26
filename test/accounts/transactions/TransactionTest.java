@@ -88,16 +88,16 @@ public class TransactionTest {
         assertEquals(someTransaction, sameTransaction);
     }
     
-//    @Test
-//    public void testNotEqualsDiffAmount() {
-//        LocalDateTime time = LocalDateTime.now();
-//        CurrencyAmount amountA = chooseAmount();
-//        CurrencyAmount oneDollar = new CurrencyAmount(100, DOLLARS);
-//        CurrencyAmount amountB = amountA.plus(oneDollar);
-//        Transaction trxA = new TransactionImpl(amountA, time);
-//        Transaction trxB = new TransactionImpl(amountB, time);
-//        assertNotEquals(trxA, trxB);
-//    }
+    @Test
+    public void testNotEqualsDiffAmount() {
+        LocalDateTime time = LocalDateTime.now();
+        CurrencyAmount amountA = chooseAmount();
+        CurrencyAmount oneDollar = new CurrencyAmount(100, DOLLARS);
+        CurrencyAmount amountB = amountA.plus(oneDollar);
+        Transaction trxA = new TransactionImpl(amountA, time);
+        Transaction trxB = new TransactionImpl(amountB, time);
+        assertNotEquals(trxA, trxB);
+    }
     
     private static class TransactionImpl extends Transaction {
         
