@@ -5,18 +5,18 @@
  */
 package accounts.transactions.comparators;
 
+import static accounts.AccountTest.DEFAULT_INITIAL_DEPOSIT;
+import static accounts.AccountTest.DOLLARS;
+import static accounts.AccountTest.RANDOM;
+import static accounts.transactions.TransactionTest.makeDeposit;
+import static accounts.transactions.TransactionTest.makeWithdrawal;
+
 import accounts.transactions.Comment;
 import accounts.transactions.Deposit;
 import accounts.transactions.Transaction;
 import accounts.transactions.Withdrawal;
 import currency.CurrencyAmount;
 import currency.CurrencyConversionNeededException;
-
-import static accounts.AccountTest.DEFAULT_INITIAL_DEPOSIT;
-import static accounts.AccountTest.DOLLARS;
-import static accounts.AccountTest.RANDOM;
-import static accounts.transactions.TransactionTest.makeDeposit;
-import static accounts.transactions.TransactionTest.makeWithdrawal;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -33,10 +33,32 @@ import static org.junit.Assert.*;
  */
 public class AmountComparatorTest {
     
-//    @Test
+    @Test
     public void testCompareNoCompareForDifferentCurrencies() {
-        int cents;
-        //Currency
+        int cents = RANDOM.nextInt(1048576) + 1;
+        Currency canadianDollars = Currency.getInstance(Locale.CANADA);
+        Currency swissFrancs = Currency.getInstance("CHF");
+        CurrencyAmount amountA = new CurrencyAmount(cents, canadianDollars);
+        CurrencyAmount amountB = new CurrencyAmount(cents, swissFrancs);
+        LocalDateTime date = LocalDateTime.now();
+        Transaction depositA = new Deposit(amountA, date);
+        Transaction depositB = new Deposit(amountB, date);
+        AmountComparator comparator = new AmountComparator();
+        String msgPart = "Trying to compare " + depositA.toString() + " to " 
+                + depositB.toString() + " ";
+        try {
+            int badResult = comparator.compare(depositA, depositB);
+            String msg = msgPart + "should not have given result " + badResult;
+            fail(msg);
+        } catch (CurrencyConversionNeededException curConvNeedExc) {
+            System.out.println(msgPart 
+                    + " correctly caused CurrencyConversionNeededException");
+            System.out.println("\"" + curConvNeedExc.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = msgPart + " should not have caused " 
+                    + re.getClass().getName();
+            fail(msg);
+        }
     }
     
     /**
