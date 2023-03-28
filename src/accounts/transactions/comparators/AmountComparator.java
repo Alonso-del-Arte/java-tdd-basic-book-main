@@ -7,8 +7,10 @@ package accounts.transactions.comparators;
 
 import accounts.transactions.Transaction;
 import currency.CurrencyAmount;
+import currency.CurrencyConversionNeededException;
 
 import java.util.Comparator;
+import java.util.Currency;
 
 /**
  *
@@ -16,9 +18,18 @@ import java.util.Comparator;
  */
 public class AmountComparator implements Comparator<Transaction> {
 
-    // TODO: Write tests for this
     @Override
     public int compare(Transaction trxA, Transaction trxB) {
+        CurrencyAmount amountA = trxA.getAmount();
+        CurrencyAmount amountB = trxB.getAmount();
+        Currency currencyA = amountA.getCurrency();
+        Currency currencyB = amountB.getCurrency();
+        if (currencyA != currencyB) {
+            String excMsg = "Currency conversion needed to compare " 
+                    + trxA.toString() + " to " + trxB.toString();
+            throw new CurrencyConversionNeededException(excMsg, amountA, 
+                    amountB);
+        }
         return 0;
     }
     
