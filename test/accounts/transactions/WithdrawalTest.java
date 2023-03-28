@@ -5,6 +5,9 @@
  */
 package accounts.transactions;
 
+import static accounts.AccountTest.DOLLARS;
+import static accounts.AccountTest.RANDOM;
+
 import currency.CurrencyAmount;
 
 import java.time.LocalDateTime;
@@ -23,9 +26,8 @@ public class WithdrawalTest {
     @Test
     public void testGetAmount() {
         System.out.println("getAmount");
-        int cents = -TransactionTest.RANDOM.nextInt(262144) - 1;
-        CurrencyAmount expected = new CurrencyAmount(cents, 
-                TransactionTest.DOLLARS);
+        int cents = -RANDOM.nextInt(262144) - 1;
+        CurrencyAmount expected = new CurrencyAmount(cents, DOLLARS);
         Withdrawal withdrawal = new Withdrawal(expected, LocalDateTime.now());
         CurrencyAmount actual = withdrawal.getAmount();
         assertEquals(expected, actual);
@@ -34,10 +36,9 @@ public class WithdrawalTest {
     @Test
     public void testGetTime() {
         System.out.println("getTime");
-        CurrencyAmount amount = new CurrencyAmount(-100, 
-                TransactionTest.DOLLARS);
+        CurrencyAmount amount = new CurrencyAmount(-100, DOLLARS);
         LocalDateTime expected = LocalDateTime.now()
-                .minusHours(TransactionTest.RANDOM.nextInt(72) + 1);
+                .minusHours(RANDOM.nextInt(72) + 1);
         Withdrawal withdrawal = new Withdrawal(amount, expected);
         LocalDateTime actual = withdrawal.getTime();
         assertEquals(expected, actual);
@@ -46,8 +47,7 @@ public class WithdrawalTest {
     @Test
     public void testGetDescription() {
         System.out.println("getDescription");
-        CurrencyAmount amount = new CurrencyAmount(-100, 
-                TransactionTest.DOLLARS);
+        CurrencyAmount amount = new CurrencyAmount(-100, DOLLARS);
         Withdrawal withdrawal = new Withdrawal(amount, LocalDateTime.now());
         String expected = "Withdrawal";
         String actual = withdrawal.getDescription();
@@ -87,9 +87,8 @@ public class WithdrawalTest {
     @Test
     public void testNotEqualsWithdrawalForDifferentAmount() {
         LocalDateTime time = LocalDateTime.now();
-        int cents = -TransactionTest.RANDOM.nextInt(10000) - 1;
-        CurrencyAmount amountA = new CurrencyAmount(cents, 
-                TransactionTest.DOLLARS);
+        int cents = -RANDOM.nextInt(10000) - 1;
+        CurrencyAmount amountA = new CurrencyAmount(cents, DOLLARS);
         Withdrawal withdrawalA = new Withdrawal(amountA, time);
         CurrencyAmount amountB = amountA.times(2);
         Withdrawal withdrawalB = new Withdrawal(amountB, time);
@@ -99,9 +98,8 @@ public class WithdrawalTest {
     @Test
     public void testEquals() {
         System.out.println("equals");
-        int cents = -TransactionTest.RANDOM.nextInt(10000) - 1;
-        CurrencyAmount amount = new CurrencyAmount(cents, 
-                TransactionTest.DOLLARS);
+        int cents = -RANDOM.nextInt(10000) - 1;
+        CurrencyAmount amount = new CurrencyAmount(cents, DOLLARS);
         LocalDateTime time = LocalDateTime.now();
         Withdrawal someWithdrawal = new Withdrawal(amount, time);
         Withdrawal sameWithdrawal = new Withdrawal(amount, time);
@@ -112,9 +110,8 @@ public class WithdrawalTest {
     public void testNotEqualsWithdrawalForDifferentTime() {
         LocalDateTime timeA = LocalDateTime.now();
         LocalDateTime timeB = timeA.plusHours(1);
-        int cents = -TransactionTest.RANDOM.nextInt(10000) - 1;
-        CurrencyAmount amount = new CurrencyAmount(cents, 
-                TransactionTest.DOLLARS);
+        int cents = -RANDOM.nextInt(10000) - 1;
+        CurrencyAmount amount = new CurrencyAmount(cents, DOLLARS);
         Withdrawal withdrawalA = new Withdrawal(amount, timeA);
         Withdrawal withdrawalB = new Withdrawal(amount, timeB);
         assertNotEquals(withdrawalA, withdrawalB);
@@ -123,7 +120,7 @@ public class WithdrawalTest {
     @Test
     public void testHashCode() {
         System.out.println("hashCode");
-        int capacity = TransactionTest.RANDOM.nextInt(32) + 8;
+        int capacity = RANDOM.nextInt(32) + 8;
         Set<Withdrawal> withdrawals = new HashSet<>(capacity);
         Set<Integer> hashes = new HashSet<>(capacity);
         while (withdrawals.size() < capacity) {
@@ -138,8 +135,7 @@ public class WithdrawalTest {
     
     @Test
     public void testConstructorRejectsZeroDollars() {
-        CurrencyAmount badAmount = new CurrencyAmount(0, 
-                TransactionTest.DOLLARS);
+        CurrencyAmount badAmount = new CurrencyAmount(0, DOLLARS);
         LocalDateTime time = LocalDateTime.now();
         try {
             Withdrawal badWithdrawal = new Withdrawal(badAmount, time);
@@ -161,9 +157,8 @@ public class WithdrawalTest {
     
     @Test
     public void testConstructorRejectsPositiveDollars() {
-        int cents = TransactionTest.RANDOM.nextInt(524288) + 1;
-        CurrencyAmount badAmount = new CurrencyAmount(cents,  
-                TransactionTest.DOLLARS);
+        int cents = RANDOM.nextInt(524288) + 1;
+        CurrencyAmount badAmount = new CurrencyAmount(cents, DOLLARS);
         LocalDateTime time = LocalDateTime.now();
         try {
             Withdrawal badWithdrawal = new Withdrawal(badAmount, time);

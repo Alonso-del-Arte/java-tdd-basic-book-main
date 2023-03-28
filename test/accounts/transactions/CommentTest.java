@@ -5,6 +5,9 @@
  */
 package accounts.transactions;
 
+import static accounts.AccountTest.DOLLARS;
+import static accounts.AccountTest.RANDOM;
+
 import currency.CurrencyAmount;
 
 import java.time.LocalDateTime;
@@ -30,9 +33,8 @@ public class CommentTest {
     @Test
     public void testGetAmount() {
         System.out.println("getAmount");
-        CurrencyAmount expected = new CurrencyAmount(0, 
-                TransactionTest.DOLLARS);
-        Comment comment = new Comment(TransactionTest.DOLLARS, 
+        CurrencyAmount expected = new CurrencyAmount(0, DOLLARS);
+        Comment comment = new Comment(DOLLARS, 
                 LocalDateTime.now(), DEFAULT_DESCRIPTION);
         CurrencyAmount actual = comment.getAmount();
         assertEquals(expected, actual);
@@ -42,9 +44,8 @@ public class CommentTest {
     public void testGetTime() {
         System.out.println("getTime");
         LocalDateTime expected = LocalDateTime.now()
-                .minusHours(TransactionTest.RANDOM.nextInt(72) + 1);
-        Comment comment = new Comment(TransactionTest.DOLLARS, expected, 
-                DEFAULT_DESCRIPTION);
+                .minusHours(RANDOM.nextInt(72) + 1);
+        Comment comment = new Comment(DOLLARS, expected, DEFAULT_DESCRIPTION);
         LocalDateTime actual = comment.getTime();
         assertEquals(expected, actual);
     }
@@ -52,8 +53,8 @@ public class CommentTest {
     @Test
     public void testGetDescription() {
         System.out.println("getDescription");
-        Comment comment = new Comment(TransactionTest.DOLLARS, 
-                LocalDateTime.now(), DEFAULT_DESCRIPTION);
+        Comment comment = new Comment(DOLLARS, LocalDateTime.now(), 
+                DEFAULT_DESCRIPTION);
         String expected = "Comment: " + DEFAULT_DESCRIPTION;
         String actual = comment.getDescription();
         assertEquals(expected, actual);
@@ -62,10 +63,9 @@ public class CommentTest {
     @Test
     public void testToString() {
         System.out.println("toString");
-        int points = TransactionTest.RANDOM.nextInt(1000);
+        int points = RANDOM.nextInt(1000);
         String desc = points + PARTIAL_REWARDS_POINT_MESSAGE;
-        Comment comment = new Comment(TransactionTest.DOLLARS, 
-                LocalDateTime.now(), desc);
+        Comment comment = new Comment(DOLLARS, LocalDateTime.now(), desc);
         String expected = "Comment: " + desc;
         String actual = comment.toString();
         assertEquals(expected, actual);
@@ -73,22 +73,22 @@ public class CommentTest {
     
     @Test
     public void testReferentialEquality() {
-        Comment comment = new Comment(TransactionTest.DOLLARS, 
-                LocalDateTime.now(), DEFAULT_DESCRIPTION);
+        Comment comment = new Comment(DOLLARS, LocalDateTime.now(), 
+                DEFAULT_DESCRIPTION);
         assertEquals(comment, comment);
     }
     
     @Test
     public void testNotEqualsNull() {
-        Comment comment = new Comment(TransactionTest.DOLLARS, 
-                LocalDateTime.now(), DEFAULT_DESCRIPTION);
+        Comment comment = new Comment(DOLLARS, LocalDateTime.now(), 
+                DEFAULT_DESCRIPTION);
         assertNotEquals(comment, null);
     }
     
     @Test
     public void testNotEqualsDiffClass() {
-        Comment comment = new Comment(TransactionTest.DOLLARS, 
-                LocalDateTime.now(), DEFAULT_DESCRIPTION);
+        Comment comment = new Comment(DOLLARS, LocalDateTime.now(), 
+                DEFAULT_DESCRIPTION);
         Transaction nonCommentTrx = TransactionTest.makeTransaction();
         assertNotEquals(comment, nonCommentTrx);
     }
@@ -96,8 +96,7 @@ public class CommentTest {
     @Test
     public void testNotEqualsDiffCurrency() {
         LocalDateTime curr = LocalDateTime.now();
-        Comment commentA = new Comment(TransactionTest.DOLLARS, curr, 
-                DEFAULT_DESCRIPTION);
+        Comment commentA = new Comment(DOLLARS, curr, DEFAULT_DESCRIPTION);
         Comment commentB = new Comment(Currency.getInstance("EUR"), curr, 
                 DEFAULT_DESCRIPTION);
         assertNotEquals(commentA, commentB);
@@ -107,18 +106,16 @@ public class CommentTest {
     public void testEquals() {
         System.out.println("equals");
         LocalDateTime curr = LocalDateTime.now();
-        Comment someComment = new Comment(TransactionTest.DOLLARS, curr, 
-                DEFAULT_DESCRIPTION);
-        Comment sameComment = new Comment(TransactionTest.DOLLARS, curr, 
-                DEFAULT_DESCRIPTION);
+        Comment someComment = new Comment(DOLLARS, curr, DEFAULT_DESCRIPTION);
+        Comment sameComment = new Comment(DOLLARS, curr, DEFAULT_DESCRIPTION);
         assertEquals(someComment, sameComment);
     }
     
     @Test
     public void testNotEqualsDiffDate() {
-        Comment commentA = new Comment(TransactionTest.DOLLARS, 
-                LocalDateTime.now(), DEFAULT_DESCRIPTION);
-        Comment commentB = new Comment(TransactionTest.DOLLARS, 
+        Comment commentA = new Comment(DOLLARS, LocalDateTime.now(), 
+                DEFAULT_DESCRIPTION);
+        Comment commentB = new Comment(DOLLARS, 
                 LocalDateTime.now().minusDays(1), DEFAULT_DESCRIPTION);
         assertNotEquals(commentA, commentB);
     }
@@ -126,9 +123,8 @@ public class CommentTest {
     @Test
     public void testNotEqualsDiffText() {
         LocalDateTime curr = LocalDateTime.now();
-        Comment commentA = new Comment(TransactionTest.DOLLARS, curr, 
-                DEFAULT_DESCRIPTION);
-        Comment commentB = new Comment(TransactionTest.DOLLARS, curr, 
+        Comment commentA = new Comment(DOLLARS, curr, DEFAULT_DESCRIPTION);
+        Comment commentB = new Comment(DOLLARS, curr, 
                 DEFAULT_DESCRIPTION.toUpperCase());
         assertNotEquals(commentA, commentB);
     }
@@ -136,15 +132,14 @@ public class CommentTest {
     @Test
     public void testHashCode() {
         System.out.println("hashCode");
-        int capacity = TransactionTest.RANDOM.nextInt(32) + 8;
+        int capacity = RANDOM.nextInt(32) + 8;
         Set<Comment> comments = new HashSet<>(capacity);
         Set<Integer> hashes = new HashSet<>(capacity);
         int offset = 100;
         int end = offset + capacity;
         for (int i = offset; i < end; i++) {
             String text = i + PARTIAL_REWARDS_POINT_MESSAGE;
-            Comment comment = new Comment(TransactionTest.DOLLARS, 
-                    LocalDateTime.now(), text);
+            Comment comment = new Comment(DOLLARS, LocalDateTime.now(), text);
             comments.add(comment);
             hashes.add(comment.hashCode());
         }

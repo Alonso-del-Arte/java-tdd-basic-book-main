@@ -32,7 +32,7 @@ public class AccountTest {
     public static final Deposit DEFAULT_INITIAL_DEPOSIT 
             = new Deposit(DEFAULT_INITIAL_DEPOSIT_AMOUNT, LocalDateTime.now());
     
-    static final Random RANDOM = new Random();
+    public static final Random RANDOM = new Random();
     
     // TODO: Write tests
     

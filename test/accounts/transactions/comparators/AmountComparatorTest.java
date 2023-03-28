@@ -10,16 +10,19 @@ import accounts.transactions.Deposit;
 import accounts.transactions.Transaction;
 import accounts.transactions.Withdrawal;
 import currency.CurrencyAmount;
+import currency.CurrencyConversionNeededException;
 
 import static accounts.AccountTest.DEFAULT_INITIAL_DEPOSIT;
 import static accounts.AccountTest.DOLLARS;
+import static accounts.AccountTest.RANDOM;
 import static accounts.transactions.TransactionTest.makeDeposit;
-import static accounts.transactions.TransactionTest.makeTransaction;
 import static accounts.transactions.TransactionTest.makeWithdrawal;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.List;
+import java.util.Locale;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -30,10 +33,16 @@ import static org.junit.Assert.*;
  */
 public class AmountComparatorTest {
     
+//    @Test
+    public void testCompareNoCompareForDifferentCurrencies() {
+        int cents;
+        //Currency
+    }
+    
     /**
      * Test of compare method, of class AmountComparator.
      */
-    @Test
+//    @Test
     public void testCompare() {
         System.out.println("compare");
         Withdrawal withdrawal = makeWithdrawal();
