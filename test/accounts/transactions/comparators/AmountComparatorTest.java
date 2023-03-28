@@ -62,9 +62,9 @@ public class AmountComparatorTest {
     }
     
     /**
-     * Test of compare method, of class AmountComparator.
+     * Test of the compare function, of the AmountComparator class.
      */
-//    @Test
+    @Test
     public void testCompare() {
         System.out.println("compare");
         Withdrawal withdrawal = makeWithdrawal();
