@@ -5,6 +5,7 @@
  */
 package accounts.transactions;
 
+import static accounts.AccountTest.DEFAULT_NUMBER_OF_MONTHS_TO_BACKDATE;
 import static accounts.AccountTest.DOLLARS;
 import static accounts.AccountTest.RANDOM;
 
@@ -34,7 +35,8 @@ public class TransactionTest {
     }
     
     private static LocalDateTime chooseDate() {
-        int backdate = RANDOM.nextInt(HOURS_IN_A_MONTH);
+        int backdate = RANDOM.nextInt(HOURS_IN_A_MONTH 
+                * DEFAULT_NUMBER_OF_MONTHS_TO_BACKDATE);
         return LocalDateTime.now().minusHours(backdate);
     }
     

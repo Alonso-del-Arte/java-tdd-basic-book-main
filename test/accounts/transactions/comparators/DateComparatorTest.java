@@ -5,6 +5,12 @@
  */
 package accounts.transactions.comparators;
 
+import static accounts.AccountTest.DEFAULT_INITIAL_DEPOSIT;
+import static accounts.AccountTest.DOLLARS;
+import static accounts.AccountTest.RANDOM;
+import static accounts.transactions.TransactionTest.makeDeposit;
+import static accounts.transactions.TransactionTest.makeWithdrawal;
+
 import accounts.transactions.Comment;
 import accounts.transactions.Deposit;
 import accounts.transactions.Transaction;
@@ -19,25 +25,36 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Tests of the DateComparator class.
  * @author Alonso del Arte
  */
 public class DateComparatorTest {
     
     /**
-     * Test of compare method, of class DateComparator.
+     * Test of the compare function, of the DateComparator class.
      */
     @Test
     public void testCompare() {
         System.out.println("compare");
-        Transaction trxA = null;
-        Transaction trxB = null;
-        DateComparator instance = new DateComparator();
-        int expResult = 0;
-        int result = instance.compare(trxA, trxB);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Withdrawal pastWithdrawal = makeWithdrawal();
+        LocalDateTime now = LocalDateTime.now();
+        Comment todaysComment = new Comment(DOLLARS, now, 
+                "$0.00 transaction for testing purposes");
+        CurrencyAmount amount = makeDeposit().getAmount();
+        LocalDateTime tomorrow = now.plusDays(1);
+        Deposit futureDeposit = new Deposit(amount, tomorrow);
+        List<Transaction> expected = new ArrayList<>();
+        expected.add(DEFAULT_INITIAL_DEPOSIT);
+        expected.add(pastWithdrawal);
+        expected.add(todaysComment);
+        expected.add(futureDeposit);
+        List<Transaction> actual = new ArrayList<>();
+        actual.add(todaysComment);
+        actual.add(futureDeposit);
+        actual.add(DEFAULT_INITIAL_DEPOSIT);
+        actual.add(pastWithdrawal);
+        actual.sort(new DateComparator());
+        assertEquals(expected, actual);
     }
     
 }
