@@ -7,7 +7,6 @@ package accounts.transactions.comparators;
 
 import static accounts.AccountTest.DEFAULT_INITIAL_DEPOSIT;
 import static accounts.AccountTest.DOLLARS;
-import static accounts.AccountTest.RANDOM;
 import static accounts.transactions.TransactionTest.makeDeposit;
 import static accounts.transactions.TransactionTest.makeWithdrawal;
 

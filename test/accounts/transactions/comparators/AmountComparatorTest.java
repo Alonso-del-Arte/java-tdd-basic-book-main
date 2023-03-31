@@ -33,6 +33,11 @@ import static org.junit.Assert.*;
  */
 public class AmountComparatorTest {
     
+    /**
+     * Another test of the compare function, of the AmountComparator class. 
+     * Trying to compare amounts of different currencies should cause an 
+     * exception indicating the need for a currency conversion.
+     */
     @Test
     public void testCompareNoCompareForDifferentCurrencies() {
         int cents = RANDOM.nextInt(1048576) + 1;
@@ -52,10 +57,10 @@ public class AmountComparatorTest {
             fail(msg);
         } catch (CurrencyConversionNeededException curConvNeedExc) {
             System.out.println(msgPart 
-                    + " correctly caused CurrencyConversionNeededException");
+                    + "correctly caused CurrencyConversionNeededException");
             System.out.println("\"" + curConvNeedExc.getMessage() + "\"");
         } catch (RuntimeException re) {
-            String msg = msgPart + " should not have caused " 
+            String msg = msgPart + "should not have caused " 
                     + re.getClass().getName();
             fail(msg);
         }
