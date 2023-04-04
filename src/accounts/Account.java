@@ -26,7 +26,7 @@ public class Account {
     final List<Transaction> HISTORY = new ArrayList<>();
     
     public void process(Transaction trx) {
-        // TODO: Write tests for this
+        this.HISTORY.add(trx);
     }
     
     public CurrencyAmount getBalance() {
@@ -34,11 +34,12 @@ public class Account {
     }
     
     public List<Transaction> getHistory() {
-        return new ArrayList<>();
+        return this.HISTORY;
     }
     
     public Account(Entity primary, Entity secondary, Deposit initialDeposit) {
         this.balance = initialDeposit.getAmount();
+        this.HISTORY.add(initialDeposit);
     }
     
 }
