@@ -38,7 +38,7 @@ public class Account {
     }
     
     public Account(Entity primary, Entity secondary, Deposit initialDeposit) {
-        //
+        this.balance = initialDeposit.getAmount();
     }
     
 }
