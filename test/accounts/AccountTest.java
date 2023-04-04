@@ -7,13 +7,16 @@ package accounts;
 
 import accounts.transactions.Deposit;
 import accounts.transactions.Transaction;
+import static accounts.transactions.TransactionTest.makeTransaction;
 import accounts.transactions.Withdrawal;
 import currency.CurrencyAmount;
 import entities.Entity;
 import static entities.ExampleEntities.EXAMPLE_CUSTOMER;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Currency;
+import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
@@ -71,6 +74,22 @@ public class AccountTest {
         Deposit deposit = new Deposit(expected, LocalDateTime.now());
         Account account = new AccountImpl(EXAMPLE_CUSTOMER, null, deposit);
         CurrencyAmount actual = account.balance;
+        assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testProcess() {
+        System.out.println("process");
+        Deposit initialDeposit = new Deposit(DEFAULT_INITIAL_DEPOSIT_AMOUNT, 
+                LocalDateTime.now());
+        Account account = new AccountImpl(EXAMPLE_CUSTOMER, null, 
+                initialDeposit);
+        Transaction secondTrx = makeTransaction();
+        account.process(secondTrx);
+        List<Transaction> expected = new ArrayList<>();
+        expected.add(initialDeposit);
+        expected.add(secondTrx);
+        List<Transaction> actual = account.getHistory();
         assertEquals(expected, actual);
     }
     
