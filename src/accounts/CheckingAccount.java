@@ -20,6 +20,16 @@ import java.util.List;
  */
 public class CheckingAccount extends Account {
     
+    @Override
+    public void process(Transaction trx) {
+        this.HISTORY.add(trx);
+    }
+    
+    @Override
+    public List<Transaction> getHistory() {
+        return this.HISTORY;
+    }
+    
     public CheckingAccount(Entity primary, Deposit initialDeposit) {
         this(primary, null, initialDeposit);
     }
@@ -27,6 +37,7 @@ public class CheckingAccount extends Account {
     public CheckingAccount(Entity primary, Entity secondary, 
             Deposit initialDeposit) {
         super(primary, secondary, initialDeposit);
+        this.HISTORY.add(initialDeposit);
     }
     
 }
