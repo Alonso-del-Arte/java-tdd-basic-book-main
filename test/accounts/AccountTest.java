@@ -9,6 +9,8 @@ import accounts.transactions.Deposit;
 import accounts.transactions.Transaction;
 import accounts.transactions.Withdrawal;
 import currency.CurrencyAmount;
+import entities.Entity;
+import static entities.ExampleEntities.EXAMPLE_CUSTOMER;
 
 import java.time.LocalDateTime;
 import java.util.Currency;
@@ -62,6 +64,23 @@ public class AccountTest {
      */
     public static final Random RANDOM = new Random();
     
-    // TODO: Write tests
+    @Test
+    public void testBalanceReflectsInitialDeposit() {
+        int cents = 10000 + AccountTest.RANDOM.nextInt(10000);
+        CurrencyAmount expected = new CurrencyAmount(cents, DOLLARS);
+        Deposit deposit = new Deposit(expected, LocalDateTime.now());
+        Account account = new AccountImpl(EXAMPLE_CUSTOMER, null, deposit);
+        CurrencyAmount actual = account.balance;
+        assertEquals(expected, actual);
+    }
+    
+    public static class AccountImpl extends Account {
+
+        public AccountImpl(Entity primary, Entity secondary, 
+                Deposit initialDeposit) {
+            super(primary, secondary, initialDeposit);
+        }
+        
+    }
     
 }
