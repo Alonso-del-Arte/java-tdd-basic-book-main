@@ -93,6 +93,25 @@ public class AccountTest {
         assertEquals(expected, actual);
     }
     
+    @Test
+    public void testGetHistory() {
+        System.out.println("getHistory");
+        Deposit initialDeposit = new Deposit(AccountTest
+                .DEFAULT_INITIAL_DEPOSIT_AMOUNT, 
+                LocalDateTime.now());
+        Account account = new AccountImpl(EXAMPLE_CUSTOMER, null, 
+                initialDeposit);
+        Transaction secondTrx = makeTransaction();
+        account.process(secondTrx);
+        List<Transaction> expected = new ArrayList<>();
+        expected.add(initialDeposit);
+        expected.add(secondTrx);
+        List<Transaction> list = account.getHistory();
+        list.add(makeTransaction());
+        List<Transaction> actual = account.getHistory();
+        assertEquals(expected, actual);
+    }
+    
     public static class AccountImpl extends Account {
 
         public AccountImpl(Entity primary, Entity secondary, 
