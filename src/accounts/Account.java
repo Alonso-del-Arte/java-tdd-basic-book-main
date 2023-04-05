@@ -34,7 +34,7 @@ public class Account {
     }
     
     public List<Transaction> getHistory() {
-        return this.HISTORY;
+        return new ArrayList<>(this.HISTORY);
     }
     
     public Account(Entity primary, Entity secondary, Deposit initialDeposit) {
