@@ -20,11 +20,6 @@ import java.util.List;
  */
 public class SavingsAccount extends Account {
     
-    @Override
-    public List<Transaction> getHistory() {
-        return new ArrayList<>(this.HISTORY);
-    }
-    
     public SavingsAccount(Entity primary, Deposit initialDeposit) {
         this(primary, null, initialDeposit);
     }
