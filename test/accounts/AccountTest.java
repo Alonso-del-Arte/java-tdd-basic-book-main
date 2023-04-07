@@ -37,6 +37,8 @@ public class AccountTest {
      */
     public static final Currency DOLLARS = Currency.getInstance(Locale.US);
     
+    public static final int DEFAULT_INITIAL_DEPOSIT_AMOUNT_CENTS = 524288;
+    
     /**
      * The default initial deposit amount, $5242.88. This amount was chosen so 
      * as to allow several withdrawals of small amounts without overdrawing a 
@@ -44,7 +46,7 @@ public class AccountTest {
      * simply select an amount greater than this.
      */
     public static final CurrencyAmount DEFAULT_INITIAL_DEPOSIT_AMOUNT 
-            = new CurrencyAmount(524288, DOLLARS);
+            = new CurrencyAmount(DEFAULT_INITIAL_DEPOSIT_AMOUNT_CENTS, DOLLARS);
     
     /**
      * How many months to backdate the default initial deposit. Then other test 
@@ -114,15 +116,12 @@ public class AccountTest {
     @Test
     public void testGetHistory() {
         System.out.println("getHistory");
-        Deposit initialDeposit = new Deposit(AccountTest
-                .DEFAULT_INITIAL_DEPOSIT_AMOUNT, 
-                LocalDateTime.now());
         Account account = new AccountImpl(EXAMPLE_CUSTOMER, null, 
-                initialDeposit);
+                DEFAULT_INITIAL_DEPOSIT);
         Transaction secondTrx = makeTransaction();
         account.process(secondTrx);
         List<Transaction> expected = new ArrayList<>();
-        expected.add(initialDeposit);
+        expected.add(DEFAULT_INITIAL_DEPOSIT);
         expected.add(secondTrx);
         List<Transaction> list = account.getHistory();
         list.add(makeTransaction());

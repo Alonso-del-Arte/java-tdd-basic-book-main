@@ -41,7 +41,7 @@ public class SavingsAccountTest {
     public void testProcess() {
         System.out.println("process");
         SavingsAccount account = new SavingsAccount(EXAMPLE_CUSTOMER, 
-                        AccountTest.DEFAULT_INITIAL_DEPOSIT);
+                AccountTest.DEFAULT_INITIAL_DEPOSIT);
         Transaction secondTrx = makeTransaction();
         account.process(secondTrx);
         List<Transaction> expected = new ArrayList<>();
@@ -55,7 +55,7 @@ public class SavingsAccountTest {
     public void testGetHistory() {
         System.out.println("getHistory");
         SavingsAccount account = new SavingsAccount(EXAMPLE_CUSTOMER, 
-                        AccountTest.DEFAULT_INITIAL_DEPOSIT);
+                AccountTest.DEFAULT_INITIAL_DEPOSIT);
         Transaction secondTrx = makeTransaction();
         account.process(secondTrx);
         List<Transaction> expected = new ArrayList<>();

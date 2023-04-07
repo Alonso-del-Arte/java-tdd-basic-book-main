@@ -5,6 +5,7 @@
  */
 package accounts.transactions;
 
+import static accounts.AccountTest.DEFAULT_INITIAL_DEPOSIT_AMOUNT_CENTS;
 import static accounts.AccountTest.DEFAULT_NUMBER_OF_MONTHS_TO_BACKDATE;
 import static accounts.AccountTest.DOLLARS;
 import static accounts.AccountTest.RANDOM;
@@ -23,10 +24,13 @@ import static org.junit.Assert.*;
  */
 public class TransactionTest {
     
+    public static final int DEFAULT_TRANSACTION_CENTS 
+            = DEFAULT_INITIAL_DEPOSIT_AMOUNT_CENTS / 16;
+    
     private static final int HOURS_IN_A_MONTH = 720;
     
     private static CurrencyAmount choosePositiveAmount() {
-        int cents = RANDOM.nextInt(262144) + 1;
+        int cents = RANDOM.nextInt(DEFAULT_TRANSACTION_CENTS) + 1;
         return new CurrencyAmount(cents, DOLLARS);
     }
     

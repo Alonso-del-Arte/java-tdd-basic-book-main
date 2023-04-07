@@ -10,8 +10,10 @@ import accounts.transactions.Transaction;
 import accounts.transactions.Withdrawal;
 import currency.CurrencyAmount;
 
-import static entities.ExampleEntities.EXAMPLE_CUSTOMER;
+import static accounts.transactions.TransactionTest.DEFAULT_TRANSACTION_CENTS;
 import static accounts.transactions.TransactionTest.makeTransaction;
+import static accounts.transactions.TransactionTest.makeWithdrawal;
+import static entities.ExampleEntities.EXAMPLE_CUSTOMER;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -42,7 +44,7 @@ public class CheckingAccountTest {
     public void testProcess() {
         System.out.println("process");
         CheckingAccount account = new CheckingAccount(EXAMPLE_CUSTOMER, 
-                        AccountTest.DEFAULT_INITIAL_DEPOSIT);
+                AccountTest.DEFAULT_INITIAL_DEPOSIT);
         Transaction secondTrx = makeTransaction();
         account.process(secondTrx);
         List<Transaction> expected = new ArrayList<>();
@@ -56,7 +58,7 @@ public class CheckingAccountTest {
     public void testGetHistory() {
         System.out.println("getHistory");
         CheckingAccount account = new CheckingAccount(EXAMPLE_CUSTOMER, 
-                        AccountTest.DEFAULT_INITIAL_DEPOSIT);
+                AccountTest.DEFAULT_INITIAL_DEPOSIT);
         Transaction secondTrx = makeTransaction();
         account.process(secondTrx);
         List<Transaction> expected = new ArrayList<>();
@@ -68,25 +70,21 @@ public class CheckingAccountTest {
         AccountTest.assertContainsSame(expected, actual);
     }
     
-//    @Test
+    @Test
     public void testGetBalance() {
         System.out.println("getBalance");
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        fail("Haven't written test yet");
+        CheckingAccount account = new CheckingAccount(EXAMPLE_CUSTOMER, 
+                AccountTest.DEFAULT_INITIAL_DEPOSIT);
+        CurrencyAmount expected 
+                = AccountTest.DEFAULT_INITIAL_DEPOSIT.getAmount();
+        while (expected.getAmountInCents() > DEFAULT_TRANSACTION_CENTS) {
+            Withdrawal withdrawal = makeWithdrawal();
+            account.process(withdrawal);
+            expected = expected.plus(withdrawal.getAmount());
+            CurrencyAmount actual = account.getBalance();
+            assertEquals(expected, actual);
+        }
+        System.out.println("balance is " + account.getBalance().toString());
     }
     
 }
