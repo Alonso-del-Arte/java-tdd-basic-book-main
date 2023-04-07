@@ -7,7 +7,9 @@ package accounts;
 
 import accounts.transactions.Deposit;
 import accounts.transactions.Transaction;
+import static accounts.transactions.TransactionTest.DEFAULT_TRANSACTION_CENTS;
 import static accounts.transactions.TransactionTest.makeTransaction;
+import static accounts.transactions.TransactionTest.makeWithdrawal;
 import accounts.transactions.Withdrawal;
 import currency.CurrencyAmount;
 import static entities.ExampleEntities.EXAMPLE_CUSTOMER;
@@ -65,6 +67,22 @@ public class SavingsAccountTest {
         list.add(makeTransaction());
         List<Transaction> actual = account.getHistory();
         AccountTest.assertContainsSame(expected, actual);
+    }
+    
+    @Test
+    public void testGetBalance() {
+        System.out.println("getBalance");
+        SavingsAccount account = new SavingsAccount(EXAMPLE_CUSTOMER, 
+                AccountTest.DEFAULT_INITIAL_DEPOSIT);
+        CurrencyAmount expected 
+                = AccountTest.DEFAULT_INITIAL_DEPOSIT.getAmount();
+        while (expected.getAmountInCents() > DEFAULT_TRANSACTION_CENTS) {
+            Withdrawal withdrawal = makeWithdrawal();
+            account.process(withdrawal);
+            expected = expected.plus(withdrawal.getAmount());
+            CurrencyAmount actual = account.getBalance();
+            assertEquals(expected, actual);
+        }
     }
     
 }
