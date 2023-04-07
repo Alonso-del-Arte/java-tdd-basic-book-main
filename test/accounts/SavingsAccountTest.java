@@ -40,15 +40,12 @@ public class SavingsAccountTest {
     @Test
     public void testProcess() {
         System.out.println("process");
-        Deposit initialDeposit = new Deposit(AccountTest
-                .DEFAULT_INITIAL_DEPOSIT_AMOUNT, 
-                LocalDateTime.now());
         SavingsAccount account = new SavingsAccount(EXAMPLE_CUSTOMER, 
-                        initialDeposit);
+                        AccountTest.DEFAULT_INITIAL_DEPOSIT);
         Transaction secondTrx = makeTransaction();
         account.process(secondTrx);
         List<Transaction> expected = new ArrayList<>();
-        expected.add(initialDeposit);
+        expected.add(AccountTest.DEFAULT_INITIAL_DEPOSIT);
         expected.add(secondTrx);
         List<Transaction> actual = account.getHistory();
         AccountTest.assertContainsSame(expected, actual);
@@ -57,15 +54,12 @@ public class SavingsAccountTest {
     @Test
     public void testGetHistory() {
         System.out.println("getHistory");
-        Deposit initialDeposit = new Deposit(AccountTest
-                .DEFAULT_INITIAL_DEPOSIT_AMOUNT, 
-                LocalDateTime.now());
         SavingsAccount account = new SavingsAccount(EXAMPLE_CUSTOMER, 
-                        initialDeposit);
+                        AccountTest.DEFAULT_INITIAL_DEPOSIT);
         Transaction secondTrx = makeTransaction();
         account.process(secondTrx);
         List<Transaction> expected = new ArrayList<>();
-        expected.add(initialDeposit);
+        expected.add(AccountTest.DEFAULT_INITIAL_DEPOSIT);
         expected.add(secondTrx);
         List<Transaction> list = account.getHistory();
         list.add(makeTransaction());

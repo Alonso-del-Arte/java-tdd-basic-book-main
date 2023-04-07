@@ -100,14 +100,12 @@ public class AccountTest {
     @Test
     public void testProcess() {
         System.out.println("process");
-        Deposit initialDeposit = new Deposit(DEFAULT_INITIAL_DEPOSIT_AMOUNT, 
-                LocalDateTime.now());
         Account account = new AccountImpl(EXAMPLE_CUSTOMER, null, 
-                initialDeposit);
+                DEFAULT_INITIAL_DEPOSIT);
         Transaction secondTrx = makeTransaction();
         account.process(secondTrx);
         List<Transaction> expected = new ArrayList<>();
-        expected.add(initialDeposit);
+        expected.add(DEFAULT_INITIAL_DEPOSIT);
         expected.add(secondTrx);
         List<Transaction> actual = account.getHistory();
         assertContainsSame(expected, actual);
