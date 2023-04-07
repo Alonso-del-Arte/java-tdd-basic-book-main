@@ -84,7 +84,6 @@ public class CheckingAccountTest {
             CurrencyAmount actual = account.getBalance();
             assertEquals(expected, actual);
         }
-        System.out.println("balance is " + account.getBalance().toString());
     }
     
 }
