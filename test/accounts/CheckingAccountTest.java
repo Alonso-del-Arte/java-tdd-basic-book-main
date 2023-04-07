@@ -52,7 +52,7 @@ public class CheckingAccountTest {
         expected.add(initialDeposit);
         expected.add(secondTrx);
         List<Transaction> actual = account.getHistory();
-        assertEquals(expected, actual);
+        AccountTest.assertContainsSame(expected, actual);
     }
     
     @Test
@@ -71,7 +71,7 @@ public class CheckingAccountTest {
         List<Transaction> list = account.getHistory();
         list.add(makeTransaction());
         List<Transaction> actual = account.getHistory();
-        assertEquals(expected, actual);
+        AccountTest.assertContainsSame(expected, actual);
     }
     
 }

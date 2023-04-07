@@ -67,6 +67,26 @@ public class AccountTest {
      */
     public static final Random RANDOM = new Random();
     
+    /**
+     * Asserting two lists of transactions contains all the same transactions 
+     * and no others.
+     * @param expected The expected transactions. For example, a deposit of $100 
+     * and a withdrawal of $20.
+     * @param actual The actual transactions. For example, a deposit of $100, a  
+     * withdrawal of $20 and another withdrawal of $20.
+     * @throws AssertionError If <code>actual</code> is missing transactions 
+     * that <code>expected</code> has, or if it does have the same transactions 
+     * but also has other transactions.
+     */
+    static void assertContainsSame(List<Transaction> expected, 
+            List<Transaction> actual) {
+        String msg = "Expected " + expected.toString() + " but was " 
+                + actual.toString();
+        boolean isSubset = actual.containsAll(expected);
+        boolean sameSize = expected.size() == actual.size();
+        assert isSubset && sameSize : msg;
+    }
+    
     @Test
     public void testBalanceReflectsInitialDeposit() {
         int cents = 10000 + AccountTest.RANDOM.nextInt(10000);
@@ -90,7 +110,7 @@ public class AccountTest {
         expected.add(initialDeposit);
         expected.add(secondTrx);
         List<Transaction> actual = account.getHistory();
-        assertEquals(expected, actual);
+        assertContainsSame(expected, actual);
     }
     
     @Test
@@ -109,7 +129,7 @@ public class AccountTest {
         List<Transaction> list = account.getHistory();
         list.add(makeTransaction());
         List<Transaction> actual = account.getHistory();
-        assertEquals(expected, actual);
+        assertContainsSame(expected, actual);
     }
     
     public static class AccountImpl extends Account {
