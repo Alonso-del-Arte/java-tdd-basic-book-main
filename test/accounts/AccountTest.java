@@ -7,10 +7,13 @@ package accounts;
 
 import accounts.transactions.Deposit;
 import accounts.transactions.Transaction;
-import static accounts.transactions.TransactionTest.makeTransaction;
 import accounts.transactions.Withdrawal;
 import currency.CurrencyAmount;
 import entities.Entity;
+
+import static accounts.transactions.TransactionTest.DEFAULT_TRANSACTION_CENTS;
+import static accounts.transactions.TransactionTest.makeTransaction;
+import static accounts.transactions.TransactionTest.makeWithdrawal;
 import static entities.ExampleEntities.EXAMPLE_CUSTOMER;
 
 import java.time.LocalDateTime;
@@ -127,6 +130,21 @@ public class AccountTest {
         list.add(makeTransaction());
         List<Transaction> actual = account.getHistory();
         assertContainsSame(expected, actual);
+    }
+    
+    @Test
+    public void testGetBalance() {
+        System.out.println("getBalance");
+        Account account = new AccountImpl(EXAMPLE_CUSTOMER, null, 
+                DEFAULT_INITIAL_DEPOSIT);
+        CurrencyAmount expected = DEFAULT_INITIAL_DEPOSIT.getAmount();
+        while (expected.getAmountInCents() > DEFAULT_TRANSACTION_CENTS) {
+            Withdrawal withdrawal = makeWithdrawal();
+            account.process(withdrawal);
+            expected = expected.plus(withdrawal.getAmount());
+            CurrencyAmount actual = account.getBalance();
+            assertEquals(expected, actual);
+        }
     }
     
     public static class AccountImpl extends Account {
