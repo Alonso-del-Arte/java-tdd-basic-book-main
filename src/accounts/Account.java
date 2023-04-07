@@ -35,10 +35,11 @@ public class Account {
             boolean sufficiency = this.hasSufficientBalance((Withdrawal) trx);
         }
         this.HISTORY.add(trx);
+        this.balance = this.balance.plus(trx.getAmount());
     }
     
     public CurrencyAmount getBalance() {
-        return new CurrencyAmount(-1, java.util.Currency.getInstance("RUB"));
+        return this.balance;
     }
     
     public List<Transaction> getHistory() {
