@@ -20,17 +20,6 @@ import java.util.List;
  */
 public class SavingsAccount extends Account {
     
-    @Override
-    public void process(Transaction trx) {
-        super.process(trx);
-        this.balance = this.balance.plus(trx.getAmount());
-    }
-    
-    @Override
-    public CurrencyAmount getBalance() {
-        return this.balance;
-    }
-    
     public SavingsAccount(Entity primary, Deposit initialDeposit) {
         this(primary, null, initialDeposit);
     }

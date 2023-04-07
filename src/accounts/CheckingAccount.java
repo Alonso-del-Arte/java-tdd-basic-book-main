@@ -25,17 +25,6 @@ public class CheckingAccount extends Account {
         return true;
     }
     
-    @Override
-    public void process(Transaction trx) {
-        super.process(trx);
-        this.balance = this.balance.plus(trx.getAmount());
-    }
-    
-    @Override
-    public CurrencyAmount getBalance() {
-        return this.balance;
-    }
-    
     public CheckingAccount(Entity primary, Deposit initialDeposit) {
         this(primary, null, initialDeposit);
     }
