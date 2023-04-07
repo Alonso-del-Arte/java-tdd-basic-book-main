@@ -25,7 +25,15 @@ public class Account {
     
     final List<Transaction> HISTORY = new ArrayList<>();
     
+    // TODO: Write tests for this
+    public boolean hasSufficientBalance(Withdrawal withdrawal) {
+        return false;
+    }
+    
     public void process(Transaction trx) {
+        if (trx instanceof Withdrawal) {
+            boolean sufficiency = this.hasSufficientBalance((Withdrawal) trx);
+        }
         this.HISTORY.add(trx);
     }
     

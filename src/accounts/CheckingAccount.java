@@ -20,6 +20,11 @@ import java.util.List;
  */
 public class CheckingAccount extends Account {
     
+    // TODO: Write tests for this
+    public boolean hasAssociatedSavingsAccount() {
+        return true;
+    }
+    
     public CheckingAccount(Entity primary, Deposit initialDeposit) {
         this(primary, null, initialDeposit);
     }
