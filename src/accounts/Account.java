@@ -31,15 +31,16 @@ public class Account {
     }
     
     public void process(Transaction trx) {
-        if (trx instanceof Withdrawal) {
-            boolean sufficiency = this.hasSufficientBalance((Withdrawal) trx);
-        }
-        this.HISTORY.add(trx);
-        this.balance = this.balance.plus(trx.getAmount());
+//        if (trx instanceof Withdrawal) {
+//            boolean sufficiency = this.hasSufficientBalance((Withdrawal) trx);
+//        }
+//        this.HISTORY.add(trx);
+//        this.balance = this.balance.plus(trx.getAmount());
     }
     
     public CurrencyAmount getBalance() {
-        return this.balance;
+//        return this.balance;
+return new CurrencyAmount(-1, java.util.Currency.getInstance("RUB"));
     }
     
     public List<Transaction> getHistory() {
