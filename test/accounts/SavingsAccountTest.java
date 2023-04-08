@@ -12,6 +12,7 @@ import static accounts.transactions.TransactionTest.makeTransaction;
 import static accounts.transactions.TransactionTest.makeWithdrawal;
 import accounts.transactions.Withdrawal;
 import currency.CurrencyAmount;
+import currency.CurrencyConversionNeededException;
 import static entities.ExampleEntities.EXAMPLE_CUSTOMER;
 
 import java.time.LocalDateTime;
@@ -37,6 +38,35 @@ public class SavingsAccountTest {
                 = new SavingsAccount(EXAMPLE_CUSTOMER, deposit);
         CurrencyAmount actual = account.balance;
         assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testNoProcessDiffCurrencyTransaction() {
+        SavingsAccount account = new SavingsAccount(EXAMPLE_CUSTOMER, 
+                AccountTest.DEFAULT_INITIAL_DEPOSIT);
+        CurrencyAmount euros = new CurrencyAmount(DEFAULT_TRANSACTION_CENTS, 
+                AccountTest.EUROS);
+        Transaction trx = new Deposit(euros, LocalDateTime.now());
+        try {
+            account.process(trx);
+            String msg = "Trying to process " + trx.toString() 
+                    + " to account with initial deposit " 
+                    + AccountTest.DEFAULT_INITIAL_DEPOSIT.toString() 
+                    + " should have caused an exception";
+            fail(msg);
+        } catch (CurrencyConversionNeededException curConvNeedExc) {
+            System.out.println("Trying to process " + trx.toString() 
+                    + " to account with initial deposit " 
+                    + AccountTest.DEFAULT_INITIAL_DEPOSIT.toString() 
+                    + " correctly caused CurrencyConversionNeededException");
+            System.out.println("\"" + curConvNeedExc.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception to throw for " + trx.toString() 
+                    + " to account with initial deposit " 
+                    + AccountTest.DEFAULT_INITIAL_DEPOSIT.toString();
+            fail(msg);
+        }
     }
     
     @Test

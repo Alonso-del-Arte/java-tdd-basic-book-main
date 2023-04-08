@@ -9,6 +9,7 @@ import accounts.transactions.Deposit;
 import accounts.transactions.Transaction;
 import accounts.transactions.Withdrawal;
 import currency.CurrencyAmount;
+import currency.CurrencyConversionNeededException;
 import entities.Entity;
 
 import static accounts.transactions.TransactionTest.DEFAULT_TRANSACTION_CENTS;
@@ -39,6 +40,12 @@ public class AccountTest {
      * be using for test purposes.
      */
     public static final Currency DOLLARS = Currency.getInstance(Locale.US);
+    
+    /**
+     * Euros (EUR), the official currency of much of Europe. This will be used 
+     * for a few tests.
+     */
+    public static final Currency EUROS = Currency.getInstance("EUR");
     
     public static final int DEFAULT_INITIAL_DEPOSIT_AMOUNT_CENTS = 524288;
     
@@ -100,6 +107,35 @@ public class AccountTest {
         Account account = new AccountImpl(EXAMPLE_CUSTOMER, null, deposit);
         CurrencyAmount actual = account.balance;
         assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testNoProcessDiffCurrencyTransaction() {
+        Account account = new AccountImpl(EXAMPLE_CUSTOMER, null, 
+                DEFAULT_INITIAL_DEPOSIT);
+        CurrencyAmount euros = new CurrencyAmount(DEFAULT_TRANSACTION_CENTS, 
+                AccountTest.EUROS);
+        Transaction trx = new Deposit(euros, LocalDateTime.now());
+        try {
+            account.process(trx);
+            String msg = "Trying to process " + trx.toString() 
+                    + " to account with initial deposit " 
+                    + AccountTest.DEFAULT_INITIAL_DEPOSIT.toString() 
+                    + " should have caused an exception";
+            fail(msg);
+        } catch (CurrencyConversionNeededException curConvNeedExc) {
+            System.out.println("Trying to process " + trx.toString() 
+                    + " to account with initial deposit " 
+                    + AccountTest.DEFAULT_INITIAL_DEPOSIT.toString() 
+                    + " correctly caused CurrencyConversionNeededException");
+            System.out.println("\"" + curConvNeedExc.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception to throw for " + trx.toString() 
+                    + " to account with initial deposit " 
+                    + AccountTest.DEFAULT_INITIAL_DEPOSIT.toString();
+            fail(msg);
+        }
     }
     
     @Test

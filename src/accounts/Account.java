@@ -9,9 +9,11 @@ import accounts.transactions.Deposit;
 import accounts.transactions.Transaction;
 import accounts.transactions.Withdrawal;
 import currency.CurrencyAmount;
+import currency.CurrencyConversionNeededException;
 import entities.Entity;
 
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.List;
 
 /**
@@ -23,6 +25,8 @@ public class Account {
     CurrencyAmount balance = new CurrencyAmount(0, 
             java.util.Currency.getInstance(java.util.Locale.ITALY));
     
+    Currency currency;
+    
     final List<Transaction> HISTORY = new ArrayList<>();
     
     // TODO: Write tests for this
@@ -31,24 +35,29 @@ public class Account {
     }
     
     public void process(Transaction trx) {
-//        if (trx instanceof Withdrawal) {
-//            boolean sufficiency = this.hasSufficientBalance((Withdrawal) trx);
-//        }
-//        this.HISTORY.add(trx);
-//        this.balance = this.balance.plus(trx.getAmount());
+        CurrencyAmount trxAmount = trx.getAmount();
+        Currency trxCurrency = trxAmount.getCurrency();
+        if (trxCurrency != this.currency) {
+            String excMsg = "Transaction should be in " 
+                    + this.currency.getDisplayName();
+            throw new CurrencyConversionNeededException(excMsg, this.balance, 
+                    trxAmount);
+        }
+        this.HISTORY.add(trx);
+        this.balance = this.balance.plus(trx.getAmount());
     }
     
     public CurrencyAmount getBalance() {
-//        return this.balance;
-return new CurrencyAmount(-1, java.util.Currency.getInstance("RUB"));
+        return this.balance;
     }
-    
+
     public List<Transaction> getHistory() {
         return new ArrayList<>(this.HISTORY);
     }
     
     public Account(Entity primary, Entity secondary, Deposit initialDeposit) {
         this.balance = initialDeposit.getAmount();
+        this.currency = this.balance.getCurrency();
         this.HISTORY.add(initialDeposit);
     }
     

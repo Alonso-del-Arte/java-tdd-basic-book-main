@@ -9,9 +9,11 @@ import accounts.transactions.Deposit;
 import accounts.transactions.Transaction;
 import accounts.transactions.Withdrawal;
 import currency.CurrencyAmount;
+import currency.CurrencyConversionNeededException;
 import entities.Entity;
 
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.List;
 
 /**
@@ -20,6 +22,25 @@ import java.util.List;
  */
 public class SavingsAccount extends Account {
     
+    @Override
+    public void process(Transaction trx) {
+        CurrencyAmount trxAmount = trx.getAmount();
+        Currency trxCurrency = trxAmount.getCurrency();
+        if (trxCurrency != this.currency) {
+            String excMsg = "Transaction should be in " 
+                    + this.currency.getDisplayName();
+            throw new CurrencyConversionNeededException(excMsg, this.balance, 
+                    trxAmount);
+        }
+        this.HISTORY.add(trx);
+        this.balance = this.balance.plus(trx.getAmount());
+    }
+    
+    @Override
+    public CurrencyAmount getBalance() {
+        return this.balance;
+    }
+
     public SavingsAccount(Entity primary, Deposit initialDeposit) {
         this(primary, null, initialDeposit);
     }
