@@ -17,10 +17,11 @@ import java.util.Currency;
 import java.util.List;
 
 /**
- *
+ * Represents a bank account. Instances hold a list of transactions and keep 
+ * track of the balance.
  * @author Alonso del Arte
  */
-public class Account {
+public abstract class Account {
     
     CurrencyAmount balance = new CurrencyAmount(0, 
             java.util.Currency.getInstance(java.util.Locale.ITALY));

@@ -10,10 +10,13 @@ import currency.CurrencyAmount;
 import java.time.LocalDateTime;
 
 /**
- *
+ * Represents a transaction in a bank account, such as a deposit or a 
+ * withdrawal. Instances hold how much the transaction was or will be for, what 
+ * date it took place on or is scheduled for, and a description of the 
+ * transaction.
  * @author Alonso del Arte
  */
-public class Transaction {
+public abstract class Transaction {
     
     final CurrencyAmount amount;
     
