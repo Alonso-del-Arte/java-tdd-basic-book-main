@@ -53,6 +53,11 @@ public class CurrencyAmount implements Comparable<CurrencyAmount> {
                 this.currencyID);
     }
     
+    // TODO: Write tests for this
+    public CurrencyAmount divides(int divisor) {
+        return this;
+    }
+    
     @Override
     public int compareTo(CurrencyAmount other) {
         CurrencyAmount diff = this.minus(other);
