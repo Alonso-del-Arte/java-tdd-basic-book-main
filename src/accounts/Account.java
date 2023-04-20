@@ -23,8 +23,7 @@ import java.util.List;
  */
 public abstract class Account {
     
-    CurrencyAmount balance = new CurrencyAmount(0, 
-            java.util.Currency.getInstance(java.util.Locale.ITALY));
+    CurrencyAmount balance;
     
     Currency currency;
     
