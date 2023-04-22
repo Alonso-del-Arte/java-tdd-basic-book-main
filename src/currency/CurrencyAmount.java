@@ -58,7 +58,8 @@ public class CurrencyAmount implements Comparable<CurrencyAmount> {
             String excMsg = "Can't divide " + this.toString() + " by 0";
             throw new IllegalArgumentException(excMsg);
         }
-        return this;
+        return new CurrencyAmount(this.amountInCents / divisor, 
+                this.currencyID);
     }
     
     @Override
