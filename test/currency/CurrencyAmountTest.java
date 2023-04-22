@@ -322,6 +322,19 @@ public class CurrencyAmountTest {
     }
     
     @Test
+    public void testDivides() {
+        System.out.println("divides");
+        int cents = RANDOM.nextInt();
+        CurrencyAmount amount = new CurrencyAmount(cents, DOLLARS);
+        int divisor = 2 * RANDOM.nextInt(128) - 63;
+        CurrencyAmount expected = new CurrencyAmount(cents / divisor, DOLLARS);
+        CurrencyAmount actual = amount.divides(divisor);
+        String msg = "Expecting " + amount.toString() + " divided by " + divisor 
+                + " to be " + expected.toString();
+        assertEquals(msg, expected, actual);
+    }
+    
+    @Test
     public void testCompareTo() {
         System.out.println("compareTo");
         CurrencyAmount negBal = new CurrencyAmount(-372, DOLLARS);
