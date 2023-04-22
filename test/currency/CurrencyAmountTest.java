@@ -304,6 +304,26 @@ public class CurrencyAmountTest {
     }
     
     @Test
+    public void testDivisionByZero() {
+        int cents = RANDOM.nextInt();
+        CurrencyAmount amount = new CurrencyAmount(cents, EUROS);
+        try {
+            CurrencyAmount badResult = amount.divides(0);
+            String msg = amount.toString() + " divided by 0 is said to be " 
+                    + badResult.toString();
+            fail(msg);
+        } catch (IllegalArgumentException iae) {
+            System.out.println("\"" + iae.getMessage() + "\"");
+        } catch (ArithmeticException ae) {
+            System.out.println("\"" + ae.getMessage() + "\"");
+        } catch (Exception e) {
+            String msg = e.getClass().getName() 
+                    + " is wrong exception for division by zero";
+            fail(msg);
+        }
+    }
+    
+    @Test
     public void testCompareTo() {
         System.out.println("compareTo");
         CurrencyAmount negBal = new CurrencyAmount(-372, DOLLARS);
