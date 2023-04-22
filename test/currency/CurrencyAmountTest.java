@@ -312,12 +312,10 @@ public class CurrencyAmountTest {
             String msg = amount.toString() + " divided by 0 is said to be " 
                     + badResult.toString();
             fail(msg);
-        } catch (IllegalArgumentException iae) {
+        } catch (IllegalArgumentException | ArithmeticException iae) {
             System.out.println("\"" + iae.getMessage() + "\"");
-        } catch (ArithmeticException ae) {
-            System.out.println("\"" + ae.getMessage() + "\"");
-        } catch (Exception e) {
-            String msg = e.getClass().getName() 
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
                     + " is wrong exception for division by zero";
             fail(msg);
         }
