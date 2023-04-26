@@ -31,7 +31,7 @@ public abstract class Account {
     
     // TODO: Write tests for this
     public boolean hasSufficientBalance(Withdrawal withdrawal) {
-        return false;
+        return true;
     }
     
     public void process(Transaction trx) {
