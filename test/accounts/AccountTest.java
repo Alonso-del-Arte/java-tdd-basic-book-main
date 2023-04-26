@@ -152,6 +152,19 @@ public class AccountTest {
     }
     
     @Test
+    public void testInsufficientBalance() {
+        Account account = new AccountImpl(EXAMPLE_CUSTOMER, null, 
+                DEFAULT_INITIAL_DEPOSIT);
+        CurrencyAmount amount = DEFAULT_INITIAL_DEPOSIT_AMOUNT.times(2)
+                .negate();
+        Withdrawal withdrawal = new Withdrawal(amount, LocalDateTime.now());
+        String msg = "Account with " + account.getBalance().toString() 
+                + " should not fund withdrawal of " 
+                + amount.negate().toString();
+        assert !account.hasSufficientBalance(withdrawal) : msg;
+    }
+    
+    @Test
     public void testProcess() {
         System.out.println("process");
         Account account = new AccountImpl(EXAMPLE_CUSTOMER, null, 
