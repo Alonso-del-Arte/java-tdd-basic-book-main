@@ -31,7 +31,9 @@ public abstract class Account {
     
     // TODO: Write tests for this
     public boolean hasSufficientBalance(Withdrawal withdrawal) {
-        return true;
+        CurrencyAmount projectedBalance = this.HISTORY.get(0).getAmount()
+                .plus(withdrawal.getAmount());
+        return projectedBalance.getAmountInCents() >= 0;
     }
     
     public void process(Transaction trx) {
