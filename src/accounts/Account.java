@@ -29,9 +29,18 @@ public abstract class Account {
     
     final List<Transaction> HISTORY = new ArrayList<>();
     
-    // TODO: Write tests for this
+    /**
+     * Determines whether or not the account has a sufficient balance for a 
+     * withdrawal. Override this function if transfer balances may be 
+     * considered.
+     * @param withdrawal The withdrawal. For example, a withdrawal of $200.00.
+     * @return True if the account has a sufficient balance, false otherwise. 
+     * For example, if the account has $200.00 or more,
+     * @throws CurrencyConversionNeededException If the withdrawal is drawn on a 
+     * currency that different than the currency the account is drawn in.
+     */
     public boolean hasSufficientBalance(Withdrawal withdrawal) {
-        CurrencyAmount projectedBalance = this.HISTORY.get(0).getAmount()
+        CurrencyAmount projectedBalance = this.balance
                 .plus(withdrawal.getAmount());
         return projectedBalance.getAmountInCents() >= 0;
     }
