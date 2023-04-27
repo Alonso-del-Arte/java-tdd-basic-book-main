@@ -13,6 +13,7 @@ import currency.CurrencyConversionNeededException;
 import entities.Entity;
 
 import static accounts.transactions.TransactionTest.DEFAULT_TRANSACTION_CENTS;
+import static accounts.transactions.TransactionTest.makeDeposit;
 import static accounts.transactions.TransactionTest.makeTransaction;
 import static accounts.transactions.TransactionTest.makeWithdrawal;
 import static entities.ExampleEntities.EXAMPLE_CUSTOMER;
@@ -143,8 +144,10 @@ public class AccountTest {
         System.out.println("hasSufficientBalance");
         Account account = new AccountImpl(EXAMPLE_CUSTOMER, null, 
                 DEFAULT_INITIAL_DEPOSIT);
-        CurrencyAmount amount = DEFAULT_INITIAL_DEPOSIT_AMOUNT.divides(16)
-                .negate();
+        Deposit deposit = makeDeposit();
+        account.process(deposit);
+        CurrencyAmount amount = DEFAULT_INITIAL_DEPOSIT_AMOUNT
+                .plus(deposit.getAmount()).negate();
         Withdrawal withdrawal = new Withdrawal(amount, LocalDateTime.now());
         String msg = "Account with " + account.getBalance().toString() 
                 + " should fund withdrawal of " + amount.negate().toString();
@@ -155,12 +158,13 @@ public class AccountTest {
     public void testInsufficientBalance() {
         Account account = new AccountImpl(EXAMPLE_CUSTOMER, null, 
                 DEFAULT_INITIAL_DEPOSIT);
-        CurrencyAmount amount = DEFAULT_INITIAL_DEPOSIT_AMOUNT.times(2)
-                .negate();
-        Withdrawal withdrawal = new Withdrawal(amount, LocalDateTime.now());
+        account.process(makeWithdrawal());
+        Withdrawal withdrawal 
+                = new Withdrawal(DEFAULT_INITIAL_DEPOSIT_AMOUNT.negate(), 
+                        LocalDateTime.now());
         String msg = "Account with " + account.getBalance().toString() 
                 + " should not fund withdrawal of " 
-                + amount.negate().toString();
+                + withdrawal.getAmount().negate().toString();
         assert !account.hasSufficientBalance(withdrawal) : msg;
     }
     
