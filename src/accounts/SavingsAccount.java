@@ -43,7 +43,7 @@ public class SavingsAccount extends Account {
     
     @Override
     public boolean hasSufficientBalance(Withdrawal withdrawal) {
-        return false;
+        return true;
     }
 
     public SavingsAccount(Entity primary, Deposit initialDeposit) {
