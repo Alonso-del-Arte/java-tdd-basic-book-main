@@ -133,4 +133,18 @@ public class SavingsAccountTest {
         assert account.hasSufficientBalance(withdrawal) : msg;
     }
     
+    @Test
+    public void testInsufficientBalance() {
+        Account account = new SavingsAccount(EXAMPLE_CUSTOMER, null, 
+                DEFAULT_INITIAL_DEPOSIT);
+        account.process(makeWithdrawal());
+        Withdrawal withdrawal 
+                = new Withdrawal(DEFAULT_INITIAL_DEPOSIT_AMOUNT.negate(), 
+                        LocalDateTime.now());
+        String msg = "Account with " + account.getBalance().toString() 
+                + " should not fund withdrawal of " 
+                + withdrawal.getAmount().negate().toString();
+        assert !account.hasSufficientBalance(withdrawal) : msg;
+    }
+    
 }
