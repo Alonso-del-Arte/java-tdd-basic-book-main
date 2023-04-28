@@ -30,20 +30,33 @@ import static org.junit.Assert.*;
 public class CheckingAccountTest {
     
     @Test
+    public void testNoAssociatedSavingsForNewChecking() {
+        CheckingAccount account = new CheckingAccount(EXAMPLE_CUSTOMER, 
+                AccountTest.DEFAULT_INITIAL_DEPOSIT);
+        String msg = "New checking account shouldn't have associated savings";
+        assert !account.hasAssociatedSavingsAccount() : msg;
+    }
+    
+//    @Test
+    public void testHasAssociatedSavingsAccount() {
+        System.out.println("hasAssociatedSavingsAccount");
+        fail("Haven't written test yet");
+    }
+    
+    @Test
     public void testBalanceReflectsInitialDeposit() {
         int cents = 10000 + AccountTest.RANDOM.nextInt(10000);
         CurrencyAmount expected 
                 = new CurrencyAmount(cents, AccountTest.DOLLARS);
         Deposit deposit = new Deposit(expected, LocalDateTime.now());
-        CheckingAccount account 
-                = new CheckingAccount(EXAMPLE_CUSTOMER, deposit);
+        Account account = new CheckingAccount(EXAMPLE_CUSTOMER, deposit);
         CurrencyAmount actual = account.balance;
         assertEquals(expected, actual);
     }
     
     @Test
     public void testNoProcessDiffCurrencyTransaction() {
-        CheckingAccount account = new CheckingAccount(EXAMPLE_CUSTOMER, 
+        Account account = new CheckingAccount(EXAMPLE_CUSTOMER, 
                 AccountTest.DEFAULT_INITIAL_DEPOSIT);
         CurrencyAmount euros = new CurrencyAmount(DEFAULT_TRANSACTION_CENTS, 
                 AccountTest.EUROS);
@@ -73,7 +86,7 @@ public class CheckingAccountTest {
     @Test
     public void testProcess() {
         System.out.println("process");
-        CheckingAccount account = new CheckingAccount(EXAMPLE_CUSTOMER, 
+        Account account = new CheckingAccount(EXAMPLE_CUSTOMER, 
                 AccountTest.DEFAULT_INITIAL_DEPOSIT);
         Transaction secondTrx = makeTransaction();
         account.process(secondTrx);
@@ -87,7 +100,7 @@ public class CheckingAccountTest {
     @Test
     public void testGetHistory() {
         System.out.println("getHistory");
-        CheckingAccount account = new CheckingAccount(EXAMPLE_CUSTOMER, 
+        Account account = new CheckingAccount(EXAMPLE_CUSTOMER, 
                 AccountTest.DEFAULT_INITIAL_DEPOSIT);
         Transaction secondTrx = makeTransaction();
         account.process(secondTrx);
@@ -103,7 +116,7 @@ public class CheckingAccountTest {
     @Test
     public void testGetBalance() {
         System.out.println("getBalance");
-        CheckingAccount account = new CheckingAccount(EXAMPLE_CUSTOMER, 
+        Account account = new CheckingAccount(EXAMPLE_CUSTOMER, 
                 AccountTest.DEFAULT_INITIAL_DEPOSIT);
         CurrencyAmount expected 
                 = AccountTest.DEFAULT_INITIAL_DEPOSIT.getAmount();
