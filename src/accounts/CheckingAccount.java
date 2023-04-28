@@ -27,6 +27,18 @@ public class CheckingAccount extends Account {
         return true;
     }
     
+    public void associate(SavingsAccount savings) {
+        // TODO: Write tests for this
+    }
+    
+    // TODO: Write tests for this
+    public SavingsAccount getAssociatedSavings() {
+        Deposit deposit = new Deposit(new CurrencyAmount(1, 
+                java.util.Currency.getInstance(java.util.Locale.CANADA)), 
+                java.time.LocalDateTime.now());
+        return new SavingsAccount(null, deposit);
+    }
+    
     @Override
     public void process(Transaction trx) {
         CurrencyAmount trxAmount = trx.getAmount();
