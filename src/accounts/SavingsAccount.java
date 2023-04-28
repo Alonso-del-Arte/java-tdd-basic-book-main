@@ -40,6 +40,11 @@ public class SavingsAccount extends Account {
     public CurrencyAmount getBalance() {
         return this.balance;
     }
+    
+    @Override
+    public boolean hasSufficientBalance(Withdrawal withdrawal) {
+        return false;
+    }
 
     public SavingsAccount(Entity primary, Deposit initialDeposit) {
         this(primary, null, initialDeposit);
