@@ -5,9 +5,12 @@
  */
 package accounts;
 
+import static accounts.AccountTest.DEFAULT_INITIAL_DEPOSIT;
+import static accounts.AccountTest.DEFAULT_INITIAL_DEPOSIT_AMOUNT;
 import accounts.transactions.Deposit;
 import accounts.transactions.Transaction;
 import static accounts.transactions.TransactionTest.DEFAULT_TRANSACTION_CENTS;
+import static accounts.transactions.TransactionTest.makeDeposit;
 import static accounts.transactions.TransactionTest.makeTransaction;
 import static accounts.transactions.TransactionTest.makeWithdrawal;
 import accounts.transactions.Withdrawal;
@@ -113,6 +116,21 @@ public class SavingsAccountTest {
             CurrencyAmount actual = account.getBalance();
             assertEquals(expected, actual);
         }
+    }
+    
+    @Test
+    public void testHasSufficientBalance() {
+        System.out.println("hasSufficientBalance");
+        Account account = new SavingsAccount(EXAMPLE_CUSTOMER, null, 
+                DEFAULT_INITIAL_DEPOSIT);
+        Deposit deposit = makeDeposit();
+        account.process(deposit);
+        CurrencyAmount amount = DEFAULT_INITIAL_DEPOSIT_AMOUNT
+                .plus(deposit.getAmount()).negate();
+        Withdrawal withdrawal = new Withdrawal(amount, LocalDateTime.now());
+        String msg = "Account with " + account.getBalance().toString() 
+                + " should fund withdrawal of " + amount.negate().toString();
+        assert account.hasSufficientBalance(withdrawal) : msg;
     }
     
 }

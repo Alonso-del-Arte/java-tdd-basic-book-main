@@ -213,7 +213,7 @@ public class AccountTest {
         }
     }
     
-    public static class AccountImpl extends Account {
+    private static class AccountImpl extends Account {
 
         public AccountImpl(Entity primary, Entity secondary, 
                 Deposit initialDeposit) {
