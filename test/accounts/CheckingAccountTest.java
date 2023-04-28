@@ -37,10 +37,16 @@ public class CheckingAccountTest {
         assert !account.hasAssociatedSavingsAccount() : msg;
     }
     
-//    @Test
+    @Test
     public void testHasAssociatedSavingsAccount() {
         System.out.println("hasAssociatedSavingsAccount");
-        fail("Haven't written test yet");
+        CheckingAccount checking = new CheckingAccount(EXAMPLE_CUSTOMER, 
+                AccountTest.DEFAULT_INITIAL_DEPOSIT);
+        SavingsAccount savings = new SavingsAccount(EXAMPLE_CUSTOMER, 
+                AccountTest.DEFAULT_INITIAL_DEPOSIT);
+        checking.associate(savings);
+        String msg = "After associate, checking should have associated savings";
+        assert checking.hasAssociatedSavingsAccount() : msg;
     }
     
     @Test
