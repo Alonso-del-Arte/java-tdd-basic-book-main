@@ -24,7 +24,7 @@ public class CheckingAccount extends Account {
     
     // TODO: Write tests for this
     public boolean hasAssociatedSavingsAccount() {
-        return true;
+        return false;
     }
     
     public void associate(SavingsAccount savings) {
