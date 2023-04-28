@@ -43,7 +43,9 @@ public class SavingsAccount extends Account {
     
     @Override
     public boolean hasSufficientBalance(Withdrawal withdrawal) {
-        return true;
+        CurrencyAmount projectedBalance = this.balance
+                .plus(withdrawal.getAmount());
+        return projectedBalance.getAmountInCents() >= 0;
     }
 
     public SavingsAccount(Entity primary, Deposit initialDeposit) {
