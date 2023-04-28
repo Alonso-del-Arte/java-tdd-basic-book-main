@@ -22,13 +22,15 @@ import java.util.List;
  */
 public class CheckingAccount extends Account {
     
-    // TODO: Write tests for this
+    private boolean associateFlag = false;
+    
     public boolean hasAssociatedSavingsAccount() {
-        return false;
+        return this.associateFlag;
     }
     
     public void associate(SavingsAccount savings) {
         // TODO: Write tests for this
+        this.associateFlag = true;
     }
     
     // TODO: Write tests for this
