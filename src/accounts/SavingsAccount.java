@@ -17,37 +17,12 @@ import java.util.Currency;
 import java.util.List;
 
 /**
- *
+ * Represents a savings account. A savings account can be connected to a 
+ * checking account to provide overdraft transfers.
  * @author Alonso del Arte
  */
 public class SavingsAccount extends Account {
     
-    @Override
-    public void process(Transaction trx) {
-        CurrencyAmount trxAmount = trx.getAmount();
-        Currency trxCurrency = trxAmount.getCurrency();
-        if (trxCurrency != this.currency) {
-            String excMsg = "Transaction should be in " 
-                    + this.currency.getDisplayName();
-            throw new CurrencyConversionNeededException(excMsg, this.balance, 
-                    trxAmount);
-        }
-        this.HISTORY.add(trx);
-        this.balance = this.balance.plus(trx.getAmount());
-    }
-    
-    @Override
-    public CurrencyAmount getBalance() {
-        return this.balance;
-    }
-    
-    @Override
-    public boolean hasSufficientBalance(Withdrawal withdrawal) {
-        CurrencyAmount projectedBalance = this.balance
-                .plus(withdrawal.getAmount());
-        return projectedBalance.getAmountInCents() >= 0;
-    }
-
     public SavingsAccount(Entity primary, Deposit initialDeposit) {
         this(primary, null, initialDeposit);
     }
