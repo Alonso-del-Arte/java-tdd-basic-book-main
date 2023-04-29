@@ -24,21 +24,19 @@ public class CheckingAccount extends Account {
     
     private boolean associateFlag = false;
     
+    private SavingsAccount associatedSavings = null;
+    
     public boolean hasAssociatedSavingsAccount() {
         return this.associateFlag;
     }
     
     public void associate(SavingsAccount savings) {
-        // TODO: Write tests for this
         this.associateFlag = true;
+        this.associatedSavings = savings;
     }
     
-    // TODO: Write tests for this
     public SavingsAccount getAssociatedSavings() {
-        Deposit deposit = new Deposit(new CurrencyAmount(1, 
-                java.util.Currency.getInstance(java.util.Locale.CANADA)), 
-                java.time.LocalDateTime.now());
-        return new SavingsAccount(null, deposit);
+        return this.associatedSavings;
     }
     
     @Override
