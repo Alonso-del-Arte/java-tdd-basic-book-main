@@ -5,14 +5,16 @@
  */
 package accounts;
 
-import static accounts.AccountTest.DEFAULT_INITIAL_DEPOSIT;
-import static accounts.AccountTest.DEFAULT_INITIAL_DEPOSIT_AMOUNT;
 import accounts.transactions.Deposit;
 import accounts.transactions.Transaction;
 import accounts.transactions.Withdrawal;
 import currency.CurrencyAmount;
 import currency.CurrencyConversionNeededException;
 
+import static accounts.AccountTest.DEFAULT_INITIAL_DEPOSIT;
+import static accounts.AccountTest.DEFAULT_INITIAL_DEPOSIT_AMOUNT;
+import static accounts.AccountTest.DEFAULT_INITIAL_DEPOSIT_AMOUNT_CENTS;
+import static accounts.AccountTest.DOLLARS;
 import static accounts.transactions.TransactionTest.DEFAULT_TRANSACTION_CENTS;
 import static accounts.transactions.TransactionTest.makeDeposit;
 import static accounts.transactions.TransactionTest.makeTransaction;
@@ -189,6 +191,26 @@ public class CheckingAccountTest {
                 + " should not fund withdrawal of " 
                 + withdrawal.getAmount().negate().toString();
         assert !account.hasSufficientBalance(withdrawal) : msg;
+    }
+    
+    @Test
+    public void testAssociatedSavingsCoversDeficit() {
+        CheckingAccount checking = new CheckingAccount(EXAMPLE_CUSTOMER, 
+                AccountTest.DEFAULT_INITIAL_DEPOSIT);
+        SavingsAccount savings = new SavingsAccount(EXAMPLE_CUSTOMER, 
+                AccountTest.DEFAULT_INITIAL_DEPOSIT);
+        checking.associate(savings);
+        int cents = DEFAULT_INITIAL_DEPOSIT_AMOUNT_CENTS 
+                + AccountTest.RANDOM
+                        .nextInt(DEFAULT_INITIAL_DEPOSIT_AMOUNT_CENTS) + 1;
+        CurrencyAmount amount = new CurrencyAmount(cents, DOLLARS);
+        Withdrawal withdrawal = new Withdrawal(amount.negate(), 
+                LocalDateTime.now());
+        CurrencyAmount available = checking.balance.plus(savings.balance);
+        String msg = "With " + available.toString() 
+                + " aggregate available, checking should support withdrawal of " 
+                + amount.toString();
+        assert checking.hasSufficientBalance(withdrawal) : msg;
     }
     
 }
