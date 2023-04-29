@@ -5,6 +5,8 @@
  */
 package accounts;
 
+import static accounts.AccountTest.DEFAULT_INITIAL_DEPOSIT;
+import static accounts.AccountTest.DEFAULT_INITIAL_DEPOSIT_AMOUNT;
 import accounts.transactions.Deposit;
 import accounts.transactions.Transaction;
 import accounts.transactions.Withdrawal;
@@ -12,6 +14,7 @@ import currency.CurrencyAmount;
 import currency.CurrencyConversionNeededException;
 
 import static accounts.transactions.TransactionTest.DEFAULT_TRANSACTION_CENTS;
+import static accounts.transactions.TransactionTest.makeDeposit;
 import static accounts.transactions.TransactionTest.makeTransaction;
 import static accounts.transactions.TransactionTest.makeWithdrawal;
 import static entities.ExampleEntities.EXAMPLE_CUSTOMER;
@@ -157,6 +160,35 @@ public class CheckingAccountTest {
             CurrencyAmount actual = account.getBalance();
             assertEquals(expected, actual);
         }
+    }
+    
+    @Test
+    public void testHasSufficientBalance() {
+        System.out.println("hasSufficientBalance");
+        Account account = new CheckingAccount(EXAMPLE_CUSTOMER, null, 
+                DEFAULT_INITIAL_DEPOSIT);
+        Deposit deposit = makeDeposit();
+        account.process(deposit);
+        CurrencyAmount amount = DEFAULT_INITIAL_DEPOSIT_AMOUNT
+                .plus(deposit.getAmount()).negate();
+        Withdrawal withdrawal = new Withdrawal(amount, LocalDateTime.now());
+        String msg = "Account with " + account.getBalance().toString() 
+                + " should fund withdrawal of " + amount.negate().toString();
+        assert account.hasSufficientBalance(withdrawal) : msg;
+    }
+    
+//    @Test
+    public void testInsufficientBalance() {
+        Account account = new SavingsAccount(EXAMPLE_CUSTOMER, null, 
+                DEFAULT_INITIAL_DEPOSIT);
+        account.process(makeWithdrawal());
+        Withdrawal withdrawal 
+                = new Withdrawal(DEFAULT_INITIAL_DEPOSIT_AMOUNT.negate(), 
+                        LocalDateTime.now());
+        String msg = "Account with " + account.getBalance().toString() 
+                + " should not fund withdrawal of " 
+                + withdrawal.getAmount().negate().toString();
+        assert !account.hasSufficientBalance(withdrawal) : msg;
     }
     
 }
