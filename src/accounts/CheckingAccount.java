@@ -79,6 +79,11 @@ public class CheckingAccount extends Account {
     public CurrencyAmount getBalance() {
         return this.balance;
     }
+    
+    @Override
+    public boolean hasSufficientBalance(Withdrawal withdrawal) {
+        return false;
+    }
 
     public CheckingAccount(Entity primary, Deposit initialDeposit) {
         this(primary, null, initialDeposit);
