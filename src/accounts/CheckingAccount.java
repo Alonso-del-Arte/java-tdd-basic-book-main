@@ -82,7 +82,7 @@ public class CheckingAccount extends Account {
     
     @Override
     public boolean hasSufficientBalance(Withdrawal withdrawal) {
-        return false;
+        return true;
     }
 
     public CheckingAccount(Entity primary, Deposit initialDeposit) {
