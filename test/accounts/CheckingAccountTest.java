@@ -50,6 +50,18 @@ public class CheckingAccountTest {
     }
     
     @Test
+    public void testGetAssociatedSavings() {
+        System.out.println("getAssociatedSavings");
+        CheckingAccount checking = new CheckingAccount(EXAMPLE_CUSTOMER, 
+                AccountTest.DEFAULT_INITIAL_DEPOSIT);
+        SavingsAccount expected = new SavingsAccount(EXAMPLE_CUSTOMER, 
+                AccountTest.DEFAULT_INITIAL_DEPOSIT);
+        checking.associate(expected);
+        Account actual = checking.getAssociatedSavings();
+        assertEquals(expected, actual);
+    }
+    
+    @Test
     public void testBalanceReflectsInitialDeposit() {
         int cents = 10000 + AccountTest.RANDOM.nextInt(10000);
         CurrencyAmount expected 
