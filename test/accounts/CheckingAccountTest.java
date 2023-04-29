@@ -177,9 +177,9 @@ public class CheckingAccountTest {
         assert account.hasSufficientBalance(withdrawal) : msg;
     }
     
-//    @Test
+    @Test
     public void testInsufficientBalance() {
-        Account account = new SavingsAccount(EXAMPLE_CUSTOMER, null, 
+        Account account = new CheckingAccount(EXAMPLE_CUSTOMER, null, 
                 DEFAULT_INITIAL_DEPOSIT);
         account.process(makeWithdrawal());
         Withdrawal withdrawal 
