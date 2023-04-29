@@ -11,7 +11,7 @@ import entities.idnumbers.TaxpayerIdentificationNumber;
  *
  * @author Alonso del Arte
  */
-public class Entity {
+public abstract class Entity {
     
     private String entityName;
     

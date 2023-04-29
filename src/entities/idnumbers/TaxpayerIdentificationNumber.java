@@ -11,7 +11,7 @@ import java.io.Serializable;
  *
  * @author Alonso del Arte
  */
-public class TaxpayerIdentificationNumber implements Serializable {
+public abstract class TaxpayerIdentificationNumber implements Serializable {
     
     private final long idNumber;
 
