@@ -11,6 +11,7 @@ import accounts.transactions.Withdrawal;
 import currency.CurrencyAmount;
 import currency.CurrencyConversionNeededException;
 import entities.Entity;
+import java.time.LocalDateTime;
 
 import java.util.Currency;
 
@@ -84,6 +85,15 @@ public class CheckingAccount extends Account {
     public boolean hasSufficientBalance(Withdrawal withdrawal) {
         CurrencyAmount projectedBalance = this.balance
                 .plus(withdrawal.getAmount());
+        if (projectedBalance.getAmountInCents() < 0) {
+            if (this.hasAssociatedSavingsAccount()) {
+                Withdrawal deficit = new Withdrawal(projectedBalance, 
+                        LocalDateTime.now());
+                return this.associatedSavings.hasSufficientBalance(deficit);
+            } else {
+                return false;
+            }
+        }
         return projectedBalance.getAmountInCents() >= 0;
     }
 
