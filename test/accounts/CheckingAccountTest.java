@@ -62,6 +62,18 @@ public class CheckingAccountTest {
     }
     
     @Test
+    public void testDisassociate() {
+        CheckingAccount checking = new CheckingAccount(EXAMPLE_CUSTOMER, 
+                AccountTest.DEFAULT_INITIAL_DEPOSIT);
+        SavingsAccount savings = new SavingsAccount(EXAMPLE_CUSTOMER, 
+                AccountTest.DEFAULT_INITIAL_DEPOSIT);
+        checking.associate(savings);
+        checking.associate(null);
+        String msg = "After null associate, checking should have no associate";
+        assert !checking.hasAssociatedSavingsAccount() : msg;
+    }
+    
+    @Test
     public void testBalanceReflectsInitialDeposit() {
         int cents = 10000 + AccountTest.RANDOM.nextInt(10000);
         CurrencyAmount expected 
