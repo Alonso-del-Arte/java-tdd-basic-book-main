@@ -12,9 +12,7 @@ import currency.CurrencyAmount;
 import currency.CurrencyConversionNeededException;
 import entities.Entity;
 
-import java.util.ArrayList;
 import java.util.Currency;
-import java.util.List;
 
 /**
  *
@@ -27,7 +25,7 @@ public class CheckingAccount extends Account {
     private SavingsAccount associatedSavings = null;
     
     public boolean hasAssociatedSavingsAccount() {
-        return this.associateFlag;
+        return this.associatedSavings != null;
     }
     
     public void associate(SavingsAccount savings) {
