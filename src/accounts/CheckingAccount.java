@@ -82,7 +82,9 @@ public class CheckingAccount extends Account {
     
     @Override
     public boolean hasSufficientBalance(Withdrawal withdrawal) {
-        return true;
+        CurrencyAmount projectedBalance = this.balance
+                .plus(withdrawal.getAmount());
+        return projectedBalance.getAmountInCents() >= 0;
     }
 
     public CheckingAccount(Entity primary, Deposit initialDeposit) {
