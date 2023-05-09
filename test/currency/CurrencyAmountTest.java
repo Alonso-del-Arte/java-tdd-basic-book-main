@@ -201,6 +201,16 @@ public class CurrencyAmountTest {
         assert !amount.isNotPositive() : msg;
     }
     
+    @Test
+    public void testIsNotNegative() {
+        System.out.println("isNotNegative");
+        int cents = RANDOM.nextInt(16384);
+        CurrencyAmount amount = new CurrencyAmount(cents, DOLLARS);
+        String msg = "Amount " + amount.toString() 
+                + " should be deemed not negative";
+        assert amount.isNotNegative() : msg;
+    }
+    
     @Test(expected = NullPointerException.class)
     public void testPlusNull() {
         CurrencyAmount addend = new CurrencyAmount(533, EUROS);
