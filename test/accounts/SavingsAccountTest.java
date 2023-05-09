@@ -87,6 +87,22 @@ public class SavingsAccountTest {
     }
     
     @Test
+    public void testNoProcessWithdrawalForInsufficientBalance() {
+        Account account = new SavingsAccount(EXAMPLE_CUSTOMER, null, 
+                DEFAULT_INITIAL_DEPOSIT);
+        account.process(makeWithdrawal());
+        Withdrawal withdrawal 
+                = new Withdrawal(DEFAULT_INITIAL_DEPOSIT_AMOUNT.negate(), 
+                        LocalDateTime.now());
+        CurrencyAmount balance = account.balance;
+        account.process(withdrawal);
+        String msg = "Account with a balance of " + balance.toString() 
+                + " should not have processed " + withdrawal.toString();
+        assert balance.getAmountInCents() >= 0 : msg;
+        assert !account.HISTORY.contains(withdrawal) : msg;
+    }
+    
+    @Test
     public void testGetHistory() {
         System.out.println("getHistory");
         SavingsAccount account = new SavingsAccount(EXAMPLE_CUSTOMER, 
