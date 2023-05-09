@@ -28,7 +28,7 @@ public class CurrencyAmount implements Comparable<CurrencyAmount> {
     }
     
     public boolean isPositive() {
-        return true;
+        return this.amountInCents > 0;
     }
 
     public boolean isNegative() {
