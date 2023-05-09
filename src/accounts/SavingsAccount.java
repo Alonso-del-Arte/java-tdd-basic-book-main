@@ -33,6 +33,12 @@ public class SavingsAccount extends Account {
             throw new CurrencyConversionNeededException(excMsg, this.balance, 
                     trxAmount);
         }
+        if (trx instanceof Withdrawal) {
+            Withdrawal withdrawal = (Withdrawal) trx;
+            if (!this.hasSufficientBalance(withdrawal)) {
+                return;
+            }
+        }
         this.HISTORY.add(trx);
         this.balance = this.balance.plus(trx.getAmount());
     }
