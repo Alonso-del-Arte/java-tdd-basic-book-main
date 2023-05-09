@@ -26,6 +26,14 @@ public class CurrencyAmount implements Comparable<CurrencyAmount> {
     public Currency getCurrency() {
         return this.currencyID;
     }
+    
+    public boolean isPositive() {
+        return false;
+    }
+
+    public boolean isNegative() {
+        return false;
+    }
 
     public CurrencyAmount plus(CurrencyAmount addend) {
         if (addend == null) {
