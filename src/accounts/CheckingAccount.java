@@ -75,7 +75,15 @@ public class CheckingAccount extends Account {
             if (this.hasAssociatedSavingsAccount()) {
                 Withdrawal deficit = new Withdrawal(projectedBalance, 
                         LocalDateTime.now());
-                return this.associatedSavings.hasSufficientBalance(deficit);
+                if (this.associatedSavings.hasSufficientBalance(deficit)) {
+                    this.associatedSavings.process(deficit);
+                    Deposit transfer = new Deposit(deficit.getAmount().negate(), 
+                            LocalDateTime.now());
+                    this.process(transfer);
+                    return true;
+                } else {
+                    return false;
+                }
             } else {
                 return false;
             }
