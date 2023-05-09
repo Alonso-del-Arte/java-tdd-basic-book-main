@@ -170,7 +170,7 @@ public class CurrencyAmountTest {
         CurrencyAmount amount = new CurrencyAmount(cents, EUROS);
         String msg = "Amount " + amount.toString() 
                 + " should be deemed negative";
-        assert amount.isPositive() : msg;
+        assert amount.isNegative() : msg;
     }
     
     @Test(expected = NullPointerException.class)
