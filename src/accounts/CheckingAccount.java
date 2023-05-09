@@ -63,11 +63,6 @@ public class CheckingAccount extends Account {
     }
     
     @Override
-    public CurrencyAmount getBalance() {
-        return this.balance;
-    }
-    
-    @Override
     public boolean hasSufficientBalance(Withdrawal withdrawal) {
         CurrencyAmount projectedBalance = this.balance
                 .plus(withdrawal.getAmount());
