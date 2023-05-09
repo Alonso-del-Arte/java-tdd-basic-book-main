@@ -79,7 +79,7 @@ public class CheckingAccount extends Account {
                 return false;
             }
         }
-        return !projectedBalance.isNegative();
+        return projectedBalance.isNotNegative();
     }
 
     public CheckingAccount(Entity primary, Deposit initialDeposit) {
