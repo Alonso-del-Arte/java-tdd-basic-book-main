@@ -27,20 +27,42 @@ public class CurrencyAmount implements Comparable<CurrencyAmount> {
         return this.currencyID;
     }
     
+    /**
+     * Tells whether this amount is positive or not.
+     * @return True if this amount is positive, false otherwise. Examples: true 
+     * for 89,20&euro;, false for 0.00 fr, false for $&minus;3.28.
+     */
     public boolean isPositive() {
         return this.amountInCents > 0;
     }
 
+    /**
+     * Tells whether this amount is negative or not.
+     * @return True if this amount is negative, false otherwise. Examples: true 
+     * for $&minus;3.28, false for 0.00 fr, false for 89,20&euro;.
+     */
     public boolean isNegative() {
         return this.amountInCents < 0;
     }
 
+    /**
+     * Tells whether this amount is not positive or not. This is for when we 
+     * don't care to distinguish between zero and negative amounts.
+     * @return True if this amount is not positive, false otherwise. Examples: 
+     * true for $&minus;3.28, true for 0.00 fr, false for 89,20&euro;.
+     */
     public boolean isNotPositive() {
         return this.amountInCents < 1;
     }
 
+    /**
+     * Tells whether this amount is not negative or not. This is for when we 
+     * don't care to distinguish between zero and positive amounts.
+     * @return True if this amount is not negative, false otherwise. Examples: 
+     * true for 89,20&euro;, true for 0.00 fr, false for $&minus;3.28.
+     */
     public boolean isNotNegative() {
-        return true;
+        return this.amountInCents > -1;
     }
 
     public CurrencyAmount plus(CurrencyAmount addend) {
