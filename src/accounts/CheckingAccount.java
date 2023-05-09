@@ -6,14 +6,10 @@
 package accounts;
 
 import accounts.transactions.Deposit;
-import accounts.transactions.Transaction;
 import accounts.transactions.Withdrawal;
 import currency.CurrencyAmount;
-import currency.CurrencyConversionNeededException;
 import entities.Entity;
 import java.time.LocalDateTime;
-
-import java.util.Currency;
 
 /**
  * Represents a checking account. A savings account can be connected to a 
@@ -66,7 +62,7 @@ public class CheckingAccount extends Account {
     public boolean hasSufficientBalance(Withdrawal withdrawal) {
         CurrencyAmount projectedBalance = this.balance
                 .plus(withdrawal.getAmount());
-        if (projectedBalance.getAmountInCents() < 0) {
+        if (projectedBalance.isNegative()) {
             if (this.hasAssociatedSavingsAccount()) {
                 Withdrawal deficit = new Withdrawal(projectedBalance, 
                         LocalDateTime.now());
@@ -83,7 +79,7 @@ public class CheckingAccount extends Account {
                 return false;
             }
         }
-        return projectedBalance.getAmountInCents() >= 0;
+        return !projectedBalance.isNegative();
     }
 
     public CheckingAccount(Entity primary, Deposit initialDeposit) {

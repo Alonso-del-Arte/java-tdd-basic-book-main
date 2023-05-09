@@ -42,7 +42,7 @@ public abstract class Account {
     public boolean hasSufficientBalance(Withdrawal withdrawal) {
         CurrencyAmount projectedBalance = this.balance
                 .plus(withdrawal.getAmount());
-        return projectedBalance.getAmountInCents() >= 0;
+        return !projectedBalance.isNegative();
     }
     
     public void process(Transaction trx) {
