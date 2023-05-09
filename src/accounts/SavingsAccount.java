@@ -23,6 +23,20 @@ import java.util.List;
  */
 public class SavingsAccount extends Account {
     
+    @Override
+    public void process(Transaction trx) {
+        CurrencyAmount trxAmount = trx.getAmount();
+        Currency trxCurrency = trxAmount.getCurrency();
+        if (trxCurrency != this.currency) {
+            String excMsg = "Transaction should be in " 
+                    + this.currency.getDisplayName();
+            throw new CurrencyConversionNeededException(excMsg, this.balance, 
+                    trxAmount);
+        }
+        this.HISTORY.add(trx);
+        this.balance = this.balance.plus(trx.getAmount());
+    }
+    
     public SavingsAccount(Entity primary, Deposit initialDeposit) {
         this(primary, null, initialDeposit);
     }
