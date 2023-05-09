@@ -148,20 +148,22 @@ public class CheckingAccountTest {
         assert !account.HISTORY.contains(withdrawal) : msg;
     }
     
-//    @Test
-    public void testNoProcessWithdrawalForInsufficientBalanceInAggregate() {
-        Account account = new CheckingAccount(EXAMPLE_CUSTOMER, null, 
+    @Test
+    public void testProcessWithdrawalForSufficientAggregateBalance() {
+        CheckingAccount checking = new CheckingAccount(EXAMPLE_CUSTOMER, null, 
                 DEFAULT_INITIAL_DEPOSIT);
-        account.process(makeWithdrawal());
+        SavingsAccount savings = new SavingsAccount(EXAMPLE_CUSTOMER, 
+                AccountTest.DEFAULT_INITIAL_DEPOSIT);
+        checking.associate(savings);
+        checking.process(makeWithdrawal());
         Withdrawal withdrawal 
                 = new Withdrawal(DEFAULT_INITIAL_DEPOSIT_AMOUNT.negate(), 
                         LocalDateTime.now());
-        CurrencyAmount balance = account.balance;
-        account.process(withdrawal);
-        String msg = "Account with a balance of " + balance.toString() 
-                + " should not have processed " + withdrawal.toString();
-        assert balance.getAmountInCents() >= 0 : msg;
-        assert !account.HISTORY.contains(withdrawal) : msg;
+        checking.process(withdrawal);
+        CurrencyAmount balance = checking.balance;
+        String msg = "After processing overdraft transfer, balance " 
+                + balance.toString() + " should not be negative";
+        assert balance.getAmountInCents() > -1 : msg;
     }
     
     @Test
