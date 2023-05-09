@@ -63,26 +63,6 @@ public class CheckingAccount extends Account {
     }
     
     @Override
-    public void process(Transaction trx) {
-        CurrencyAmount trxAmount = trx.getAmount();
-        Currency trxCurrency = trxAmount.getCurrency();
-        if (trxCurrency != this.currency) {
-            String excMsg = "Transaction should be in " 
-                    + this.currency.getDisplayName();
-            throw new CurrencyConversionNeededException(excMsg, this.balance, 
-                    trxAmount);
-        }
-        if (trx instanceof Withdrawal) {
-            Withdrawal withdrawal = (Withdrawal) trx;
-            if (!this.hasSufficientBalance(withdrawal)) {
-                return;
-            }
-        }
-        this.HISTORY.add(trx);
-        this.balance = this.balance.plus(trx.getAmount());
-    }
-    
-    @Override
     public CurrencyAmount getBalance() {
         return this.balance;
     }
