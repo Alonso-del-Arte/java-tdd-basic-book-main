@@ -35,6 +35,14 @@ public class CurrencyAmount implements Comparable<CurrencyAmount> {
         return this.amountInCents < 0;
     }
 
+    public boolean isNotPositive() {
+        return false;
+    }
+
+    public boolean isNotNegative() {
+        return false;
+    }
+
     public CurrencyAmount plus(CurrencyAmount addend) {
         if (addend == null) {
             String excMsg = "Addend must not be null";

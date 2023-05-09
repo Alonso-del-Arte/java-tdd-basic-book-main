@@ -155,7 +155,7 @@ public class CurrencyAmountTest {
     }
     
     @Test
-    public void testIsNotPositive() {
+    public void testIsPositiveNot() {
         int cents = -RANDOM.nextInt(16384);
         CurrencyAmount amount = new CurrencyAmount(cents, EUROS);
         String msg = "Amount " + amount.toString() 
@@ -174,7 +174,7 @@ public class CurrencyAmountTest {
     }
     
     @Test
-    public void testIsNotNegative() {
+    public void testIsNegativeNot() {
         int cents = RANDOM.nextInt(16384);
         CurrencyAmount amount = new CurrencyAmount(cents, EUROS);
         String msg = "Amount " + amount.toString() 
