@@ -32,7 +32,7 @@ public class CurrencyAmount implements Comparable<CurrencyAmount> {
     }
 
     public boolean isNegative() {
-        return true;
+        return this.amountInCents < 0;
     }
 
     public CurrencyAmount plus(CurrencyAmount addend) {
